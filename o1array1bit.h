@@ -2,16 +2,13 @@
 #define O1_O1ARRAY1BIT_H
 
 #include <stdexcept>
+#include <iostream>
 
-#pragma pack(1)
-using namespace std;
 
 /*
 Implementation of "In-Place Initializable Arrays" - https://arxiv.org/abs/1709.08900
-
  It's an array implementation with the fill(v), read(i), write(i,v) methods - all in O(1) worst time complexity.
  read and write are obvious, and fill sets all of the cells at once.
-
  The special key in this implementation - is that it takes only 1 bit of redundancy, beyond the given array.
  That bit, called flag, will be given to read & write, and will be returned from the fill & write.
   if flag is true  - the array can be viewed as a normal array - it is fully initialized, and can be accessed normally.
@@ -19,176 +16,219 @@ Implementation of "In-Place Initializable Arrays" - https://arxiv.org/abs/1709.0
  In order to prove that this implementation only uses the array and the 1bit as it's playground:
   each call requests the array, its size, and the flag (assumed to be false if unspecified),
   and doesn't maintain, creates or asks for any data structures besides it. not a single bit more.
-
-
 changes from the article:
  Bug fixing: the article's "extend" implementation should've used 2b-1 instead of 2b+1.
  A[i].first.p.ptr saves the already i/block_size index (the block index).
-
-
  All functions and macros are noted with the upper bound of their read and write accesses (HB is HalfBlock size).
 */
 
 
 
+#pragma pack(push, 1)
+template<typename T>
+struct ptrBdef { size_t ptr; size_t b; T def; };
 
 template<typename T, int N>
 union sizeT {
     T v[N];
-    struct { size_t ptr; size_t b; T def; } p;
+    ptrBdef<T> p;
 };
 
 template<typename T, int N>
 struct Block {
     sizeT<T,N> first, second;
 };
+#pragma pack(pop)
 
 
-// r<=2
-#define CHAINED_TO(chained,i,k)     size_t k = A[i].first.p.ptr; \
-                                    bool chained = (k != i) && (k < NUM_BLOCKS) && ((i<b) ^ (k<b)) && (A[k].first.p.ptr == i);
-// w==2
-#define MAKE_CHAIN(i,k)     A[i].first.p.ptr = k; \
-                            A[k].first.p.ptr = i;
-// w==2HB
-#define INIT_BLOCK(i)   for(int t = 0; t < HALF_BLOCK_SIZE; t++) A[i].first.v[t] = A[i].second.v[t] = def;
-
-// w==HB
-#define HALF_INIT_BLOCK(i)  for(int t = 0; t < HALF_BLOCK_SIZE; t++) A[i].second.v[t] = def;
-
-/// lines  6-7  in iwrite (r,w<=2)
-#define ASSIGN_UCA(first,mod,i,v)   if (first) { \
-                                        A[i].first.v [mod] = v; \
-                                        break_chain(A,n,b,i); \
-                                    } else { \
-                                        A[i].second.v[mod] = v; \
-                                    }
-/// lines 19-22 in iwrite (w==1)
-#define ASSIGN_WCA(first,mod,i,k,v)     A[first ? k : i].second.v[mod] = v;
-
-#define HALF_BLOCK_SIZE     ((sizeof(size_t)*2+sizeof(T)-1)/sizeof(T)+1)
-#define BLOCK_SIZE  (2*HALF_BLOCK_SIZE)
-#define NUM_BLOCKS  (n/BLOCK_SIZE)
-#define BLOCKS_END  (NUM_BLOCKS * BLOCK_SIZE)
-
-#define B       A[NUM_BLOCKS-1].first.p.b
-#define DEF     A[NUM_BLOCKS-1].first.p.def
-
-#define PREP_A      auto A = (Block<T,HALF_BLOCK_SIZE>*)arr;
-// r <= 2
-#define PREP_B_DEF      size_t b = B; T def = DEF;
-
-#define PREP_INDICES    size_t mod = i % HALF_BLOCK_SIZE; \
-                        i /= HALF_BLOCK_SIZE; \
-                        bool first = i%2 == 0; \
-                        i /= 2;
-
-// r <= 2, w <= 1
-template<typename T>
-static void break_chain(Block<T,HALF_BLOCK_SIZE>* A, const size_t n, const size_t b, const size_t i) {
-    CHAINED_TO(chained,i,k)
-    if (chained) A[k].first.p.ptr = k;
-}
-
-// r <= 4, w <= 3HB+1
-template<typename T>
-static size_t extend(Block<T,HALF_BLOCK_SIZE>* A, const size_t n, size_t& b, const T& def) {
-    CHAINED_TO(chained,b,k)
-    b++;
-    if (!chained) {
-        k = b-1;
-    } else {
-        A[b-1].first = A[k].second;
+namespace defines {
+    template<typename T>
+    constexpr size_t halfBlockSize() {
+        return ((sizeof(size_t)*2+sizeof(T)-1)/sizeof(T)+1);
+    }
+    template<typename T>
+    constexpr size_t blockSize() {
+        return 2*halfBlockSize<T>();
     }
 
-    INIT_BLOCK(k)
-    break_chain(A, n, b, k);
-    return k;
+    template<typename T>
+    class ArrayHelper {
+    public:
+        Block<T,halfBlockSize<T>()>* A;
+        size_t n;
+
+        ArrayHelper(T* A, size_t n) : A((Block<T,halfBlockSize<T>()>*)A), n(n) {}
+        size_t numBlocks() { return n / blockSize<T>(); }
+        size_t blocksEnd() { return numBlocks() * blockSize<T>(); }
+
+        ptrBdef<T>& lastP() { return A[numBlocks()-1].first.p; }
+        size_t B() { return lastP().b; }    // r==1
+        T    DEF() { return lastP().def; }  // r==1
+        void expendB() {    lastP().b++; }  // r,w==1
+        void fillBottom(T v) { ptrBdef<T>& p = lastP(); p.b = 0; p.def = v; }   // w==2
+
+        void setIndices(size_t& i, size_t& mod, bool& first) {
+            size_t hbs = halfBlockSize<T>();
+            mod = i % hbs;
+            i /= hbs;
+            first = (i%2 == 0);
+            i /= 2;
+        }
+        // r<=2
+        bool chainedTo(size_t i, size_t& k) {
+            k = A[i].first.p.ptr;
+            size_t b = B();
+            return (k != i) && (k < numBlocks()) && ((i<b) ^ (k<b))
+                && (A[k].first.p.ptr == i);
+        }
+        // w==2
+        void makeChain(size_t i, size_t& k) {
+            A[i].first.p.ptr = k;
+            A[k].first.p.ptr = i;
+        }
+
+        // w==2HB
+        void initBlock(size_t i) {
+            T def = DEF();
+            for(int t = 0; t < halfBlockSize<T>(); t++)
+                A[i].first.v[t] = A[i].second.v[t] = def;
+        }
+        // w==HB
+        void halfInitBlock(size_t i) {
+            T def = DEF();
+            for(int t = 0; t < halfBlockSize<T>(); t++)
+                A[i].second.v[t] = def;
+        }
+
+        // r <= 2, w <= 1
+        void breakChain(size_t i) {
+            size_t k;
+            if (chainedTo(i, k))
+                A[k].first.p.ptr = k;
+        }
+
+        // r <= 5, w <= 3HB+3
+        size_t extend() {
+            size_t oldB = B(), k;
+            bool chained = chainedTo(oldB, k);
+            expendB();
+            if (!chained) {
+                k = oldB;
+            } else {
+                A[oldB].first = A[k].second;
+                breakChain(oldB);
+            }
+            initBlock(k);
+            breakChain(k);
+            return k;
+        }
+        // r==1
+        T read(size_t i, size_t mod, bool first) const {
+            return first ? A[i].first.v[mod] : A[i].second.v[mod];
+        }
+
+        /// lines  6-7  in iwrite (r,w<=2)
+        void write(size_t i, size_t mod, bool first, const T& v) {
+            if (first) {
+                A[i].first.v [mod] = v;
+                breakChain(i);
+            } else {
+                A[i].second.v[mod] = v;
+            }
+        }
+
+        bool flag() { return B() == numBlocks(); }
+    };
 }
 
 
 // w <= 2HB+1
 template<typename T>
 bool fill(T* arr, size_t n, T v) {
-    for (size_t i = BLOCKS_END; i < n; i++) arr[i] = v;
-    if (NUM_BLOCKS == 0) return true;
-    PREP_A
-    B = 0;
-    DEF = v;
+    defines::ArrayHelper<T> h(arr, n);
+    for (size_t i = h.blocksEnd(); i < n; i++) arr[i] = v;
+    if (h.numBlocks() == 0) return true;
+    h.fillBottom(v);
     return false;
 }
 
 
-// r <= 5
+// r <= 4
 template<typename T>
-T read(const T* arr, size_t n, size_t i, bool flag = false) {
-    if (flag || i >= BLOCKS_END) {      // arr functions as regular array
+T read(T* arr, size_t n, size_t i, bool flag = false) {
+    defines::ArrayHelper<T> h(arr, n);
+    if (flag || i >= h.blocksEnd()) {      // arr functions as regular array
         if (i < n) return arr[i];
-        throw out_of_range("Reading from index " + to_string(i) + " (>=" + to_string(n) + ")");
+        throw std::out_of_range("Reading from index " + std::to_string(i) + " (>=" + std::to_string(n) + ")");
     }
+    size_t b = h.B(), mod, k;
+    bool first, chained;
+    h.setIndices(i, mod, first);
+    chained = h.chainedTo(i, k);
 
-    PREP_A
-    PREP_B_DEF
-    PREP_INDICES
-
-    CHAINED_TO(chained,i,k)
     if (i < b) {    // UCA
-        if ( chained) return def;
-        return first ? A[i].first.v [mod] : A[i].second.v[mod];
+        if ( chained) return h.DEF();
+        return h.read(i, mod, first);
     } else {        // WCA
-        if (!chained) return def;
-        return first ? A[k].second.v[mod] : A[i].second.v[mod];
+        if (!chained) return h.DEF();
+        return h.read(first ? k : i, mod, false);
     }
 }
 
 
-// already_written: r <= 6, w <= 2
-//     first_write: r <= 6, w <= 5HB+5
+// already_written: r <= 5, w <= 2
+//     first_write: r <= 9, w <= 6HB+7
 template<typename T>
 bool write(T* arr, size_t n, size_t i, const T& v, bool flag = false) {
-    if (flag || i >= BLOCKS_END) {      // arr functions as regular array
+    defines::ArrayHelper<T> h(arr, n);
+    if (flag || i >= h.blocksEnd()) {      // arr functions as regular array
         if (i < n) { arr[i] = v; return flag; }
-        throw out_of_range("Writing to index " + to_string(i) + " (>=" + to_string(n) + ")");
+        throw std::out_of_range("Writing to index " + std::to_string(i) + " (>=" + std::to_string(n) + ")");
     }
 
-    PREP_A
-    PREP_B_DEF
-    PREP_INDICES
+    size_t b = h.B(), mod, k;
+    bool first, chained;
+    h.setIndices(i, mod, first);
+    chained = h.chainedTo(i, k);
 
-    CHAINED_TO(chained,i,k)
     if (i < b) {    // UCA
         if ( chained) {     // not written
-            size_t j = extend(A,n,b,def);
+            size_t j = h.extend();
             if (i == j) {
-                ASSIGN_UCA(first, mod, i, v)
+                h.write(i, mod, first, v);
             } else {
-                A[j] = A[i];
-                MAKE_CHAIN(j, k)
-                INIT_BLOCK(i)
-                ASSIGN_UCA(first, mod, i, v)
+                h.A[j].second = h.A[i].second;
+                h.makeChain(j, k);
+                h.initBlock(i);
+                h.write(i, mod, first, v);
             }
         } else {            // already written
-            ASSIGN_UCA(first, mod, i, v)
+            h.write(i, mod, first, v);
         }
     } else {        // WCA
         if (!chained) {     // not written
-            k = extend(A,n,b,def);
+            k = h.extend();
             if (i == k) {
-                ASSIGN_UCA(first, mod, i, v)
+                h.write(i, mod, first, v);
             } else {
-                HALF_INIT_BLOCK(i)
-                MAKE_CHAIN(k, i)
-                ASSIGN_WCA(first, mod, i, k, v)
+                h.halfInitBlock(i);
+                h.makeChain(k, i);
+                h.write(first ? k : i, mod, false, v);
             }
         } else {            // already written
-            ASSIGN_WCA(first, mod, i, k, v)
+            h.write(first ? k : i, mod, false, v);
         }
     }
 
-    if (b == NUM_BLOCKS) return true;
-    B = b;
-    return false;
+    return h.flag();
 }
 
+
+template<typename T>
+size_t writtenSize(T* arr, size_t n, bool flag = false) {
+    if (flag) return n;
+    defines::ArrayHelper<T> h(arr, n);
+    return h.B() * defines::blockSize<T>() + (n - h.blocksEnd());
+}
 
 #endif //O1_O1ARRAY1BIT_H

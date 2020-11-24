@@ -197,19 +197,23 @@ double O1_timed_vs_regular(int n, int inits, int reads, int writes) {
     return (double)ms1/(double)ms2;
 }
 
+int max(int x, int y) { return x>y ? x : y; }
 void tests(vector<size_t> sizes) {
     for (auto size : sizes) {
+        int i = max(10000 / sqrt(size), 100);
+        int r = max(30000 / sqrt(size), 300);
+        int w = max(50000 / sqrt(size), 500);
         srand(time(0));
         cout << "STARTING SIZE " << size << ":" << endl;
-        cout << "X:      " << (stressTest<X, X::getRandom>(size, {1, 2, 3}, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
-        cout << "Y:      " << (stressTest<Y, Y::getRandom>(size, {14, 56}, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
-        cout << "Z:      " << (stressTest<Z, Z::getRandom>(size, {123456789098, 9876543212345}, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
-        cout << "ZZ:     " << (stressTest<ZZ, ZZ::getRandom>(size, {123456789098, 9876543212345, 0, 1348765432578, 446}, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
-        cout << "int:    " << (stressTest<int, getRand<int, 10000000>>(size, 123, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
-        cout << "size_t: " << (stressTest<size_t, getRand<size_t, 100000000000>>(size, 123, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
-        cout << "int16:  " << (stressTest<int16_t, getRand<int16_t, 60000>>(size, 123, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
-        cout << "int8:   " << (stressTest<int8_t, getRand<int8_t, 250>>(size, 123, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
-        cout << "bool:   " << (stressTest<bool, getRand<bool, 2>>(size, true, 1000, 3000, 5000) ? "Success!" : "Failed.") << endl;
+        cout << "X:      " << (stressTest<X, X::getRandom>(size, {1, 2, 3}, i, r, w) ? "Success!" : "Failed.") << endl;
+        cout << "Y:      " << (stressTest<Y, Y::getRandom>(size, {14, 56}, i, r, w) ? "Success!" : "Failed.") << endl;
+        cout << "Z:      " << (stressTest<Z, Z::getRandom>(size, {123456789098, 9876543212345}, i, r, w) ? "Success!" : "Failed.") << endl;
+        cout << "ZZ:     " << (stressTest<ZZ, ZZ::getRandom>(size, {123456789098, 9876543212345, 0, 1348765432578, 446}, i, r, w) ? "Success!" : "Failed.") << endl;
+        cout << "int:    " << (stressTest<int, getRand<int, 10000000>>(size, 123, i, r, w) ? "Success!" : "Failed.") << endl;
+        cout << "size_t: " << (stressTest<size_t, getRand<size_t, 100000000000>>(size, 123, i, r, w) ? "Success!" : "Failed.") << endl;
+        cout << "int16:  " << (stressTest<int16_t, getRand<int16_t, 60000>>(size, 123, i, r, w) ? "Success!" : "Failed.") << endl;
+        cout << "int8:   " << (stressTest<int8_t, getRand<int8_t, 250>>(size, 123, i, r, w) ? "Success!" : "Failed.") << endl;
+        cout << "bool:   " << (stressTest<bool, getRand<bool, 2>>(size, true, i, r, w) ? "Success!" : "Failed.") << endl;
         cout << endl;
     }
 }
@@ -243,8 +247,9 @@ void times(vector<size_t> sizes, vector<double> percents, size_t fills = 100) {
 }
 
 int main() {
-//    tests({1, 5, 10, 20, 40, 100, 500, 1000, 2000, 5000, 10000, 20000});
-    times({10000, 30000, 100000, 300000, 1000000}, {0.01, 0.02, 0.03, 0.04, 0.05, 0.07, 0.1, 0.15, 0.2, 0.5, 1, 2, 5, 10, 20, 50}, 100);
+//    cout << defines::halfBlockSize<int>() << endl;
+    tests({1, 5, 10, 20, 40, 100, 500, 1000, 2000, 5000, 10000, 20000, 50000});
+//    times({10000, 30000, 100000, 300000, 1000000}, {0.01, 0.02, 0.03, 0.04, 0.05, 0.07, 0.1, 0.15, 0.2, 0.5, 1, 2, 5, 10, 20, 50}, 100);
 
     return 0;
 }
