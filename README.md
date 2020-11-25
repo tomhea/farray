@@ -41,8 +41,8 @@ for (int i = 3; i <= 12; i++)
 delete[] A;
 ```
 
-And the simpler option:
 ### Using the Holder class:
+(The simpler option)
 ```
 // initialization (all to 1s)
 auto h = Holder<int>(n, 1);    // Holder can allocate an array by itself, 
