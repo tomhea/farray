@@ -6,7 +6,7 @@
 #include <iostream>
 #include <chrono>
 
-#include "../include/fill_array_1bit.h"
+#include "../include/fill_array_1bit.hpp"
 #include "testClasses.hpp"
 
 using namespace std;
