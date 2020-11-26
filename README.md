@@ -42,7 +42,7 @@ This must be seven: 7
 ```
 
 If you can't spare the extra bytes of having an Holder instance (and why would you?),
-You can use the fill, read, write functions directly, while specifying the Array, its size and the flag each time.
+You can use the fill, read, write functions directly, while specifying the Array, its length and the flag each time.
 
 A bit more complicated, but a (~100)bit(s) less memory 😉.
 
@@ -68,9 +68,9 @@ for (int i = 3; i <= 12; i++)
     
 delete[] A;
 ```
-It will output the same as the above code.
+It will output the same as the Holder code.
 
-You can also use **structs**, **classes**, and **any** datatype:
+You can also use **structs**, **classes**, and **any datatype**, with both Holder and the direct functions:
 
 ```
 struct Student {
