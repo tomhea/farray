@@ -1,11 +1,9 @@
 # O1Array
 Header-only Implementation of the [In-Place Initializable Arrays](https://arxiv.org/abs/1709.08900) paper.
 
-(templated) Array with constant-time fill(v), read(i), write(i,v), all with 1 bit of extra memory.
+Templated array with constant-time fill(v), read(i), write(i,v) operations, all with 1 bit of extra memory.
 
 The paper is based on the simpler [Initializing an array in constant time](https://eli.thegreenplace.net/2008/08/23/initializing-an-array-in-constant-time) - which uses 2n extra memory words. Read it and come back 🧑‍💻. 
-
-The project implemented the three functions, and the Holder wrapper.
 
 # Basic Use:
 To use the array, just include the header file. *Thats it.*
