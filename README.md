@@ -8,6 +8,7 @@ The paper is based on the simpler [Initializing an array in constant time](https
 The project implemented the three functions, and the Holder wrapper.
 
 # Basic Use:
+To use the array, just include the header file. *Thats it.*
 ```
 #include "fill_array_1bit.hpp"
 
@@ -34,6 +35,12 @@ for (int i = 5; i <= 10; i++)
     
 for (int i = 3; i <= 12; i++)
     cout << h.read(i) << " ";
+```
+
+It will output:
+```
+This must be seven: 7
+2020 2020 25 36 49 64 81 100 2020 2020 
 ```
 
 If you can't spare the extra bytes of having an Holder instance (and why would you?),
@@ -63,14 +70,9 @@ for (int i = 3; i <= 12; i++)
     
 delete[] A;
 ```
+It will output the same as the above code.
 
-Both will output:
-```
-This must be seven: 7
-2020 2020 25 36 49 64 81 100 2020 2020 
-```
-
-You can also use structs, classes, and any datatype:
+You can also use **structs**, **classes**, and **any** datatype:
 
 ```
 struct Student {
@@ -79,11 +81,14 @@ struct Student {
     uint64_t id;
     double avg_grades;
 };
-Student studs[541];
-bool flag = fill(studs, 541, {21, "noName", 1234, 99.3});
-auto h1 = Holder<Student>(studs, 541, {21, "noName", 1234, 99.3});
+Student studs[500];
+
+bool flag = fill(studs, 500, {21, "noName", 1234, 99.3});
+
+auto h1 = Holder<Student>(studs, 500, {21, "noName", 1234, 99.3});
+
 // can also be dynamically allocated. For example using Holder:
-auto h2 = Holder<Student>(541, {21, "noName", 1234, 99.3});
+auto h2 = Holder<Student>(300, {21, "noName", 1234, 99.3});
 
 auto voidptrH = Holder<void*>(678, 0);
 
