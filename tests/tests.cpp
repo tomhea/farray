@@ -15,9 +15,9 @@ using namespace FillArray;
 
 
 template<typename T>
-bool eq(T* arr, const Holder<T>& h, T* A, int n, bool flag) {
-    for (int i = 0; i < n; i++) {
-        if (!(arr[i] == read(A, n, i, flag) && arr[i] == h.read(i))) {
+bool eq(T* arr, const Holder<T>& h1, const Holder<T>& h2, T* A, int n, bool flag) {
+    for (size_t i = 0; i < n; i++) {
+        if (!(arr[i] == read(A, n, i, flag) && arr[i] == h1.read(i) && arr[i] == h2[i])) {
             cout << "index " << i << ":  arr[i]=" << arr[i] << ", while A.read(i)=" << read(A, n, i, flag) << "." << endl;
             return false;
         }
@@ -28,7 +28,8 @@ bool eq(T* arr, const Holder<T>& h, T* A, int n, bool flag) {
 
 template<typename T, getRandom<T> rnd>
 bool stressTest(int n, T def, int inits, int reads, int writes) {
-    auto h = Holder<T>(n, def);
+    auto h1 = Holder<T>(n, def);
+    auto h2 = Holder<T>(n, def);
     T* A = new T[n];
     bool flag = fill(A, n, def);
     vector<char> actions;
@@ -40,7 +41,7 @@ bool stressTest(int n, T def, int inits, int reads, int writes) {
     shuffle(begin(actions), end(actions), rng);
     auto arr = new T[n];
     for (int u = 0; u < n; u++) arr[u] = def;
-    if (!eq<T>(arr, h, A, n, flag)) {
+    if (!eq<T>(arr, h1, h2, A, n, flag)) {
         cout << "Just initialized! def = " << def << "." << endl;
         return false;
     }
@@ -55,19 +56,21 @@ bool stressTest(int n, T def, int inits, int reads, int writes) {
             if (rand()&1) def = v;
             for (int u = 0; u < n; u++) arr[u] = def;
             flag = fill(A,n,def);
-            h.fill(def);
+            h1.fill(def);
+            h2 = def;
         } else if (op == 'W') {
             arr[i] = v;
             flag = write(A,n,i,v,flag);
-            h.write(i, v);
+            h1.write(i, v);
+            h2[i] = v;
         } else {
-            if (!(arr[i] == read(A,n,i,flag) && arr[i] == h.read(i))) {
+            if (!(arr[i] == read(A,n,i,flag) && arr[i] == h1.read(i) && arr[i] == h2[i])) {
                 cout << "Bad Read: at index " << i << ",  count " << count << endl;
                 return false;
             }
         }
 
-        if (!eq<T>(arr, h, A, n, flag)) {
+        if (!eq<T>(arr, h1, h2, A, n, flag)) {
             cout << "Last op = " << op << ":    i = " << i << ", v = " << v << "." << endl;
             cout << "Last def = " << def << ", flag = " << (int)flag << ".    op count = " << count << ", last2 = " << last2 << "." << endl;
             return false;

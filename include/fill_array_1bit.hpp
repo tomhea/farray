@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <iostream>
+#include <stdbool.h>
 
 
 /*
@@ -266,6 +267,23 @@ namespace FillArray {
         T read(size_t i) const { return FillArray::read(A, n, i, flag); }
         void write(size_t i, const T& v) { flag = FillArray::write(A, n, i, v, flag); }
         size_t writtenSize() { return FillArray::writtenSize(A, n, flag); }
+        void operator=(const T& v) { fill(v); }
+
+        struct Proxy {
+            Holder<T>& self;
+            size_t i;
+            Proxy(Holder<T>& self, size_t i) : self(self), i(i) {}
+            operator T() const { return self.read(i); }
+            Proxy& operator=(const T& v) { self.write(i, v); return *this; }
+        };
+        struct ConstProxy {
+            const Holder<T>& self;
+            size_t i;
+            ConstProxy(const Holder<T>& self, size_t i) : self(self), i(i) {}
+            operator T() const { return self.read(i); }
+        };
+        ConstProxy operator[](size_t i) const { return ConstProxy(*this, i); }
+        Proxy operator[](size_t i) { return Proxy(*this, i); }
     };
 }
 
