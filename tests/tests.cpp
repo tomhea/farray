@@ -92,6 +92,34 @@ int max(int x, int y) {
     return x>y ? x : y;
 }
 
+void printArrayNice(Holder<int>& A) {
+    int j = 0;
+    for (size_t i : A) cout << "A[" << i << "] = " << A[i] << (++j % 10 == 0 ? "\n" : "    ");
+    cout << endl;
+}
+void iteratorPrintTest() {
+    Holder<int> A(100, 2);
+    cout << "Should be nothing:" << endl;
+    printArrayNice(A);
+
+    A[24] = 100;
+    cout << "Should be 24's block (10 nums for int:32 and size_t:64), only A[24] != 2:" << endl;
+    printArrayNice(A);
+
+    A[17] = 11*A[23] + A[24];
+    A[30] = A[20] = A[16] = 997;
+    A[89] = 19;
+    A[77] = A[77];
+    cout << "Should be nums 0-39, and 70-89, not in order, only A[{ 16,17,20,24,30,89 }] != 2:" << endl;
+    printArrayNice(A);
+
+    A = 18;
+    cout << "Should be nothing:" << endl;
+    printArrayNice(A);
+
+    cout << "Done." << endl;
+}
+
 
 bool tests(vector<size_t> sizes) {
     srand(time(0));
@@ -124,5 +152,6 @@ bool tests(vector<size_t> sizes) {
 
 int main() {
     tests({1, 5, 10, 20, 40, 100, 500, 1000, 2000, 5000, 10000, 20000, 50000});
+//    iteratorPrintTest();
     return 0;
 }

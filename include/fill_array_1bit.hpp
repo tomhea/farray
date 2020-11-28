@@ -73,6 +73,8 @@ namespace FillArray {
             }
             size_t numBlocks() const { return n / blockSize<T>(); }
             size_t blocksEnd() const { return numBlocks() * blockSize<T>(); }
+            static size_t numBlocks(size_t n) { return n / blockSize<T>(); }
+            static size_t blocksEnd(size_t n) { return numBlocks(n) * blockSize<T>(); }
 
             ptrBdef<T>& lastP() { return A[numBlocks()-1].first.p; }
             void expendB() { flag = ((b=++lastP().b) == numBlocks()); }  // r == 1, w == 1
@@ -253,10 +255,10 @@ namespace FillArray {
 
     template<typename T>
     class Holder {
+    public:
         T* A;
         bool flag;
         const bool malloced;
-    public:
         const size_t n;
         Holder(T* A, size_t n,               bool flag = true) : A(A), n(n), flag(flag), malloced(false) { }
         Holder(T* A, size_t n, const T& def, bool flag = true) : A(A), n(n), flag(flag), malloced(false) { fill(def); }
@@ -275,6 +277,7 @@ namespace FillArray {
             Proxy(Holder<T>& self, size_t i) : self(self), i(i) {}
             operator T() const { return self.read(i); }
             Proxy& operator=(const T& v) { self.write(i, v); return *this; }
+            Proxy& operator=(const Proxy& p) { self.write(i, (T)p); return *this; }
         };
         struct ConstProxy {
             const Holder<T>& self;
@@ -284,6 +287,47 @@ namespace FillArray {
         };
         ConstProxy operator[](size_t i) const { return ConstProxy(*this, i); }
         Proxy operator[](size_t i) { return Proxy(*this, i); }
+
+        class iterator {
+            Holder& h;
+            size_t i;
+        public:
+//            // Previously provided by std::iterator - see update below
+//            typedef T                       value_type;
+//            typedef std::ptrdiff_t          difference_type;
+//            typedef T*                      pointer;
+//            typedef T&                      reference;
+//            typedef std::input_iterator_tag iterator_category;
+
+            iterator(Holder& h, bool start) : h(h), i(start ? 0 : h.n) {
+                defines::ArrayHelper<T> ah(h.A, h.n, h.flag);
+                size_t afterLastBlock = ah.blocksEnd();
+                size_t belowB = h.writtenSize() - (h.n - afterLastBlock);
+                if (belowB == 0) i = afterLastBlock;
+            }
+            bool operator==(class iterator& o) { return i == o.i; }
+            bool operator!=(class iterator& o) { return !(*this == o); }
+            size_t operator*() {
+                defines::ArrayHelper<T> ah(h.A, h.n, h.flag);
+                size_t bs = defines::blockSize<T>();
+                size_t bi = i/bs, k, mod=i%bs;
+
+                size_t index = i;
+                if (ah.chainedTo(bi, k))
+                    index = k * bs + mod;
+                return index;
+            }
+            iterator& operator++() {
+                defines::ArrayHelper<T> ah(h.A, h.n, h.flag);
+                size_t afterLastBlock = ah.blocksEnd();
+                size_t belowB = h.writtenSize() - (h.n - afterLastBlock);
+                if (++i == belowB)
+                    i = afterLastBlock;
+                return *this;
+            }
+        };
+        iterator begin() { return iterator(*this, true ); }     // iterating over indices of written values.
+        iterator   end() { return iterator(*this, false); }
     };
 }
 
