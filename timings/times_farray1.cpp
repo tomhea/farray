@@ -7,7 +7,7 @@
 #include <chrono>
 
 #include "../include/farray1.hpp"
-#include "test_classes.hpp"
+#include "../tests/test_classes.hpp"
 
 using namespace std;
 using namespace std::chrono;
