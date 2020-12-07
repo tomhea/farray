@@ -45,8 +45,8 @@ You can also use the `A.fill(v), A.read(i), A.write(i,v)` syntax, instread of `A
 
 # Wiki!
 
-This project has a [wiki page](https://github.com/tomhea/Farray/wiki)! containing more information:<br>
-* [Short Despription about the algorithm](https://github.com/tomhea/Farray/wiki/Short-Description)
-* [Advanced Features](https://github.com/tomhea/Farray/wiki/Advanced-Features) - iterator, direct-functions, smaller-blocks, templates
+This project has a [wiki page](https://github.com/tomhea/farray/wiki)! containing more information:<br>
+* [Short Despription about the algorithm](https://github.com/tomhea/farray/wiki/Short-Description)
+* [Advanced Features](https://github.com/tomhea/farray/wiki/Advanced-Features) - iterator, direct-functions, smaller-blocks, templates
 * Much More!
 
