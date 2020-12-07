@@ -1,5 +1,5 @@
-#ifndef O1_TESTCLASSES_HPP
-#define O1_TESTCLASSES_HPP
+#ifndef FARRAY_TEST_CLASSES_HPP
+#define FARRAY_TEST_CLASSES_HPP
 
 #include <iostream>
 
@@ -11,7 +11,7 @@ using getRandom = T(*)();
 
 template<typename T, size_t MAX>
 T getRand() {
-    return (T)((((uint64_t)rand())<<32 | rand()) % MAX);
+    return (T)((((uint64_t)rand())<<32 | (uint64_t)rand()) % MAX);
 }
 
 
@@ -101,4 +101,4 @@ public:
 };
 
 
-#endif //O1_TESTCLASSES_HPP
+#endif //FARRAY_TEST_CLASSES_HPP

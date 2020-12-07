@@ -8,17 +8,15 @@ The paper is based on the simpler [Initializing an array in constant time](https
 # Basic Use:
 To use the array, just include the header file. *Thats it.*
 ```
-#include "fill_array_1bit.hpp"
-
-using namespace FillArray;
+#include "farray1.hpp"
 ```
 We will show a simple program using O1Array.
 
-### Using the Holder class:
+### Using the Farray1 class:
 (The simpler option)
 ```
 // initialization (all to 1s)
-auto h = Holder<int>(n, 1);    // Holder can allocate an array by itself, 
+auto h = Farray1<int>(n, 1);    // Farray1 can allocate an array by itself, 
                                // or can take an already allocated array.
 
 h.write(3, 5);    // writing 5 to index 3
@@ -41,14 +39,16 @@ This must be seven: 7
 2020 2020 25 36 49 64 81 100 2020 2020 
 ```
 
-If you can't spare the extra bytes of having an Holder instance (and why would you?),
+If you can't spare the extra bytes of having an Farray1 instance (and why would you?),
 You can use the fill, read, write functions directly, while specifying the Array, its length and the flag each time.
 
 A bit more complicated, but a (~100)bit(s) less memory 😉.
 
 ### Using the direct functions:
-All direct functions recieve an allocated array, its length, and the extra bit (as a boolean flag).
+All direct functions receive an allocated array, its length, and the extra bit (as a boolean flag).
 ```
+using namespace Farray1Direct;
+
 // initialization
 auto A = new int[n];       // A can also be static array, like int A[N];
 bool flag = fill(A, n, 1);    // A is initialized to 1s.
@@ -68,9 +68,9 @@ for (int i = 3; i <= 12; i++)
     
 delete[] A;
 ```
-It will output the same as the Holder code.
+It will output the same as the Farray1 code.
 
-You can also use **structs**, **classes**, and **any datatype**, with both Holder and the direct functions:
+You can also use **structs**, **classes**, and **any datatype**, with both Farray1 and the direct functions:
 
 ```
 struct Student {
@@ -83,19 +83,19 @@ Student studs[500];
 
 bool flag = fill(studs, 500, {21, "noName", 1234, 99.3});
 
-auto h1 = Holder<Student>(studs, 500, {21, "noName", 1234, 99.3});
+auto h1 = Farray1<Student>(studs, 500, {21, "noName", 1234, 99.3});
 
-// can also be dynamically allocated. For example using Holder:
-auto h2 = Holder<Student>(300, {21, "noName", 1234, 99.3});
+// can also be dynamically allocated. For example using Farray1:
+auto h2 = Farray1<Student>(300, {21, "noName", 1234, 99.3});
 
-auto voidptrH = Holder<void*>(678, 0);
+auto voidptrH = Farray1<void*>(678, 0);
 
 auto hist = new uint32_t[1000000];
 bool hist_f = fill(hist, 1000000, 0);
 // write and read stuff...
 delete hist[];
 
-auto ram4k = Holder<int16_t>(2048, 0x9797);
+auto ram4k = Farray1<int16_t>(2048, 0x9797);
 while (true) {
     if (ram4k.writtenSize() > 1700) 
         notify_user();

@@ -6,30 +6,31 @@
 #include <iostream>
 #include <chrono>
 
-#include "../include/fill_array_1bit.hpp"
-#include "testClasses.hpp"
+#include "../include/farray1.hpp"
+#include "test_classes.hpp"
 
 using namespace std;
 using namespace std::chrono;
-using namespace FillArray;
+using namespace Farray1Direct;
 
 
 template<typename T, getRandom<T> rnd>
-double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* holderVsPlain=NULL) {
+double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* holderVsPlain=nullptr) {
     vector<char> actions;
     actions.reserve(reads+writes+inits);
     for (int i = 0; i < reads ; i++) actions.emplace_back('R');
     for (int i = 0; i < writes; i++) actions.emplace_back('W');
-    for (int i = 0; i < inits ; i++) actions.emplace_back('I');
+    for (int i = 0; i < inits ; i++) actions.emplace_back('F');
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
-    actions[0] = 'I';
+    actions[0] = 'F';
+
     T* A = new T[n]; bool flag = true; T last;
 
     auto startTime = high_resolution_clock::now();
     for (auto op : actions) {
         int i = rand() % n; T v = rnd();
-        if (op == 'I') flag = fill(A,n,v);
+        if (op == 'F') flag = fill(A,n,v);
         else if (op == 'W') flag = write(A,n,i,v,flag);
         else last = read(A,n,i,flag);
     }
@@ -37,13 +38,13 @@ double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* hold
     auto ms1 = duration_cast<microseconds>(endTime - startTime).count();
 
     if (holderVsPlain) {
-        auto h = Holder<T>(n);
+        auto arr = Farray1<T>(n);
         startTime = high_resolution_clock::now();
         for (auto op : actions) {
             int i = rand() % n; T v = rnd();
-            if (op == 'I') h.fill(v);
-            else if (op == 'W') h.write(i,v);
-            else last = h.read(i);
+            if (op == 'F') arr = v;
+            else if (op == 'W') arr[i] = v;
+            else last = arr[i];
         }
         endTime = high_resolution_clock::now();
         auto ms2 = duration_cast<microseconds>(endTime - startTime).count();
@@ -53,7 +54,7 @@ double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* hold
     startTime = high_resolution_clock::now();
     for (auto op : actions) {
         int i = rand() % n; T v = rnd();
-        if (op == 'I') for (int u = 0; u < n; u++) A[u] = v;
+        if (op == 'F') for (int u = 0; u < n; u++) A[u] = v;
         else if (op == 'W') A[i] = v;
         else last = A[i];
     }
@@ -65,14 +66,14 @@ double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* hold
 
 
 void handleTimeResult(const string& pretext, size_t size, double res, double holderVsPlain) {
-    cout << pretext << size << "]:   " << fixed << setprecision(6) << res << "      (holder speedup: " << holderVsPlain << ")" << endl;
+    cout << pretext << size << "]:   " << fixed << setprecision(6) << res << "      (using Farray1/direct speedup: " << holderVsPlain << ")" << endl;
 }
 
 
 void times(vector<size_t> sizes, vector<double> percents, size_t fills = 100) {
     srand(time(0));
     auto startTime = high_resolution_clock::now();
-    cout << endl << endl << "Speedups of using FillArray instead of regular array [>1 is better]: " << endl << endl;
+    cout << endl << endl << "Speedups of using Farray instead of regular array (Bigger than 1 is better):" << endl << endl;
     double minPerc = *min_element(percents.begin(), percents.end());
     double maxSize = *max_element(sizes.begin(), sizes.end());
     double holderVsPlain;
