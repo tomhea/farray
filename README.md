@@ -13,7 +13,6 @@ To use the array, just include the header file. *Thats it.*
 ```
 
 ### Using the Farray1 class:
-(The simpler option)
 ```
 // initialization (all to 1s)
 Farray1<int> A(n, 1);   // Farray1 allocated an array be itself. 
@@ -35,7 +34,7 @@ for (int i = 3; i <= 12; i++)
     cout << A[i] << " ";
 ```
 
-It will output:
+The output will be:
 ```
 This must be seven: 7
 2020 2020 25 36 49 64 81 100 2020 2020 
