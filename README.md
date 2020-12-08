@@ -41,7 +41,8 @@ This must be seven: 7
 2020 2020 25 36 49 64 81 100 2020 2020 
 ```
 
-You can also use the `A.fill(v), A.read(i), A.write(i,v)` syntax, instread of `A=v, A[i], A[i]=v`.
+You can also use the `A.fill(v), A.read(i), A.write(i,v)` syntax,<br>
+instread of `A=v, A[i], A[i]=v`.
 
 # Wiki!
 
