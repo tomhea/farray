@@ -3,8 +3,9 @@ C++ Header-only Implementation of the [In-Place Initializable Arrays](https://ar
 
 Templated array with constant-time fill(v), read(i), write(i,v) operations, all with 1 bit of extra memory.
 
-The paper is based on the simpler [Initializing an array in constant time](https://eli.thegreenplace.net/2008/08/23/initializing-an-array-in-constant-time) - which uses 2n extra memory words.<br />
-Read it and come back 🧑‍💻. 
+The paper is based on the simpler [Initializing an array in constant time](https://eli.thegreenplace.net/2008/08/23/initializing-an-array-in-constant-time) - which uses 2n extra memory words.
+
+I wrote a [medium article](https://tomhea.medium.com/initializing-an-array-in-o-1-and-the-farray-library-2ab4c0335e8b) about array initialization and this project. Read it and come back 🧑‍💻. 
 
 # Basic Use:
 To use the array, just include the header file. *Thats it.*
