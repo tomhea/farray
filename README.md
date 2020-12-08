@@ -9,12 +9,12 @@ I wrote a [Medium article](https://link.medium.com/Q8YbkDJX2bb) about array init
 
 # Basic Use:
 To use the array, just include the header file. *Thats it.*
-```
+```c
 #include "farray1.hpp"
 ```
 
 ### Using the Farray1 class:
-```
+```c
 // initialization (all to 1s)
 Farray1<int> A(n, 1);   // Farray1 allocated an array be itself. 
                         // It can also take an already allocated array.
