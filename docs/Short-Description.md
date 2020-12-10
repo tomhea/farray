@@ -1,4 +1,6 @@
-Reading (at least the start of) this page is required before reading the [Advanced Features](https://github.com/tomhea/farray/wiki/Advanced-Features) page.
+# Short Description
+
+Reading (at least the start of) this page is highly recommended before reading the [Advanced Features](Advanced-Features.md) page.
 
 You can also choose to read the [Medium article](https://link.medium.com/Q8YbkDJX2bb) I wrote about this subject. It has more details and it goes through some older implementations of the concept too.
 
@@ -33,4 +35,4 @@ When writing - we might increment b by one, in order to use an extra block (to c
 
 ---
 
-More about the background and implementation details can be found in my [Medium article](https://link.medium.com/Q8YbkDJX2bb).
+More background and implementation details can be found in my [Medium article](https://link.medium.com/Q8YbkDJX2bb).
