@@ -1,7 +1,7 @@
 ## Welcome to the Farray Website!
 **Farray** stands for **F**illable **Array** - an array with the `fill(v)` method,<br />
 which sets all the values in the array to v, in O(1) worst-time.<br />
-Moreover, our implementation uses only 1 extra bit of memory, which is a state-of-the-art result.
+Our implementation uses only 1 extra bit of memory, which is a state-of-the-art result.
 
 This project is an implementation of the [In-Place Initializable Arrays](https://arxiv.org/abs/1709.08900) paper, written by Takashi Katoh & Keisuke Goto.
 
