@@ -1,12 +1,14 @@
-Before reading this part, make sure you read the [Short Description](https://github.com/tomhea/farray/wiki/Short-Description) page.
+# Advanced Features
 
-### The iterator
+Make sure you read the [Short Description](Short-Description.md), as some of the explanations here rely on that.
+
+### The Iterator
 You can also iterate exactly over the written indices (*O(written)* time).<br />
 \*Note that the algorithm writes in blocks, so it will iterate over nearby indices too (but it's ok - the whole array is initialized).<br>
-\*The iteration order is not in the indices order (otherwise it would be an O(n) sort).<br>
+\*The iteration order is not in the indices order (as otherwise it would be an O(n) sort).<br>
 \*The iterator returns a size_t index.
 
-```c
+```cpp
 // total number of written indices
 cout << "Iterating over " << A.writtenSize() << "indices:" << endl;
 
@@ -15,7 +17,7 @@ A = 7;
 
 // prints only the upper part of the array (the only initialized ones)
 for (auto i : A) 
-	cout << "A[" << i << "] = " << A[i] << endl;
+    cout << "A[" << i << "] = " << A[i] << endl;
 cout << endl << endl;
 
 A[14] = 6; 
@@ -23,7 +25,7 @@ A[3] = 13;
 
 // now also prints the 6 and 13 blocks too
 for (auto i : A) 
-	cout << "A[" << i << "] = " << A[i] << endl;
+    cout << "A[" << i << "] = " << A[i] << endl;
 ```
 
 If the block size is six, then the output will be (last 2, and last 14):
@@ -62,7 +64,7 @@ A = 'T';
 A[180010] = 'm';
 A[180009] = 'o';
 for (int i = 0; i < 3; i++) 
-	cout << A[i+180008];
+    cout << A[i+180008];
 ```
 
 
