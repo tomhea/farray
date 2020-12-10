@@ -1,1 +1,6 @@
 theme: jekyll-theme-midnight
+title: Farray
+description: Initialize and fill an array in O(1) time and space.
+
+sidebar:
+  nav: "docs"
