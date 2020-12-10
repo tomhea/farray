@@ -11,10 +11,10 @@ We chose C++ for its *templates* and easy *manipulation of memory*, <br />
 and header-only to make it simple for existing projects to include it.
 
 The wiki features:
-* [Short Despription of the paper and implementation](https://github.com/tomhea/farray/wiki/Short-Description)
-* [Advanced Features](https://github.com/tomhea/farray/wiki/Advanced-Features)
-* [Project Structure](https://github.com/tomhea/farray/wiki/Project-Structure)
-* [Time and Space Analysis](https://github.com/tomhea/farray/wiki/Time-and-Space-Analysis)
+* [Short Despription of the paper and implementation](Short-Description.md)
+* [Advanced Features](Advanced-Features.md)
+* [Project Structure](Project-Structure.md)
+* [Time and Space Analysis](Time-and-Space-Analysis.md)
 
 The project is massively stress-tested, by the `.cpp` test files in the [tests](https://github.com/tomhea/farray/tree/master/tests) folder.
 
