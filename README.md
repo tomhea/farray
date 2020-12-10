@@ -44,10 +44,10 @@ This must be seven: 7
 You can also use the `A.fill(v), A.read(i), A.write(i,v)` syntax,<br>
 instread of `A=v, A[i], A[i]=v`.
 
-# Wiki!
+# Farray Website!
 
-This project has a [wiki page](https://github.com/tomhea/farray/wiki)! containing more information:<br>
-* [Short Despription about the algorithm](https://github.com/tomhea/farray/wiki/Short-Description)
-* [Advanced Features](https://github.com/tomhea/farray/wiki/Advanced-Features) - iterator, direct-functions, smaller-blocks, templates
+This project has a [Website](https://tomhea.github.io/farray/)! containing more information:<br>
+* [Short Despription about the algorithm](https://tomhea.github.io/farray/Short-Description.html)
+* [Advanced Features](https://tomhea.github.io/farray/Advanced-Features.html) - iterator, direct-functions, smaller-blocks, templates
 * Much More!
 
