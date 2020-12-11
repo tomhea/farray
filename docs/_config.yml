@@ -1,4 +1,4 @@
-theme: jekyll-theme-midnight
+theme: jekyll-theme-slate
 title: Farray
 description: Initialize and fill an array in O(1) time and space.
 
