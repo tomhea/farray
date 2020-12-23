@@ -114,7 +114,7 @@ struct Student {
 Student studs[500];
 
 Farray<Student> studs(500);
-studs = {{21, "noName", 1234, 99.3}};   // init all
+studs = {21, "noName", 1234, 99.3};   // init all
 
 Farray1<void*> voidptrs(678, 0);
 
