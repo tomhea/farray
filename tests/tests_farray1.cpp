@@ -101,18 +101,24 @@ int max(int x, int y) {
     return x>y ? x : y;
 }
 
-//void printArrayNice(Farray1<int>& A) {
-//    int j = 0;
-//    for (size_t i : A) cout << "A[" << i << "] = " << A[i] << (++j % 10 == 0 ? "\n" : "    ");
-//    cout << endl;
-//}
+
 template<typename T, typename ptr_size = size_t>
 bool arraySatisfyPred(Farray1<T,ptr_size>& A, const vector<int>& written_indices) {
-    vector<bool> isWritten(A.n, false), reallyWritten(A.n, false);
+    vector<bool> isWritten(A.n, false);
+    vector<bool> reallyWritten(A.n, false);
     int bsize = defines::blockSize<T,ptr_size>();
 
-    for (int j = defines::ArrayHelper<T,ptr_size>::blocksEnd(A.n); j < A.n; j++) isWritten[j] = true;
-    for (auto i : written_indices) for (int j = (i/bsize)*bsize; j < (i/bsize+1)*bsize; j++) isWritten[j] = true;
+    for (int j = defines::ArrayHelper<T,ptr_size>::blocksEnd(A.n); j < A.n; j++) {
+        isWritten[j] = true;
+    }
+    for (auto i : written_indices) {
+        if (i >= defines::ArrayHelper<T,ptr_size>::blocksEnd(A.n)) {
+            continue;
+        }
+        for (int j = (i/bsize)*bsize; j < (i/bsize+1)*bsize; j++) {
+            isWritten[j] = true;
+        }
+    }
 
     for (size_t i : A) reallyWritten[i] = true;
 
@@ -174,23 +180,6 @@ bool iteratorStressTest(int n, int inits, int reads, int writes) {
 }
 
 
-//bool iteratorTests() {
-//    srand(time(0));
-//    auto startTime = high_resolution_clock::now();
-//    int goodTestsNum = 0, testsNum = 0;
-//
-//    handleTestResult("default test: ", iteratorStressTest<int, int>(), goodTestsNum, testsNum);
-//    cout << endl;
-//
-//    auto endTime = high_resolution_clock::now();
-//    auto ms = duration_cast<microseconds>(endTime - startTime).count();
-//    cout << "Overall time: " << ((double)ms)/1000000 << "s." << endl;
-//    bool success = goodTestsNum == testsNum;
-//    cout << "Tests passed: " << goodTestsNum << "/" << testsNum << ". " << (success ? "Success!" : "Failed.") << endl << endl;
-//    return success;
-//}
-
-
 template<typename T, getRandom<T> rnd>
 bool doTest(TestType type, int n, int inits, int reads, int writes) {
     switch(type) {
@@ -198,6 +187,8 @@ bool doTest(TestType type, int n, int inits, int reads, int writes) {
             return stressTest<T, rnd>(n, inits, reads, writes);
         case ITERATOR_STRESS:
             return iteratorStressTest<T, rnd>(n, inits, reads, writes);
+        default:
+            throw logic_error("Wrong test type.");
     }
 }
 
@@ -207,16 +198,16 @@ bool tests(TestType type, vector<size_t> sizes) {
     auto startTime = high_resolution_clock::now();
     int goodTestsNum = 0, testsNum = 0;
     for (auto size : sizes) {
-        int i = max(10000 / sqrt(size), 100);
-        int r = max(30000 / sqrt(size), 300);
-        int w = max(50000 / sqrt(size), 500);
+        int i = 100 * max(1 / sqrt(size), 1);
+        int r = 3 * i;
+        int w = 5 * i;
         cout << "ARRAY SIZE " << size << ":" << endl;
         handleTestResult("X:      ", doTest<X, X::getRandom>(type, size, i, r, w), goodTestsNum, testsNum);
         handleTestResult("Y:      ", doTest<Y, Y::getRandom>(type, size, i, r, w), goodTestsNum, testsNum);
         handleTestResult("Z:      ", doTest<Z, Z::getRandom>(type, size, i, r, w), goodTestsNum, testsNum);
         handleTestResult("ZZ:     ", doTest<ZZ, ZZ::getRandom>(type, size, i, r, w), goodTestsNum, testsNum);
         handleTestResult("int:    ", doTest<int, getRand<int, 10000000>>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("size_t: ", doTest<size_t, getRand<size_t, 100000000000>>(type, size, i, r, w), goodTestsNum, testsNum);
+        handleTestResult("int64:  ", doTest<uint64_t, getRand<uint64_t, 100000000000>>(type, size, i, r, w), goodTestsNum, testsNum);
         handleTestResult("int16:  ", doTest<uint16_t, getRand<uint16_t, 60000>>(type, size, i, r, w), goodTestsNum, testsNum);
         handleTestResult("int8:   ", doTest<uint8_t, getRand<uint8_t, 250>>(type, size, i, r, w), goodTestsNum, testsNum);
         handleTestResult("bool:   ", doTest<bool, getRand<bool, 2>>(type, size, i, r, w), goodTestsNum, testsNum);
