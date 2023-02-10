@@ -1,3 +1,7 @@
+#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+
+#include "catch.hpp"
+
 #include <vector>
 #include <algorithm>
 #include <random>
@@ -14,14 +18,21 @@ using namespace std::chrono;
 using namespace Farray1Direct;
 
 
-enum TestType {STRESS, ITERATOR_STRESS};
+/// run with  "-d yes"  to see times and progress
+/// run with  "--rng-seed time"  to make the tests randomized
 
 
 template<typename T, typename ptr_size1, typename ptr_size2>
-bool eq(T* arr, const Farray1<T,ptr_size1>& farr1, const Farray1<T,ptr_size2>& farr2, T* A, int n, bool flag) {
-    for (size_t i = 0; i < n; i++) {
-        if (!(arr[i] == read(A, n, i, flag) && arr[i] == farr1.read(i) && arr[i] == farr2[i])) {
-            cout << "index " << i << ":  arr[i]=" << arr[i] << ", while A.read(i)=" << read(A, n, i, flag) << "." << endl;
+bool verify_all_four_arrays_equal(T *regular_array, const Farray1<T, ptr_size1> &farray1_using_functions,
+                                  const Farray1<T, ptr_size2> &farray2_using_operators, T *farray3_using_Farray1Direct,
+                                  int farray3_n, bool farray3_flag) {
+    for (size_t i = 0; i < farray3_n; i++) {
+        if (!(regular_array[i] == read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) &&
+              regular_array[i] == farray1_using_functions.read(i) && regular_array[i] == farray2_using_operators[i])) {
+            cout << "index " << i << ":  regular_array[i]=" << regular_array[i]
+                 << ", while farray3_using_Farray1Direct.read(i)="
+                 << read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) << "."
+                 << endl;
             return false;
         }
     }
@@ -29,102 +40,120 @@ bool eq(T* arr, const Farray1<T,ptr_size1>& farr1, const Farray1<T,ptr_size2>& f
 }
 
 
+int max(int x, int y) {
+    return x > y ? x : y;
+}
+
+
+size_t get_basic_number_of_operations(size_t array_size) {
+    return max(10000 / sqrt(array_size), 100);
+}
+
+
+/// Tests reading, writing, and filling a farray (many of these operations, in a random order).
+/// After executing these operations, the farray's content will be compared to that of a regular array, that went through the same operations.
+///
+/// @note: this functions tests Farray1 class (tests both functions and operators) and the Farray1Direct-namespace functions.
+///
+/// \tparam T array of that type
+/// \tparam rnd function that returns a random T
+///
+/// \param array_size the size of the tested farray
+///
+/// \return true if test succeed
 template<typename T, getRandom<T> rnd>
-bool stressTest(int n, int inits, int reads, int writes) {
+bool stress_test(size_t array_size) {
+    const size_t basic_number_of_operations = get_basic_number_of_operations(array_size);
+    const size_t init_operations = 1 * basic_number_of_operations;
+    size_t read_operations = 3 * basic_number_of_operations;
+    size_t write_operations = 5 * basic_number_of_operations;
+
     typedef int ptr_size1;
     typedef size_t ptr_size2;
 
     T def = rnd();
-    auto farr1 = Farray1<T,ptr_size1>(n, def);
-    auto farr2 = Farray1<T,ptr_size2>(n, def);
-    T* A = new T[n];
-    bool flag = fill(A, n, def);
+    auto farr1 = Farray1<T, ptr_size1>(array_size, def);
+    auto farr2 = Farray1<T, ptr_size2>(array_size, def);
+    T *A = new T[array_size];
+    bool flag = fill(A, array_size, def);
 
     vector<char> actions;
-    actions.reserve(reads+writes+inits);
-    for (int i = 0; i < reads ; i++) actions.emplace_back('R');
-    for (int i = 0; i < writes; i++) actions.emplace_back('W');
-    for (int i = 0; i < inits ; i++) actions.emplace_back('F');
+    actions.reserve(read_operations + write_operations + init_operations);
+    for (int i = 0; i < read_operations; i++) actions.emplace_back('R');
+    for (int i = 0; i < write_operations; i++) actions.emplace_back('W');
+    for (int i = 0; i < init_operations; i++) actions.emplace_back('F');
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
 
-    auto arr = new T[n];
-    for (int u = 0; u < n; u++) arr[u] = def;
+    auto arr = new T[array_size];
+    for (int u = 0; u < array_size; u++) arr[u] = def;
 
-    if (!eq<T>(arr, farr1, farr2, A, n, flag)) {
+    if (!verify_all_four_arrays_equal<T>(arr, farr1, farr2, A, array_size, flag)) {
         cout << "Just initialized! def = " << def << "." << endl;
         return false;
     }
 
     int count = 0, lastF = 0;
-    for (auto op : actions) {
+    for (auto op: actions) {
         count++;
-        int i = rand() % n; T v = rnd();
+        int i = rand() % array_size;
+        T v = rnd();
         if (op == 'F') {
             lastF = count;
-            if (rand()&1) def = v;
-            for (int u = 0; u < n; u++) arr[u] = def;
-            flag = fill(A,n,def);
+            if (rand() & 1) def = v;
+            for (int u = 0; u < array_size; u++) arr[u] = def;
+            flag = fill(A, array_size, def);
             farr1.fill(def);
             farr2 = def;
         } else if (op == 'W') {
             arr[i] = v;
-            flag = write(A,n,i,v,flag);
+            flag = write(A, array_size, i, v, flag);
             farr1.write(i, v);
             farr2[i] = v;
         } else {
-            if (!(arr[i] == read(A,n,i,flag) && arr[i] == farr1.read(i) && arr[i] == farr2[i])) {
+            if (!(arr[i] == read(A, array_size, i, flag) && arr[i] == farr1.read(i) && arr[i] == farr2[i])) {
                 cout << "Bad Read: at index " << i << ",  count " << count << endl;
                 return false;
             }
         }
 
-        if (!eq<T,ptr_size1,ptr_size2>(arr, farr1, farr2, A, n, flag)) {
+        if (!verify_all_four_arrays_equal<T, ptr_size1, ptr_size2>(arr, farr1, farr2, A, array_size, flag)) {
             cout << "Last op = " << op << ":    i = " << i << ", v = " << v << "." << endl;
-            cout << "Last def = " << def << ", flag = " << (int)flag << ".    op count = " << count << ", lastF = " << lastF << "." << endl;
+            cout << "Last def = " << def << ", flag = " << (int) flag << ".    op count = " << count << ", lastF = "
+                 << lastF << "." << endl;
             return false;
         }
     }
 
     return true;
-}
-
-
-void handleTestResult(const string& pretext, bool successRes, int& goodTestsNum, int& testsNum) {
-    testsNum++;
-    goodTestsNum += successRes;
-    cout << pretext << (successRes ? "Success!" : "Failed.") << endl;
-}
-
-
-int max(int x, int y) {
-    return x>y ? x : y;
 }
 
 
 template<typename T, typename ptr_size = size_t>
-bool arraySatisfyPred(Farray1<T,ptr_size>& A, const vector<int>& written_indices) {
-    vector<bool> isWritten(A.n, false);
-    vector<bool> reallyWritten(A.n, false);
-    int bsize = defines::blockSize<T,ptr_size>();
+bool verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initialize(Farray1<T, ptr_size> &farray,
+                                                                                  const vector<int> &written_indices) {
+    vector<bool> isWritten(farray.n, false);
+    vector<bool> reallyWritten(farray.n, false);
+    int bsize = defines::blockSize<T, ptr_size>();
 
-    for (int j = defines::ArrayHelper<T,ptr_size>::blocksEnd(A.n); j < A.n; j++) {
+    for (int j = defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n); j < farray.n; j++) {
         isWritten[j] = true;
     }
-    for (auto i : written_indices) {
-        if (i >= defines::ArrayHelper<T,ptr_size>::blocksEnd(A.n)) {
+    for (auto i: written_indices) {
+        if (i >= defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n)) {
             continue;
         }
-        for (int j = (i/bsize)*bsize; j < (i/bsize+1)*bsize; j++) {
+        for (int j = (i / bsize) * bsize; j < (i / bsize + 1) * bsize; j++) {
             isWritten[j] = true;
         }
     }
 
-    for (size_t i : A) reallyWritten[i] = true;
+    for (size_t i: farray) reallyWritten[i] = true;
 
-    for (int i = 0; i < A.n; i++) {
+    for (int i = 0; i < farray.n; i++) {
         if (isWritten[i] != reallyWritten[i]) {
-            cout << "isWritten[" << i << "] = " << isWritten[i] << ", but reallyWritten[" << i << "] = " << reallyWritten[i] << "." << endl;
+            cout << "isWritten[" << i << "] = " << isWritten[i] << ", but reallyWritten[" << i << "] = "
+                 << reallyWritten[i] << "." << endl;
             return false;
         }
     }
@@ -132,34 +161,50 @@ bool arraySatisfyPred(Farray1<T,ptr_size>& A, const vector<int>& written_indices
 }
 
 
+/// Tests that the Farray1 iterator goes through the exact indices the algorithm requires to initialize.
+/// Test it on an empty array, and also after many random reading, writing, and filling operations.
+///
+/// \tparam T array of that type
+/// \tparam rnd function that returns a random T
+///
+/// \param array_size the size of the tested farray
+///
+/// \return true if test succeed
 template<typename T, getRandom<T> rnd>
-bool iteratorStressTest(int n, int inits, int reads, int writes) {
+bool iterator_indices_test(int array_size) {
+    const size_t basic_number_of_operations = get_basic_number_of_operations(array_size);
+    const size_t init_operations = 1 * basic_number_of_operations;
+    size_t read_operations = 3 * basic_number_of_operations;
+    size_t write_operations = 5 * basic_number_of_operations;
+
     typedef size_t ptr_size;
 
     vector<int> written_indices;
     T def = rnd();
-    auto farr = Farray1<T,ptr_size>(n, def);
+    auto farr = Farray1<T, ptr_size>(array_size, def);
 
     vector<char> actions;
-    actions.reserve(reads+writes+inits);
-    for (int i = 0; i < reads ; i++) actions.emplace_back('R');
-    for (int i = 0; i < writes; i++) actions.emplace_back('W');
-    for (int i = 0; i < inits ; i++) actions.emplace_back('F');
+    actions.reserve(read_operations + write_operations + init_operations);
+    for (int i = 0; i < read_operations; i++) actions.emplace_back('R');
+    for (int i = 0; i < write_operations; i++) actions.emplace_back('W');
+    for (int i = 0; i < init_operations; i++) actions.emplace_back('F');
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
 
-    if (!arraySatisfyPred<T,ptr_size>(farr, written_indices)) {
+    if (!verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initialize<T, ptr_size>
+            (farr, written_indices)) {
         cout << "Just initialized! def = " << def << "." << endl;
         return false;
     }
 
     int count = 0, lastF = 0;
-    for (auto op : actions) {
+    for (auto op: actions) {
         count++;
-        int i = rand() % n; T v = rnd();
+        int i = rand() % array_size;
+        T v = rnd();
         if (op == 'F') {
             lastF = count;
-            if (rand()&1) def = v;
+            if (rand() & 1) def = v;
             farr = def;
             written_indices.clear();
         } else if (op == 'W') {
@@ -169,7 +214,8 @@ bool iteratorStressTest(int n, int inits, int reads, int writes) {
             T temp = farr[i];
         }
 
-        if (!arraySatisfyPred<T,ptr_size>(farr, written_indices)) {
+        if (!verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initialize<T, ptr_size>
+                (farr, written_indices)) {
             cout << "Last op = " << op << ":    i = " << i << ", v = " << v << "." << endl;
             cout << "Last def = " << def << ".    op count = " << count << ", lastF = " << lastF << "." << endl;
             return false;
@@ -180,56 +226,42 @@ bool iteratorStressTest(int n, int inits, int reads, int writes) {
 }
 
 
-template<typename T, getRandom<T> rnd>
-bool doTest(TestType type, int n, int inits, int reads, int writes) {
-    switch(type) {
-        case STRESS:
-            return stressTest<T, rnd>(n, inits, reads, writes);
-        case ITERATOR_STRESS:
-            return iteratorStressTest<T, rnd>(n, inits, reads, writes);
-        default:
-            return false;
-    }
+TEMPLATE_TEST_CASE_SIG("Stress Test Farray1 with random operations; variable array size",
+                       "[stress]",
+                       ((size_t array_size), array_size),
+                       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                       15, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+                       200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000) {
+
+    REQUIRE(stress_test<X, X::getRandom>(array_size));
+    REQUIRE(stress_test<Y, Y::getRandom>(array_size));
+    REQUIRE(stress_test<Z, Z::getRandom>(array_size));
+    REQUIRE(stress_test<ZZ, ZZ::getRandom>(array_size));
+
+    REQUIRE(stress_test<bool, getRand<bool>>(array_size));
+    REQUIRE(stress_test<uint8_t, getRand<uint8_t>>(array_size));
+    REQUIRE(stress_test<uint16_t, getRand<uint16_t>>(array_size));
+    REQUIRE(stress_test<uint32_t, getRand<uint32_t>>(array_size));
+    REQUIRE(stress_test<uint64_t, getRand<uint64_t>>(array_size));
 }
 
 
-bool tests(TestType type, vector<size_t> sizes) {
-    srand(time(0));
-    auto startTime = high_resolution_clock::now();
-    int goodTestsNum = 0, testsNum = 0;
-    for (auto size : sizes) {
-        int i = 100 * max(1 / sqrt(size), 1);
-        int r = 3 * i;
-        int w = 5 * i;
-        cout << "ARRAY SIZE " << size << ":" << endl;
-        handleTestResult("X:      ", doTest<X, X::getRandom>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("Y:      ", doTest<Y, Y::getRandom>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("Z:      ", doTest<Z, Z::getRandom>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("ZZ:     ", doTest<ZZ, ZZ::getRandom>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("int:    ", doTest<int, getRand<int, 10000000>>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("int64:  ", doTest<uint64_t, getRand<uint64_t, 100000000000>>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("int16:  ", doTest<uint16_t, getRand<uint16_t, 60000>>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("int8:   ", doTest<uint8_t, getRand<uint8_t, 250>>(type, size, i, r, w), goodTestsNum, testsNum);
-        handleTestResult("bool:   ", doTest<bool, getRand<bool, 2>>(type, size, i, r, w), goodTestsNum, testsNum);
-        cout << endl;
-    }
-    auto endTime = high_resolution_clock::now();
-    auto ms = duration_cast<microseconds>(endTime - startTime).count();
-    cout << "Overall time: " << ((double)ms)/1000000 << "s." << endl;
-    bool success = goodTestsNum == testsNum;
-    cout << "Tests passed: " << goodTestsNum << "/" << testsNum << ". " << (success ? "Success!" : "Failed.") << endl << endl;
-    return success;
+TEMPLATE_TEST_CASE_SIG("Test Farray1 iteration indices, before and after random operations; variable array size",
+                       "[stress]",
+                       ((size_t array_size), array_size),
+                       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                       15, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+                       200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000) {
+
+    REQUIRE(iterator_indices_test<X, X::getRandom>(array_size));
+    REQUIRE(iterator_indices_test<Y, Y::getRandom>(array_size));
+    REQUIRE(iterator_indices_test<Z, Z::getRandom>(array_size));
+    REQUIRE(iterator_indices_test<ZZ, ZZ::getRandom>(array_size));
+
+    REQUIRE(iterator_indices_test<bool, getRand<bool>>(array_size));
+    REQUIRE(iterator_indices_test<uint8_t, getRand<uint8_t>>(array_size));
+    REQUIRE(iterator_indices_test<uint16_t, getRand<uint16_t>>(array_size));
+    REQUIRE(iterator_indices_test<uint32_t, getRand<uint32_t>>(array_size));
+    REQUIRE(iterator_indices_test<uint64_t, getRand<uint64_t>>(array_size));
 }
 
-
-int main() {
-    bool stressSuc     = tests(STRESS, {1, 5, 10, 20, 40, 100, 500, 1000, 2000, 5000, 10000, 20000, 50000});
-    bool iterStressSuc = tests(ITERATOR_STRESS, {1, 5, 10, 20, 40, 100, 500, 1000, 2000, 5000, 10000, 20000, 50000});
-
-    if (stressSuc && iterStressSuc)
-        cout << "All Success!" << endl;
-    else
-        cout << "stress: " << stressSuc << ",  iter: " << iterStressSuc << "." << endl;
-
-    return 0;
-}

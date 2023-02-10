@@ -9,9 +9,9 @@ template<typename T>
 using getRandom = T(*)();
 
 
-template<typename T, size_t MAX>
+template<typename T>
 T getRand() {
-    return (T)((((uint64_t)rand())<<32 | (uint64_t)rand()) % MAX);
+    return ((uint64_t)rand())<<32 | (uint64_t)rand();
 }
 
 
