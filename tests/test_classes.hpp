@@ -39,11 +39,11 @@ public:
 
 class Y {
 public:
-    uint x;
+    uint32_t x;
     uint8_t y;
 
     Y() = default;
-    Y(uint x, uint8_t y) : x(x), y(y) {}
+    Y(uint32_t x, uint8_t y) : x(x), y(y) {}
 
     bool operator==(const Y& v) const { return x == v.x && y == v.y; }
     bool operator!=(const Y& v) const { return !(*this == v); }

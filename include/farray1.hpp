@@ -1,15 +1,10 @@
-#ifndef FARRAY_FARRAY1_H
-#define FARRAY_FARRAY1_H
-
-#include <stdexcept>
-//#include <iostream>
-//#include <stdbool.h>
+#pragma once
 
 
 /*
 Implementation of "In-Place Initializable Arrays" paper - https://arxiv.org/abs/1709.08900
  It's an array implementation with the fill(v), read(i), write(i,v) methods - all in O(1) worst time complexity.
- read and write are obvious, and fill sets all of the cells at once.
+ read and write are obvious, and fill sets all the cells at once.
  The special key in this implementation - is that it takes only 1 bit of redundancy, beyond the given array.
  That bit, called flag, will be given to read & write, and will be returned from the fill & write.
   if flag is true  - the array can be viewed as a normal array - it is fully initialized, and can be accessed normally.
@@ -178,10 +173,12 @@ namespace Farray1Direct {
     template<typename T, typename ptr_size = size_t>
     T read(const T* A, size_t n, size_t index, bool flag = false) {
         defines::ArrayHelper<T,ptr_size> h(A, n, flag);
+        index %= n;
+
         if (flag || index >= h.blocksEnd()) {      // arr functions as regular array
-            if (index < n) return A[index];
-            throw std::out_of_range("Reading from index " + std::to_string(index) + " (>=" + std::to_string(n) + ")");
+            return A[index];
         }
+
         size_t mod;
         bool first, chained;
         ptr_size i = h.setIndices(index, mod, first), k;
@@ -202,9 +199,11 @@ namespace Farray1Direct {
     template<typename T, typename ptr_size = size_t>
     bool write(T* A, size_t n, size_t index, const T& v, bool flag = false) {
         defines::ArrayHelper<T,ptr_size> h(A, n, flag);
+        index %= n;
+
         if (flag || index >= h.blocksEnd()) {      // arr functions as regular array
-            if (index < n) { A[index] = v; return flag; }
-            throw std::out_of_range("Writing to index " + std::to_string(index) + " (>=" + std::to_string(n) + ")");
+            A[index] = v;
+            return flag;
         }
 
         size_t mod;
@@ -346,6 +345,3 @@ public:
     Farray1Direct::iterator<T,ptr_size> begin() { return Farray1Direct::begin<T,ptr_size>(A, n, flag); }
     Farray1Direct::iterator<T,ptr_size>   end() { return Farray1Direct::  end<T,ptr_size>(A, n, flag); }
 };
-
-
-#endif //FARRAY_FARRAY1_H
