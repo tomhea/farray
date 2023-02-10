@@ -1,5 +1,4 @@
-#ifndef FARRAY_FARRAY1_H
-#define FARRAY_FARRAY1_H
+#pragma once
 
 
 /*
@@ -346,6 +345,3 @@ public:
     Farray1Direct::iterator<T,ptr_size> begin() { return Farray1Direct::begin<T,ptr_size>(A, n, flag); }
     Farray1Direct::iterator<T,ptr_size>   end() { return Farray1Direct::  end<T,ptr_size>(A, n, flag); }
 };
-
-
-#endif //FARRAY_FARRAY1_H
