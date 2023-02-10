@@ -86,16 +86,16 @@ void times(vector<size_t> sizes, vector<double> percents, size_t fills = 100) {
             size_t f,r,w;
             r = w = total * (1-perc/100) / 2;
             f = total * perc/100;
-            handleTimeResult("X     [", size, O1_timed_vs_regular<X,       X::getRandom>                  (size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("X     [", size, O1_timed_vs_regular<X,       X::getRandom>                  (size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("Y     [", size, O1_timed_vs_regular<Y,       Y::getRandom>                  (size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("Z     [", size, O1_timed_vs_regular<Z,       Z::getRandom>                  (size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("ZZ    [", size, O1_timed_vs_regular<ZZ,      ZZ::getRandom>                 (size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("int   [", size, O1_timed_vs_regular<int,     getRand<int,     10000000>>    (size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("size_t[", size, O1_timed_vs_regular<size_t,  getRand<size_t,  100000000000>>(size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("int16 [", size, O1_timed_vs_regular<int16_t, getRand<int16_t, 60000>>       (size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("int8  [", size, O1_timed_vs_regular<int8_t,  getRand<int8_t,  250>>         (size, f, r, w, &holderVsPlain), holderVsPlain);
-            handleTimeResult("bool  [", size, O1_timed_vs_regular<bool,    getRand<bool,    2>>           (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("X     [", size, O1_timed_vs_regular<X,       X::getRandom>     (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("X     [", size, O1_timed_vs_regular<X,       X::getRandom>     (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("Y     [", size, O1_timed_vs_regular<Y,       Y::getRandom>     (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("Z     [", size, O1_timed_vs_regular<Z,       Z::getRandom>     (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("ZZ    [", size, O1_timed_vs_regular<ZZ,      ZZ::getRandom>    (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("int64 [", size, O1_timed_vs_regular<int64_t, getRand<int64_t>> (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("int32 [", size, O1_timed_vs_regular<int32_t, getRand<int32_t>> (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("int16 [", size, O1_timed_vs_regular<int16_t, getRand<int16_t>> (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("int8  [", size, O1_timed_vs_regular<int8_t,  getRand<int8_t>>  (size, f, r, w, &holderVsPlain), holderVsPlain);
+            handleTimeResult("bool  [", size, O1_timed_vs_regular<bool,    getRand<bool>>    (size, f, r, w, &holderVsPlain), holderVsPlain);
             cout << endl;
         }
     }
