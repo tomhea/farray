@@ -188,7 +188,7 @@ bool doTest(TestType type, int n, int inits, int reads, int writes) {
         case ITERATOR_STRESS:
             return iteratorStressTest<T, rnd>(n, inits, reads, writes);
         default:
-            throw logic_error("Wrong test type.");
+            return false;
     }
 }
 
