@@ -18,14 +18,20 @@ using namespace std::chrono;
 using namespace Farray1Direct;
 
 
-// TODO rename functions and commit-push!
+/// run with  "-d yes"  to see times and progress
+/// run with  "--rng-seed time"  to make the tests randomized
 
 
 template<typename T, typename ptr_size1, typename ptr_size2>
-bool eq(T *arr, const Farray1<T, ptr_size1> &farr1, const Farray1<T, ptr_size2> &farr2, T *A, int n, bool flag) {
-    for (size_t i = 0; i < n; i++) {
-        if (!(arr[i] == read(A, n, i, flag) && arr[i] == farr1.read(i) && arr[i] == farr2[i])) {
-            cout << "index " << i << ":  arr[i]=" << arr[i] << ", while A.read(i)=" << read(A, n, i, flag) << "."
+bool verify_all_four_arrays_equal(T *regular_array, const Farray1<T, ptr_size1> &farray1_using_functions,
+                                  const Farray1<T, ptr_size2> &farray2_using_operators, T *farray3_using_Farray1Direct,
+                                  int farray3_n, bool farray3_flag) {
+    for (size_t i = 0; i < farray3_n; i++) {
+        if (!(regular_array[i] == read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) &&
+              regular_array[i] == farray1_using_functions.read(i) && regular_array[i] == farray2_using_operators[i])) {
+            cout << "index " << i << ":  regular_array[i]=" << regular_array[i]
+                 << ", while farray3_using_Farray1Direct.read(i)="
+                 << read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) << "."
                  << endl;
             return false;
         }
@@ -44,8 +50,19 @@ size_t get_basic_number_of_operations(size_t array_size) {
 }
 
 
+/// Tests reading, writing, and filling a farray (many of these operations, in a random order).
+/// After executing these operations, the farray's content will be compared to that of a regular array, that went through the same operations.
+///
+/// @note: this functions tests Farray1 class (tests both functions and operators) and the Farray1Direct-namespace functions.
+///
+/// \tparam T array of that type
+/// \tparam rnd function that returns a random T
+///
+/// \param array_size the size of the tested farray
+///
+/// \return true if test succeed
 template<typename T, getRandom<T> rnd>
-bool stressTest(size_t array_size) {
+bool stress_test(size_t array_size) {
     const size_t basic_number_of_operations = get_basic_number_of_operations(array_size);
     const size_t init_operations = 1 * basic_number_of_operations;
     size_t read_operations = 3 * basic_number_of_operations;
@@ -71,7 +88,7 @@ bool stressTest(size_t array_size) {
     auto arr = new T[array_size];
     for (int u = 0; u < array_size; u++) arr[u] = def;
 
-    if (!eq<T>(arr, farr1, farr2, A, array_size, flag)) {
+    if (!verify_all_four_arrays_equal<T>(arr, farr1, farr2, A, array_size, flag)) {
         cout << "Just initialized! def = " << def << "." << endl;
         return false;
     }
@@ -100,7 +117,7 @@ bool stressTest(size_t array_size) {
             }
         }
 
-        if (!eq<T, ptr_size1, ptr_size2>(arr, farr1, farr2, A, array_size, flag)) {
+        if (!verify_all_four_arrays_equal<T, ptr_size1, ptr_size2>(arr, farr1, farr2, A, array_size, flag)) {
             cout << "Last op = " << op << ":    i = " << i << ", v = " << v << "." << endl;
             cout << "Last def = " << def << ", flag = " << (int) flag << ".    op count = " << count << ", lastF = "
                  << lastF << "." << endl;
@@ -113,16 +130,17 @@ bool stressTest(size_t array_size) {
 
 
 template<typename T, typename ptr_size = size_t>
-bool arraySatisfyPred(Farray1<T, ptr_size> &A, const vector<int> &written_indices) {
-    vector<bool> isWritten(A.n, false);
-    vector<bool> reallyWritten(A.n, false);
+bool verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initialize(Farray1<T, ptr_size> &farray,
+                                                                                  const vector<int> &written_indices) {
+    vector<bool> isWritten(farray.n, false);
+    vector<bool> reallyWritten(farray.n, false);
     int bsize = defines::blockSize<T, ptr_size>();
 
-    for (int j = defines::ArrayHelper<T, ptr_size>::blocksEnd(A.n); j < A.n; j++) {
+    for (int j = defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n); j < farray.n; j++) {
         isWritten[j] = true;
     }
     for (auto i: written_indices) {
-        if (i >= defines::ArrayHelper<T, ptr_size>::blocksEnd(A.n)) {
+        if (i >= defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n)) {
             continue;
         }
         for (int j = (i / bsize) * bsize; j < (i / bsize + 1) * bsize; j++) {
@@ -130,9 +148,9 @@ bool arraySatisfyPred(Farray1<T, ptr_size> &A, const vector<int> &written_indice
         }
     }
 
-    for (size_t i: A) reallyWritten[i] = true;
+    for (size_t i: farray) reallyWritten[i] = true;
 
-    for (int i = 0; i < A.n; i++) {
+    for (int i = 0; i < farray.n; i++) {
         if (isWritten[i] != reallyWritten[i]) {
             cout << "isWritten[" << i << "] = " << isWritten[i] << ", but reallyWritten[" << i << "] = "
                  << reallyWritten[i] << "." << endl;
@@ -143,8 +161,17 @@ bool arraySatisfyPred(Farray1<T, ptr_size> &A, const vector<int> &written_indice
 }
 
 
+/// Tests that the Farray1 iterator goes through the exact indices the algorithm requires to initialize.
+/// Test it on an empty array, and also after many random reading, writing, and filling operations.
+///
+/// \tparam T array of that type
+/// \tparam rnd function that returns a random T
+///
+/// \param array_size the size of the tested farray
+///
+/// \return true if test succeed
 template<typename T, getRandom<T> rnd>
-bool iteratorStressTest(int array_size) {
+bool iterator_indices_test(int array_size) {
     const size_t basic_number_of_operations = get_basic_number_of_operations(array_size);
     const size_t init_operations = 1 * basic_number_of_operations;
     size_t read_operations = 3 * basic_number_of_operations;
@@ -164,7 +191,8 @@ bool iteratorStressTest(int array_size) {
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
 
-    if (!arraySatisfyPred<T, ptr_size>(farr, written_indices)) {
+    if (!verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initialize<T, ptr_size>
+            (farr, written_indices)) {
         cout << "Just initialized! def = " << def << "." << endl;
         return false;
     }
@@ -186,7 +214,8 @@ bool iteratorStressTest(int array_size) {
             T temp = farr[i];
         }
 
-        if (!arraySatisfyPred<T, ptr_size>(farr, written_indices)) {
+        if (!verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initialize<T, ptr_size>
+                (farr, written_indices)) {
             cout << "Last op = " << op << ":    i = " << i << ", v = " << v << "." << endl;
             cout << "Last def = " << def << ".    op count = " << count << ", lastF = " << lastF << "." << endl;
             return false;
@@ -197,36 +226,42 @@ bool iteratorStressTest(int array_size) {
 }
 
 
-TEMPLATE_TEST_CASE_SIG("Test Farray1 with random operations; variable array size", "[stress]",
+TEMPLATE_TEST_CASE_SIG("Stress Test Farray1 with random operations; variable array size",
+                       "[stress]",
                        ((size_t array_size), array_size),
-                       1, 5, 10, 20, 40, 100, 500, 1000, 2000, 5000, 10000, 20000, 50000) {
+                       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                       15, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+                       200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000) {
 
-    REQUIRE(stressTest<X, X::getRandom>(array_size));
-    REQUIRE(stressTest<Y, Y::getRandom>(array_size));
-    REQUIRE(stressTest<Z, Z::getRandom>(array_size));
-    REQUIRE(stressTest<ZZ, ZZ::getRandom>(array_size));
+    REQUIRE(stress_test<X, X::getRandom>(array_size));
+    REQUIRE(stress_test<Y, Y::getRandom>(array_size));
+    REQUIRE(stress_test<Z, Z::getRandom>(array_size));
+    REQUIRE(stress_test<ZZ, ZZ::getRandom>(array_size));
 
-    REQUIRE(stressTest<bool, getRand<bool>>(array_size));
-    REQUIRE(stressTest<uint8_t, getRand<uint8_t>>(array_size));
-    REQUIRE(stressTest<uint16_t, getRand<uint16_t>>(array_size));
-    REQUIRE(stressTest<uint32_t, getRand<uint32_t>>(array_size));
-    REQUIRE(stressTest<uint64_t, getRand<uint64_t>>(array_size));
+    REQUIRE(stress_test<bool, getRand<bool>>(array_size));
+    REQUIRE(stress_test<uint8_t, getRand<uint8_t>>(array_size));
+    REQUIRE(stress_test<uint16_t, getRand<uint16_t>>(array_size));
+    REQUIRE(stress_test<uint32_t, getRand<uint32_t>>(array_size));
+    REQUIRE(stress_test<uint64_t, getRand<uint64_t>>(array_size));
 }
 
 
-TEMPLATE_TEST_CASE_SIG("Test iterating over Farray1, after random operations; variable array size", "[stress]",
+TEMPLATE_TEST_CASE_SIG("Test Farray1 iteration indices, before and after random operations; variable array size",
+                       "[stress]",
                        ((size_t array_size), array_size),
-                       1, 5, 10, 20, 40, 100, 500, 1000, 2000, 5000, 10000, 20000, 50000) {
+                       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                       15, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+                       200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000) {
 
-    REQUIRE(iteratorStressTest<X, X::getRandom>(array_size));
-    REQUIRE(iteratorStressTest<Y, Y::getRandom>(array_size));
-    REQUIRE(iteratorStressTest<Z, Z::getRandom>(array_size));
-    REQUIRE(iteratorStressTest<ZZ, ZZ::getRandom>(array_size));
+    REQUIRE(iterator_indices_test<X, X::getRandom>(array_size));
+    REQUIRE(iterator_indices_test<Y, Y::getRandom>(array_size));
+    REQUIRE(iterator_indices_test<Z, Z::getRandom>(array_size));
+    REQUIRE(iterator_indices_test<ZZ, ZZ::getRandom>(array_size));
 
-    REQUIRE(iteratorStressTest<bool, getRand<bool>>(array_size));
-    REQUIRE(iteratorStressTest<uint8_t, getRand<uint8_t>>(array_size));
-    REQUIRE(iteratorStressTest<uint16_t, getRand<uint16_t>>(array_size));
-    REQUIRE(iteratorStressTest<uint32_t, getRand<uint32_t>>(array_size));
-    REQUIRE(iteratorStressTest<uint64_t, getRand<uint64_t>>(array_size));
+    REQUIRE(iterator_indices_test<bool, getRand<bool>>(array_size));
+    REQUIRE(iterator_indices_test<uint8_t, getRand<uint8_t>>(array_size));
+    REQUIRE(iterator_indices_test<uint16_t, getRand<uint16_t>>(array_size));
+    REQUIRE(iterator_indices_test<uint32_t, getRand<uint32_t>>(array_size));
+    REQUIRE(iterator_indices_test<uint64_t, getRand<uint64_t>>(array_size));
 }
 
