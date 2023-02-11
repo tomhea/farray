@@ -263,12 +263,6 @@ namespace Farray1Direct {
 
         size_t i;
     public:
-//        // Previously provided by std::iterator - see update below
-//        typedef T                       value_type;
-//        typedef std::ptrdiff_t          difference_type;
-//        typedef T*                      pointer;
-//        typedef T&                      reference;
-//        typedef std::input_iterator_tag iterator_category;
 
         iterator(T* A, size_t n, bool start, bool flag) : A(A), n(n), flag(flag), i(start ? 0 : n) {
             size_t afterLastBlock = defines::ArrayHelper<T,ptr_size>::blocksEnd(n);
@@ -300,8 +294,9 @@ namespace Farray1Direct {
         }
     };
 
+    /// Iterates over indices of written values.
     template<typename T, typename ptr_size = size_t>
-    iterator<T,ptr_size> begin(T* A, size_t n, bool flag = false) { return iterator<T,ptr_size>(A, n, true,  flag); }     // iterating over indices of written values.
+    iterator<T,ptr_size> begin(T* A, size_t n, bool flag = false) { return iterator<T,ptr_size>(A, n, true,  flag); }
     template<typename T, typename ptr_size = size_t>
     iterator<T,ptr_size>   end(T* A, size_t n, bool flag = false) { return iterator<T,ptr_size>(A, n, false, flag); }
 }
@@ -316,9 +311,13 @@ public:
     const size_t n;
     Farray1(T* A, size_t n, bool flag = true)               : A(A), n(n), flag(flag), malloced(false) { }
     Farray1(T* A, size_t n, const T& def, bool flag = true) : A(A), n(n), flag(flag), malloced(false) { fill(def); }
+
+#ifndef FARRAY1_NO_DYNAMIC_ALLOCATIONS
     Farray1(size_t n)               : A(new T[n]), n(n), flag(true), malloced(true) { }
     Farray1(size_t n, const T& def) : A(new T[n]), n(n), flag(true), malloced(true) { fill(def); }
     ~Farray1() { if (malloced) delete[] A; }
+#endif
+
     void fill(const T& v) { flag = Farray1Direct::fill<T,ptr_size>(A, n, v); }
     T read(size_t i) const { return Farray1Direct::read<T,ptr_size>(A, n, i, flag); }
     void write(size_t i, const T& v) { flag = Farray1Direct::write<T,ptr_size>(A, n, i, v, flag); }
@@ -342,6 +341,7 @@ public:
     ConstProxy operator[](size_t i) const { return ConstProxy(*this, i); }
     Proxy operator[](size_t i) { return Proxy(*this, i); }
 
+    /// Iterates over indices of written values.
     Farray1Direct::iterator<T,ptr_size> begin() { return Farray1Direct::begin<T,ptr_size>(A, n, flag); }
     Farray1Direct::iterator<T,ptr_size>   end() { return Farray1Direct::  end<T,ptr_size>(A, n, flag); }
 };

@@ -1,15 +1,23 @@
 # Farray - Fillable Array
-C++ Header-only Implementation of the [In-Place Initializable Arrays](https://arxiv.org/abs/1709.08900) paper.
+C++ **Header-only** Implementation of the [In-Place Initializable Arrays](https://arxiv.org/abs/1709.08900) paper.
 
-Templated array with constant-time fill(v), read(i), write(i,v) operations, all with 1 bit of extra memory.
+It's a templated array with **constant-time** fill(v), read(i), write(i,v) operations, all with 1 bit of extra memory.<br>
+You can really [sense the **speedup**](#is-it-really-better) it provides.
 
-The paper is based on the simpler [Initializing an array in constant time](https://eli.thegreenplace.net/2008/08/23/initializing-an-array-in-constant-time) - which uses 2n extra memory words.
+This **single-file** library is [**thoroughly tested**](tests/tests_farray1.cpp), and is **Embedded-friendly** as it has no exceptions, and use no other library. It can also use no dynamic allocations.
 
+The paper is based on the simpler [Initializing an array in constant time](https://eli.thegreenplace.net/2008/08/23/initializing-an-array-in-constant-time) - which uses 2n extra memory words.<br>
 I wrote a **[Medium article](https://link.medium.com/Q8YbkDJX2bb)** about array initialization and this project. Read it and come back 🧑‍💻. 
 
 # Basic Use:
-To use the array, just include the header file. *Thats it.*
+To use the array, just download and include the header file. *That's it.*
 ```c
+#include "farray1.hpp"
+```
+
+If you want to compile it without any dynamic allocations:
+```c
+#define FARRAY1_NO_DYNAMIC_ALLOCATIONS
 #include "farray1.hpp"
 ```
 
@@ -17,7 +25,7 @@ To use the array, just include the header file. *Thats it.*
 ```c
 // initialization (all to 1s)
 Farray1<int> A(n, 1);   // Farray1 allocated an array be itself. 
-                        // It can also take an already allocated array.
+                        // It can also take an already allocated array as a parameter.
 
 // read & write
 A[3] = 5;
@@ -45,23 +53,23 @@ You can also use the `A.fill(v), A.read(i), A.write(i,v)` syntax,<br>
 instread of `A=v, A[i], A[i]=v`.<br>
 Also, indexing is circular, so ```A[i] is A[i % n]``` (e.g ```A[2n+5] == A[5]```).
 
-# Is It Really Better?
+# How much Faster? 🚀
 
 Take a look at the time [speedups](timings/times_farray1_output.txt) gained by using Farray1 over a regular array.
 ```
 Speedups of the average operation (read/write/fill) on Farray1/c-arrays of size 1000000:
 
 When 10% of the operations are array-fills:
-  Farray1<int32_t, 1000000> is faster than int32_t[1000000] by 450!
+  Farray1<int32_t, 1000000> is 450 times(!) faster than int32_t[1000000].
 
 When 2% of the operations are array-fills:
-  Farray1<int32_t, 1000000> is faster than int32_t[1000000] by 90!
+  Farray1<int32_t, 1000000> is  90 times(!) faster than int32_t[1000000].
 
 When Only 0.2% of the operations are array-fills:
-  Farray1<int32_t, 1000000> is faster than int32_t[1000000] by 9!
+  Farray1<int32_t, 1000000> is   9 times(!) faster than int32_t[1000000].
 
 When Only 0.03% of the operations are array-fills:
-  Farray1<int32_t, 1000000> is faster than int32_t[1000000] by 2!
+  Farray1<int32_t, 1000000> is   2 times(!) faster than int32_t[1000000].
 ```
 You can also run the timings benchmark on your pc with [times_farray1.cpp](timings/times_farray1.cpp) (takes about 5 minutes).
 
