@@ -67,7 +67,7 @@ double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* hold
     }
     endTime = high_resolution_clock::now();
     auto ms3 = duration_cast<microseconds>(endTime - startTime).count();
-    cout << (int)(((int*)&last)[0])*0 << "\b \b" << flush;   // use 'last' so that the compiler won't ignore the read operations.
+    volatile auto dont_optimize_out_last = last;
     return ms3/(double)ms1;
 }
 
@@ -97,7 +97,6 @@ void times(vector<size_t> sizes, vector<double> percents, size_t fills = 100) {
             size_t f,r,w;
             r = w = total * (1-perc/100) / 2;
             f = total * perc/100;
-            handleTimeResult("X     [", size, O1_timed_vs_regular<X,       X::getRandom>     (size, f, r, w, &holderVsPlain), holderVsPlain);
             handleTimeResult("X     [", size, O1_timed_vs_regular<X,       X::getRandom>     (size, f, r, w, &holderVsPlain), holderVsPlain);
             handleTimeResult("Y     [", size, O1_timed_vs_regular<Y,       Y::getRandom>     (size, f, r, w, &holderVsPlain), holderVsPlain);
             handleTimeResult("Z     [", size, O1_timed_vs_regular<Z,       Z::getRandom>     (size, f, r, w, &holderVsPlain), holderVsPlain);
