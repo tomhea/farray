@@ -60,16 +60,16 @@ Take a look at the time [speedups](timings/times_farray1_output.txt) gained by u
 Speedups of the average operation (read/write/fill) on Farray1/c-arrays of size 1000000:
 
 When 10% of the operations are array-fills:
-  Farray1<int32_t, 1000000> is 450 times(!) faster than int32_t[1000000].
+  Farray1<int64_t, 1000000> is 570 times(!) faster than int64_t[1000000].
 
 When 2% of the operations are array-fills:
-  Farray1<int32_t, 1000000> is  90 times(!) faster than int32_t[1000000].
+  Farray1<int64_t, 1000000> is 110 times(!) faster than int64_t[1000000].
 
 When Only 0.2% of the operations are array-fills:
-  Farray1<int32_t, 1000000> is   9 times(!) faster than int32_t[1000000].
+  Farray1<int64_t, 1000000> is  12 times(!) faster than int64_t[1000000].
 
-When Only 0.03% of the operations are array-fills:
-  Farray1<int32_t, 1000000> is   2 times(!) faster than int32_t[1000000].
+When Only 0.05% of the operations are array-fills:
+  Farray1<int64_t, 1000000> is   3 times(!) faster than int64_t[1000000].
 ```
 You can also run the timings benchmark on your pc with [times_farray1.cpp](timings/times_farray1.cpp) (takes about 5 minutes).
 
