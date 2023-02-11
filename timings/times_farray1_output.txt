@@ -1,947 +1,963 @@
 Speedups of using Farray instead of regular array (Bigger than 1 is better):
 
---------------------------------
-
-0.01% of ops are fills:
-
-X     [10000]:   0.969196      (using Farray1/direct speedup: 0.972177)
-X     [10000]:   0.833112      (using Farray1/direct speedup: 1.017342)
-Y     [10000]:   0.721814      (using Farray1/direct speedup: 0.991718)
-Z     [10000]:   0.925435      (using Farray1/direct speedup: 0.959874)
-ZZ    [10000]:   0.970896      (using Farray1/direct speedup: 1.029106)
-int   [10000]:   0.840019      (using Farray1/direct speedup: 0.954073)
-size_t[10000]:   0.727984      (using Farray1/direct speedup: 0.999455)
-int16 [10000]:   0.890718      (using Farray1/direct speedup: 0.922904)
-int8  [10000]:   0.935957      (using Farray1/direct speedup: 0.971178)
-bool  [10000]:   0.894391      (using Farray1/direct speedup: 0.951451)
-
-X     [30000]:   0.883038      (using Farray1/direct speedup: 0.932534)
-X     [30000]:   0.841332      (using Farray1/direct speedup: 0.961339)
-Y     [30000]:   0.695253      (using Farray1/direct speedup: 0.988667)
-Z     [30000]:   0.923965      (using Farray1/direct speedup: 0.930885)
-ZZ    [30000]:   0.929346      (using Farray1/direct speedup: 1.023488)
-int   [30000]:   0.770209      (using Farray1/direct speedup: 0.977340)
-size_t[30000]:   0.689471      (using Farray1/direct speedup: 1.044481)
-int16 [30000]:   0.728260      (using Farray1/direct speedup: 1.021891)
-int8  [30000]:   0.759631      (using Farray1/direct speedup: 1.014566)
-bool  [30000]:   0.728287      (using Farray1/direct speedup: 1.010355)
-
-X     [100000]:   0.821123      (using Farray1/direct speedup: 0.994172)
-X     [100000]:   0.782947      (using Farray1/direct speedup: 1.020091)
-Y     [100000]:   0.695108      (using Farray1/direct speedup: 0.988056)
-Z     [100000]:   0.612997      (using Farray1/direct speedup: 1.367329)
-ZZ    [100000]:   0.763364      (using Farray1/direct speedup: 1.334581)
-int   [100000]:   0.604907      (using Farray1/direct speedup: 1.066266)
-size_t[100000]:   0.610361      (using Farray1/direct speedup: 1.079045)
-int16 [100000]:   0.615172      (using Farray1/direct speedup: 0.967170)
-int8  [100000]:   0.628581      (using Farray1/direct speedup: 0.994633)
-bool  [100000]:   0.584903      (using Farray1/direct speedup: 1.065669)
-
-X     [300000]:   0.987621      (using Farray1/direct speedup: 1.039886)
-X     [300000]:   1.059359      (using Farray1/direct speedup: 1.016409)
-Y     [300000]:   0.855955      (using Farray1/direct speedup: 1.041648)
-Z     [300000]:   0.821088      (using Farray1/direct speedup: 1.209686)
-ZZ    [300000]:   1.295867      (using Farray1/direct speedup: 0.960319)
-int   [300000]:   0.719882      (using Farray1/direct speedup: 0.997688)
-size_t[300000]:   0.654141      (using Farray1/direct speedup: 1.103189)
-int16 [300000]:   0.615691      (using Farray1/direct speedup: 0.953186)
-int8  [300000]:   0.498025      (using Farray1/direct speedup: 1.028298)
-bool  [300000]:   0.596439      (using Farray1/direct speedup: 0.942170)
-
-X     [1000000]:   1.345685      (using Farray1/direct speedup: 1.088602)
-X     [1000000]:   1.650656      (using Farray1/direct speedup: 1.146502)
-Y     [1000000]:   1.143234      (using Farray1/direct speedup: 1.080074)
-Z     [1000000]:   2.031784      (using Farray1/direct speedup: 0.912554)
-ZZ    [1000000]:   2.416385      (using Farray1/direct speedup: 0.976358)
-int   [1000000]:   0.573018      (using Farray1/direct speedup: 0.906060)
-size_t[1000000]:   1.018408      (using Farray1/direct speedup: 1.003478)
-int16 [1000000]:   0.631781      (using Farray1/direct speedup: 1.039682)
-int8  [1000000]:   0.523307      (using Farray1/direct speedup: 1.004052)
-bool  [1000000]:   0.507274      (using Farray1/direct speedup: 1.049305)
 
 --------------------------------
 
-0.020000% of ops are fills:
+Scenario:  50% of the operations are array-fills:
 
-X     [10000]:   0.830546      (using Farray1/direct speedup: 1.005043)
-X     [10000]:   0.896624      (using Farray1/direct speedup: 1.020678)
-Y     [10000]:   0.704003      (using Farray1/direct speedup: 1.030095)
-Z     [10000]:   0.958686      (using Farray1/direct speedup: 0.968157)
-ZZ    [10000]:   0.938068      (using Farray1/direct speedup: 1.029390)
-int   [10000]:   0.820918      (using Farray1/direct speedup: 0.953473)
-size_t[10000]:   0.724413      (using Farray1/direct speedup: 1.025973)
-int16 [10000]:   0.890169      (using Farray1/direct speedup: 0.985375)
-int8  [10000]:   0.816849      (using Farray1/direct speedup: 0.999440)
-bool  [10000]:   0.785981      (using Farray1/direct speedup: 1.003302)
+X     [10000]  Farray1/array speedup:    45.723
+X     [10000]  Farray1/array speedup:    43.901
+Y     [10000]  Farray1/array speedup:    95.392
+Z     [10000]  Farray1/array speedup:    32.637
+ZZ    [10000]  Farray1/array speedup:    40.193
+int64 [10000]  Farray1/array speedup:    25.750
+int32 [10000]  Farray1/array speedup:    22.343
+int16 [10000]  Farray1/array speedup:    22.231
+int8  [10000]  Farray1/array speedup:    22.734
+bool  [10000]  Farray1/array speedup:    22.887
 
-X     [30000]:   0.731930      (using Farray1/direct speedup: 1.069147)
-X     [30000]:   0.838454      (using Farray1/direct speedup: 0.939738)
-Y     [30000]:   0.623579      (using Farray1/direct speedup: 1.079634)
-Z     [30000]:   0.886003      (using Farray1/direct speedup: 0.978880)
-ZZ    [30000]:   1.048852      (using Farray1/direct speedup: 1.033407)
-int   [30000]:   0.666162      (using Farray1/direct speedup: 1.070402)
-size_t[30000]:   0.613916      (using Farray1/direct speedup: 1.017613)
-int16 [30000]:   0.653924      (using Farray1/direct speedup: 1.043973)
-int8  [30000]:   0.658972      (using Farray1/direct speedup: 1.036615)
-bool  [30000]:   0.639071      (using Farray1/direct speedup: 1.014758)
+X     [30000]  Farray1/array speedup:    143.840
+X     [30000]  Farray1/array speedup:    142.339
+Y     [30000]  Farray1/array speedup:    275.272
+Z     [30000]  Farray1/array speedup:    83.286
+ZZ    [30000]  Farray1/array speedup:    98.983
+int64 [30000]  Farray1/array speedup:    70.117
+int32 [30000]  Farray1/array speedup:    67.140
+int16 [30000]  Farray1/array speedup:    68.414
+int8  [30000]  Farray1/array speedup:    61.617
+bool  [30000]  Farray1/array speedup:    64.111
 
-X     [100000]:   0.891706      (using Farray1/direct speedup: 1.002491)
-X     [100000]:   0.882594      (using Farray1/direct speedup: 1.026082)
-Y     [100000]:   0.689068      (using Farray1/direct speedup: 1.092461)
-Z     [100000]:   1.038716      (using Farray1/direct speedup: 1.090142)
-ZZ    [100000]:   0.953396      (using Farray1/direct speedup: 1.133277)
-int   [100000]:   0.707623      (using Farray1/direct speedup: 0.931023)
-size_t[100000]:   0.721279      (using Farray1/direct speedup: 1.067613)
-int16 [100000]:   0.587499      (using Farray1/direct speedup: 1.012288)
-int8  [100000]:   0.552421      (using Farray1/direct speedup: 1.019267)
-bool  [100000]:   0.533396      (using Farray1/direct speedup: 1.008105)
+X     [100000]  Farray1/array speedup:    461.235
+X     [100000]  Farray1/array speedup:    454.336
+Y     [100000]  Farray1/array speedup:    861.563
+Z     [100000]  Farray1/array speedup:    286.667
+ZZ    [100000]  Farray1/array speedup:    432.540
+int64 [100000]  Farray1/array speedup:    220.203
+int32 [100000]  Farray1/array speedup:    214.476
+int16 [100000]  Farray1/array speedup:    222.617
+int8  [100000]  Farray1/array speedup:    229.509
+bool  [100000]  Farray1/array speedup:    218.613
 
-X     [300000]:   1.253599      (using Farray1/direct speedup: 1.097162)
-X     [300000]:   1.330829      (using Farray1/direct speedup: 1.146781)
-Y     [300000]:   0.653047      (using Farray1/direct speedup: 1.688189)
-Z     [300000]:   2.191088      (using Farray1/direct speedup: 0.699287)
-ZZ    [300000]:   1.198511      (using Farray1/direct speedup: 1.501170)
-int   [300000]:   0.991691      (using Farray1/direct speedup: 0.734772)
-size_t[300000]:   0.922257      (using Farray1/direct speedup: 0.918022)
-int16 [300000]:   0.627374      (using Farray1/direct speedup: 1.057350)
-int8  [300000]:   0.511681      (using Farray1/direct speedup: 0.999976)
-bool  [300000]:   0.491102      (using Farray1/direct speedup: 1.053859)
+X     [300000]  Farray1/array speedup:    1271.928
+X     [300000]  Farray1/array speedup:    1298.051
+Y     [300000]  Farray1/array speedup:    2770.103
+Z     [300000]  Farray1/array speedup:    916.864
+ZZ    [300000]  Farray1/array speedup:    1296.535
+int64 [300000]  Farray1/array speedup:    939.000
+int32 [300000]  Farray1/array speedup:    664.435
+int16 [300000]  Farray1/array speedup:    700.216
+int8  [300000]  Farray1/array speedup:    675.823
+bool  [300000]  Farray1/array speedup:    636.581
 
-X     [1000000]:   2.576520      (using Farray1/direct speedup: 0.939211)
-X     [1000000]:   3.394062      (using Farray1/direct speedup: 0.613288)
-Y     [1000000]:   1.592764      (using Farray1/direct speedup: 1.023193)
-Z     [1000000]:   2.658569      (using Farray1/direct speedup: 1.089408)
-ZZ    [1000000]:   5.570517      (using Farray1/direct speedup: 0.697771)
-int   [1000000]:   0.946740      (using Farray1/direct speedup: 1.124428)
-size_t[1000000]:   1.463983      (using Farray1/direct speedup: 1.143293)
-int16 [1000000]:   0.877659      (using Farray1/direct speedup: 1.077362)
-int8  [1000000]:   0.561369      (using Farray1/direct speedup: 0.994536)
-bool  [1000000]:   0.683286      (using Farray1/direct speedup: 0.859223)
+X     [1000000]  Farray1/array speedup:    5100.074
+X     [1000000]  Farray1/array speedup:    5032.800
+Y     [1000000]  Farray1/array speedup:    12315.988
+Z     [1000000]  Farray1/array speedup:    2508.723
+ZZ    [1000000]  Farray1/array speedup:    8999.592
+int64 [1000000]  Farray1/array speedup:    2820.310
+int32 [1000000]  Farray1/array speedup:    2349.107
+int16 [1000000]  Farray1/array speedup:    2303.966
+int8  [1000000]  Farray1/array speedup:    2231.929
+bool  [1000000]  Farray1/array speedup:    2228.555
 
---------------------------------
-
-0.030000% of ops are fills:
-
-X     [10000]:   0.798179      (using Farray1/direct speedup: 1.042393)
-X     [10000]:   0.826156      (using Farray1/direct speedup: 1.017133)
-Y     [10000]:   0.675474      (using Farray1/direct speedup: 0.968671)
-Z     [10000]:   0.940273      (using Farray1/direct speedup: 0.984672)
-ZZ    [10000]:   1.096911      (using Farray1/direct speedup: 0.993640)
-int   [10000]:   0.722594      (using Farray1/direct speedup: 1.008193)
-size_t[10000]:   0.637921      (using Farray1/direct speedup: 1.037509)
-int16 [10000]:   0.750543      (using Farray1/direct speedup: 1.004698)
-int8  [10000]:   0.781579      (using Farray1/direct speedup: 1.027268)
-bool  [10000]:   0.722600      (using Farray1/direct speedup: 1.009889)
-
-X     [30000]:   0.770644      (using Farray1/direct speedup: 1.095634)
-X     [30000]:   0.858866      (using Farray1/direct speedup: 0.920850)
-Y     [30000]:   0.734232      (using Farray1/direct speedup: 0.993666)
-Z     [30000]:   0.887010      (using Farray1/direct speedup: 1.010889)
-ZZ    [30000]:   0.964101      (using Farray1/direct speedup: 1.081990)
-int   [30000]:   0.694384      (using Farray1/direct speedup: 1.058933)
-size_t[30000]:   0.611093      (using Farray1/direct speedup: 1.040538)
-int16 [30000]:   0.642389      (using Farray1/direct speedup: 1.001216)
-int8  [30000]:   0.591256      (using Farray1/direct speedup: 1.051681)
-bool  [30000]:   0.613182      (using Farray1/direct speedup: 1.026380)
-
-X     [100000]:   1.057644      (using Farray1/direct speedup: 0.993564)
-X     [100000]:   1.020797      (using Farray1/direct speedup: 0.992928)
-Y     [100000]:   0.953284      (using Farray1/direct speedup: 1.107536)
-Z     [100000]:   1.016539      (using Farray1/direct speedup: 1.042602)
-ZZ    [100000]:   1.382616      (using Farray1/direct speedup: 1.017005)
-int   [100000]:   0.783487      (using Farray1/direct speedup: 0.909814)
-size_t[100000]:   0.927991      (using Farray1/direct speedup: 0.976129)
-int16 [100000]:   0.583153      (using Farray1/direct speedup: 1.046909)
-int8  [100000]:   0.572416      (using Farray1/direct speedup: 0.926113)
-bool  [100000]:   0.527491      (using Farray1/direct speedup: 1.002300)
-
-X     [300000]:   1.909188      (using Farray1/direct speedup: 0.894030)
-X     [300000]:   2.008178      (using Farray1/direct speedup: 1.019506)
-Y     [300000]:   1.421856      (using Farray1/direct speedup: 1.044834)
-Z     [300000]:   1.310387      (using Farray1/direct speedup: 1.128671)
-ZZ    [300000]:   2.890375      (using Farray1/direct speedup: 1.036658)
-int   [300000]:   0.974792      (using Farray1/direct speedup: 0.856328)
-size_t[300000]:   1.144319      (using Farray1/direct speedup: 0.991326)
-int16 [300000]:   0.723021      (using Farray1/direct speedup: 0.921367)
-int8  [300000]:   0.514112      (using Farray1/direct speedup: 1.039511)
-bool  [300000]:   0.565579      (using Farray1/direct speedup: 0.950821)
-
-X     [1000000]:   4.389850      (using Farray1/direct speedup: 0.985254)
-X     [1000000]:   3.052698      (using Farray1/direct speedup: 1.236671)
-Y     [1000000]:   2.782858      (using Farray1/direct speedup: 0.983264)
-Z     [1000000]:   3.989019      (using Farray1/direct speedup: 1.027708)
-ZZ    [1000000]:   7.097109      (using Farray1/direct speedup: 0.909723)
-int   [1000000]:   1.270767      (using Farray1/direct speedup: 0.984510)
-size_t[1000000]:   2.768161      (using Farray1/direct speedup: 1.030285)
-int16 [1000000]:   1.049421      (using Farray1/direct speedup: 1.044302)
-int8  [1000000]:   0.657722      (using Farray1/direct speedup: 1.014055)
-bool  [1000000]:   0.602873      (using Farray1/direct speedup: 1.034935)
 
 --------------------------------
 
-0.040000% of ops are fills:
+Scenario:  20.000% of the operations are array-fills:
 
-X     [10000]:   0.829303      (using Farray1/direct speedup: 1.012902)
-X     [10000]:   0.839019      (using Farray1/direct speedup: 1.013940)
-Y     [10000]:   0.649733      (using Farray1/direct speedup: 1.015885)
-Z     [10000]:   0.870322      (using Farray1/direct speedup: 1.029571)
-ZZ    [10000]:   1.031066      (using Farray1/direct speedup: 0.977035)
-int   [10000]:   0.699253      (using Farray1/direct speedup: 1.012571)
-size_t[10000]:   0.648266      (using Farray1/direct speedup: 1.036226)
-int16 [10000]:   0.714232      (using Farray1/direct speedup: 1.000235)
-int8  [10000]:   0.738121      (using Farray1/direct speedup: 1.014653)
-bool  [10000]:   0.687887      (using Farray1/direct speedup: 1.067252)
+X     [10000]  Farray1/array speedup:    17.366
+X     [10000]  Farray1/array speedup:    18.008
+Y     [10000]  Farray1/array speedup:    41.479
+Z     [10000]  Farray1/array speedup:    14.014
+ZZ    [10000]  Farray1/array speedup:    16.399
+int64 [10000]  Farray1/array speedup:    11.323
+int32 [10000]  Farray1/array speedup:    8.744
+int16 [10000]  Farray1/array speedup:    9.292
+int8  [10000]  Farray1/array speedup:    9.403
+bool  [10000]  Farray1/array speedup:    9.322
 
-X     [30000]:   0.849764      (using Farray1/direct speedup: 0.991164)
-X     [30000]:   0.835057      (using Farray1/direct speedup: 1.006553)
-Y     [30000]:   0.742612      (using Farray1/direct speedup: 0.987546)
-Z     [30000]:   0.977086      (using Farray1/direct speedup: 0.922377)
-ZZ    [30000]:   1.122947      (using Farray1/direct speedup: 1.053519)
-int   [30000]:   0.664941      (using Farray1/direct speedup: 0.977329)
-size_t[30000]:   0.648895      (using Farray1/direct speedup: 1.080144)
-int16 [30000]:   0.651584      (using Farray1/direct speedup: 0.947960)
-int8  [30000]:   0.580587      (using Farray1/direct speedup: 1.021519)
-bool  [30000]:   0.590096      (using Farray1/direct speedup: 1.009318)
+X     [30000]  Farray1/array speedup:    56.547
+X     [30000]  Farray1/array speedup:    57.133
+Y     [30000]  Farray1/array speedup:    135.397
+Z     [30000]  Farray1/array speedup:    32.333
+ZZ    [30000]  Farray1/array speedup:    40.990
+int64 [30000]  Farray1/array speedup:    30.922
+int32 [30000]  Farray1/array speedup:    26.722
+int16 [30000]  Farray1/array speedup:    28.663
+int8  [30000]  Farray1/array speedup:    26.910
+bool  [30000]  Farray1/array speedup:    25.736
 
-X     [100000]:   1.160431      (using Farray1/direct speedup: 1.088447)
-X     [100000]:   1.320734      (using Farray1/direct speedup: 1.003399)
-Y     [100000]:   1.087030      (using Farray1/direct speedup: 1.036620)
-Z     [100000]:   1.294169      (using Farray1/direct speedup: 0.891252)
-ZZ    [100000]:   2.094964      (using Farray1/direct speedup: 1.004449)
-int   [100000]:   0.747314      (using Farray1/direct speedup: 0.971052)
-size_t[100000]:   0.828716      (using Farray1/direct speedup: 1.006302)
-int16 [100000]:   0.628316      (using Farray1/direct speedup: 1.006476)
-int8  [100000]:   0.506578      (using Farray1/direct speedup: 0.962844)
-bool  [100000]:   0.521405      (using Farray1/direct speedup: 0.991584)
+X     [100000]  Farray1/array speedup:    190.233
+X     [100000]  Farray1/array speedup:    189.090
+Y     [100000]  Farray1/array speedup:    448.811
+Z     [100000]  Farray1/array speedup:    130.074
+ZZ    [100000]  Farray1/array speedup:    181.692
+int64 [100000]  Farray1/array speedup:    84.331
+int32 [100000]  Farray1/array speedup:    72.618
+int16 [100000]  Farray1/array speedup:    72.634
+int8  [100000]  Farray1/array speedup:    93.663
+bool  [100000]  Farray1/array speedup:    83.065
 
-X     [300000]:   2.442385      (using Farray1/direct speedup: 0.690100)
-X     [300000]:   2.463062      (using Farray1/direct speedup: 1.000000)
-Y     [300000]:   1.931091      (using Farray1/direct speedup: 0.901444)
-Z     [300000]:   2.018258      (using Farray1/direct speedup: 0.962098)
-ZZ    [300000]:   2.357613      (using Farray1/direct speedup: 1.156358)
-int   [300000]:   1.066623      (using Farray1/direct speedup: 0.995495)
-size_t[300000]:   1.352944      (using Farray1/direct speedup: 0.893768)
-int16 [300000]:   0.697096      (using Farray1/direct speedup: 1.101834)
-int8  [300000]:   0.576279      (using Farray1/direct speedup: 1.016400)
-bool  [300000]:   0.586194      (using Farray1/direct speedup: 0.893936)
+X     [300000]  Farray1/array speedup:    584.631
+X     [300000]  Farray1/array speedup:    575.152
+Y     [300000]  Farray1/array speedup:    1462.309
+Z     [300000]  Farray1/array speedup:    359.589
+ZZ    [300000]  Farray1/array speedup:    550.642
+int64 [300000]  Farray1/array speedup:    346.804
+int32 [300000]  Farray1/array speedup:    261.986
+int16 [300000]  Farray1/array speedup:    268.133
+int8  [300000]  Farray1/array speedup:    247.875
+bool  [300000]  Farray1/array speedup:    239.998
 
-X     [1000000]:   4.828603      (using Farray1/direct speedup: 1.098915)
-X     [1000000]:   4.800725      (using Farray1/direct speedup: 0.906444)
-Y     [1000000]:   3.537137      (using Farray1/direct speedup: 1.032291)
-Z     [1000000]:   4.730427      (using Farray1/direct speedup: 1.049165)
-ZZ    [1000000]:   8.144593      (using Farray1/direct speedup: 0.931729)
-int   [1000000]:   1.369089      (using Farray1/direct speedup: 1.224312)
-size_t[1000000]:   3.828513      (using Farray1/direct speedup: 0.948171)
-int16 [1000000]:   1.051553      (using Farray1/direct speedup: 1.074012)
-int8  [1000000]:   0.779830      (using Farray1/direct speedup: 1.010930)
-bool  [1000000]:   0.746159      (using Farray1/direct speedup: 1.060373)
+X     [1000000]  Farray1/array speedup:    1759.706
+X     [1000000]  Farray1/array speedup:    1982.438
+Y     [1000000]  Farray1/array speedup:    4746.264
+Z     [1000000]  Farray1/array speedup:    1305.668
+ZZ    [1000000]  Farray1/array speedup:    3421.918
+int64 [1000000]  Farray1/array speedup:    1203.926
+int32 [1000000]  Farray1/array speedup:    909.038
+int16 [1000000]  Farray1/array speedup:    920.441
+int8  [1000000]  Farray1/array speedup:    893.824
+bool  [1000000]  Farray1/array speedup:    902.402
 
---------------------------------
-
-0.050000% of ops are fills:
-
-X     [10000]:   0.769312      (using Farray1/direct speedup: 1.026104)
-X     [10000]:   0.821102      (using Farray1/direct speedup: 0.999875)
-Y     [10000]:   0.674309      (using Farray1/direct speedup: 0.988531)
-Z     [10000]:   0.885407      (using Farray1/direct speedup: 1.054796)
-ZZ    [10000]:   1.068970      (using Farray1/direct speedup: 0.956806)
-int   [10000]:   0.670902      (using Farray1/direct speedup: 1.035979)
-size_t[10000]:   0.612896      (using Farray1/direct speedup: 1.068318)
-int16 [10000]:   0.625019      (using Farray1/direct speedup: 1.071970)
-int8  [10000]:   0.697374      (using Farray1/direct speedup: 1.009324)
-bool  [10000]:   0.656953      (using Farray1/direct speedup: 1.021134)
-
-X     [30000]:   0.920300      (using Farray1/direct speedup: 0.989057)
-X     [30000]:   0.851027      (using Farray1/direct speedup: 0.996471)
-Y     [30000]:   0.785877      (using Farray1/direct speedup: 0.936972)
-Z     [30000]:   0.784910      (using Farray1/direct speedup: 1.168016)
-ZZ    [30000]:   1.504932      (using Farray1/direct speedup: 0.705651)
-int   [30000]:   0.651956      (using Farray1/direct speedup: 1.003140)
-size_t[30000]:   0.692766      (using Farray1/direct speedup: 1.015513)
-int16 [30000]:   0.612278      (using Farray1/direct speedup: 1.011307)
-int8  [30000]:   0.577250      (using Farray1/direct speedup: 1.037135)
-bool  [30000]:   0.551535      (using Farray1/direct speedup: 1.027819)
-
-X     [100000]:   1.298392      (using Farray1/direct speedup: 1.124517)
-X     [100000]:   1.334074      (using Farray1/direct speedup: 0.953976)
-Y     [100000]:   1.087783      (using Farray1/direct speedup: 0.985740)
-Z     [100000]:   1.284907      (using Farray1/direct speedup: 0.900511)
-ZZ    [100000]:   1.784361      (using Farray1/direct speedup: 1.188595)
-int   [100000]:   0.795536      (using Farray1/direct speedup: 1.010002)
-size_t[100000]:   0.965174      (using Farray1/direct speedup: 1.042242)
-int16 [100000]:   0.716406      (using Farray1/direct speedup: 0.960549)
-int8  [100000]:   0.550422      (using Farray1/direct speedup: 0.963668)
-bool  [100000]:   0.538745      (using Farray1/direct speedup: 0.981098)
-
-X     [300000]:   2.475712      (using Farray1/direct speedup: 0.982910)
-X     [300000]:   2.317982      (using Farray1/direct speedup: 0.993139)
-Y     [300000]:   2.055666      (using Farray1/direct speedup: 0.951734)
-Z     [300000]:   2.058309      (using Farray1/direct speedup: 0.818456)
-ZZ    [300000]:   4.245562      (using Farray1/direct speedup: 0.935452)
-int   [300000]:   0.937124      (using Farray1/direct speedup: 1.254217)
-size_t[300000]:   1.399685      (using Farray1/direct speedup: 0.917745)
-int16 [300000]:   0.730170      (using Farray1/direct speedup: 1.041556)
-int8  [300000]:   0.553927      (using Farray1/direct speedup: 1.034474)
-bool  [300000]:   0.619577      (using Farray1/direct speedup: 0.946562)
-
-X     [1000000]:   6.849383      (using Farray1/direct speedup: 0.686396)
-X     [1000000]:   5.474361      (using Farray1/direct speedup: 1.187061)
-Y     [1000000]:   4.512737      (using Farray1/direct speedup: 0.955574)
-Z     [1000000]:   6.138879      (using Farray1/direct speedup: 1.122915)
-ZZ    [1000000]:   11.390236      (using Farray1/direct speedup: 0.800119)
-int   [1000000]:   1.709952      (using Farray1/direct speedup: 0.986136)
-size_t[1000000]:   3.660365      (using Farray1/direct speedup: 0.958076)
-int16 [1000000]:   1.254247      (using Farray1/direct speedup: 0.979634)
-int8  [1000000]:   0.746235      (using Farray1/direct speedup: 1.099398)
-bool  [1000000]:   0.800844      (using Farray1/direct speedup: 0.972996)
 
 --------------------------------
 
-0.070000% of ops are fills:
+Scenario:  10.000% of the operations are array-fills:
 
-X     [10000]:   0.775237      (using Farray1/direct speedup: 1.059762)
-X     [10000]:   0.821530      (using Farray1/direct speedup: 1.002749)
-Y     [10000]:   0.661273      (using Farray1/direct speedup: 1.074511)
-Z     [10000]:   0.860941      (using Farray1/direct speedup: 1.123436)
-ZZ    [10000]:   1.031191      (using Farray1/direct speedup: 1.032924)
-int   [10000]:   0.675596      (using Farray1/direct speedup: 1.036256)
-size_t[10000]:   0.641805      (using Farray1/direct speedup: 1.042603)
-int16 [10000]:   0.698105      (using Farray1/direct speedup: 0.999081)
-int8  [10000]:   0.652368      (using Farray1/direct speedup: 1.019431)
-bool  [10000]:   0.623428      (using Farray1/direct speedup: 1.002892)
+X     [10000]  Farray1/array speedup:    7.362
+X     [10000]  Farray1/array speedup:    8.791
+Y     [10000]  Farray1/array speedup:    32.660
+Z     [10000]  Farray1/array speedup:    5.606
+ZZ    [10000]  Farray1/array speedup:    8.333
+int64 [10000]  Farray1/array speedup:    5.877
+int32 [10000]  Farray1/array speedup:    5.160
+int16 [10000]  Farray1/array speedup:    4.725
+int8  [10000]  Farray1/array speedup:    5.155
+bool  [10000]  Farray1/array speedup:    5.174
 
-X     [30000]:   0.873237      (using Farray1/direct speedup: 1.006930)
-X     [30000]:   0.964693      (using Farray1/direct speedup: 1.020205)
-Y     [30000]:   0.981166      (using Farray1/direct speedup: 0.883276)
-Z     [30000]:   1.311382      (using Farray1/direct speedup: 0.844630)
-ZZ    [30000]:   1.133314      (using Farray1/direct speedup: 1.083024)
-int   [30000]:   0.689223      (using Farray1/direct speedup: 1.055932)
-size_t[30000]:   0.815587      (using Farray1/direct speedup: 1.004701)
-int16 [30000]:   0.621275      (using Farray1/direct speedup: 0.954187)
-int8  [30000]:   0.520018      (using Farray1/direct speedup: 1.010147)
-bool  [30000]:   0.586333      (using Farray1/direct speedup: 1.007843)
+X     [30000]  Farray1/array speedup:    24.006
+X     [30000]  Farray1/array speedup:    28.395
+Y     [30000]  Farray1/array speedup:    58.188
+Z     [30000]  Farray1/array speedup:    19.199
+ZZ    [30000]  Farray1/array speedup:    21.604
+int64 [30000]  Farray1/array speedup:    15.279
+int32 [30000]  Farray1/array speedup:    14.207
+int16 [30000]  Farray1/array speedup:    14.278
+int8  [30000]  Farray1/array speedup:    13.534
+bool  [30000]  Farray1/array speedup:    13.454
 
-X     [100000]:   1.639384      (using Farray1/direct speedup: 0.860975)
-X     [100000]:   1.684863      (using Farray1/direct speedup: 0.862673)
-Y     [100000]:   1.260122      (using Farray1/direct speedup: 0.962997)
-Z     [100000]:   1.108835      (using Farray1/direct speedup: 1.034632)
-ZZ    [100000]:   1.903155      (using Farray1/direct speedup: 1.102608)
-int   [100000]:   0.810194      (using Farray1/direct speedup: 0.906851)
-size_t[100000]:   1.132064      (using Farray1/direct speedup: 0.788998)
-int16 [100000]:   0.692462      (using Farray1/direct speedup: 1.029387)
-int8  [100000]:   0.545155      (using Farray1/direct speedup: 1.026435)
-bool  [100000]:   0.555141      (using Farray1/direct speedup: 0.996420)
+X     [100000]  Farray1/array speedup:    88.022
+X     [100000]  Farray1/array speedup:    90.737
+Y     [100000]  Farray1/array speedup:    196.627
+Z     [100000]  Farray1/array speedup:    67.843
+ZZ    [100000]  Farray1/array speedup:    87.885
+int64 [100000]  Farray1/array speedup:    47.318
+int32 [100000]  Farray1/array speedup:    44.196
+int16 [100000]  Farray1/array speedup:    45.501
+int8  [100000]  Farray1/array speedup:    46.131
+bool  [100000]  Farray1/array speedup:    45.316
 
-X     [300000]:   3.172728      (using Farray1/direct speedup: 1.111047)
-X     [300000]:   3.080814      (using Farray1/direct speedup: 0.890818)
-Y     [300000]:   2.494891      (using Farray1/direct speedup: 0.735918)
-Z     [300000]:   2.754079      (using Farray1/direct speedup: 1.035408)
-ZZ    [300000]:   4.044222      (using Farray1/direct speedup: 1.166069)
-int   [300000]:   1.544173      (using Farray1/direct speedup: 0.653514)
-size_t[300000]:   1.383507      (using Farray1/direct speedup: 1.000789)
-int16 [300000]:   0.697476      (using Farray1/direct speedup: 1.190355)
-int8  [300000]:   0.617675      (using Farray1/direct speedup: 1.011751)
-bool  [300000]:   0.640357      (using Farray1/direct speedup: 0.907621)
+X     [300000]  Farray1/array speedup:    282.354
+X     [300000]  Farray1/array speedup:    288.752
+Y     [300000]  Farray1/array speedup:    608.104
+Z     [300000]  Farray1/array speedup:    222.388
+ZZ    [300000]  Farray1/array speedup:    217.561
+int64 [300000]  Farray1/array speedup:    185.730
+int32 [300000]  Farray1/array speedup:    129.011
+int16 [300000]  Farray1/array speedup:    134.154
+int8  [300000]  Farray1/array speedup:    143.049
+bool  [300000]  Farray1/array speedup:    125.845
 
-X     [1000000]:   5.953953      (using Farray1/direct speedup: 1.255162)
-X     [1000000]:   7.262175      (using Farray1/direct speedup: 1.069741)
-Y     [1000000]:   5.253734      (using Farray1/direct speedup: 1.164885)
-Z     [1000000]:   10.280685      (using Farray1/direct speedup: 0.988438)
-ZZ    [1000000]:   13.706002      (using Farray1/direct speedup: 0.895173)
-int   [1000000]:   2.553155      (using Farray1/direct speedup: 0.937875)
-size_t[1000000]:   5.917725      (using Farray1/direct speedup: 0.944894)
-int16 [1000000]:   1.581343      (using Farray1/direct speedup: 0.869693)
-int8  [1000000]:   0.924353      (using Farray1/direct speedup: 1.031002)
-bool  [1000000]:   1.014748      (using Farray1/direct speedup: 0.967234)
+X     [1000000]  Farray1/array speedup:    942.171
+X     [1000000]  Farray1/array speedup:    981.455
+Y     [1000000]  Farray1/array speedup:    1262.447
+Z     [1000000]  Farray1/array speedup:    707.206
+ZZ    [1000000]  Farray1/array speedup:    1911.080
+int64 [1000000]  Farray1/array speedup:    577.787
+int32 [1000000]  Farray1/array speedup:    454.139
+int16 [1000000]  Farray1/array speedup:    439.350
+int8  [1000000]  Farray1/array speedup:    458.440
+bool  [1000000]  Farray1/array speedup:    456.345
 
---------------------------------
-
-0.100000% of ops are fills:
-
-X     [10000]:   0.813116      (using Farray1/direct speedup: 1.026197)
-X     [10000]:   0.837648      (using Farray1/direct speedup: 0.997630)
-Y     [10000]:   0.657174      (using Farray1/direct speedup: 1.124795)
-Z     [10000]:   0.991063      (using Farray1/direct speedup: 1.004775)
-ZZ    [10000]:   1.150409      (using Farray1/direct speedup: 1.020384)
-int   [10000]:   0.675823      (using Farray1/direct speedup: 1.013104)
-size_t[10000]:   0.731023      (using Farray1/direct speedup: 1.029164)
-int16 [10000]:   0.658886      (using Farray1/direct speedup: 0.987915)
-int8  [10000]:   0.600510      (using Farray1/direct speedup: 1.015082)
-bool  [10000]:   0.587471      (using Farray1/direct speedup: 1.008116)
-
-X     [30000]:   1.114596      (using Farray1/direct speedup: 0.947455)
-X     [30000]:   1.207820      (using Farray1/direct speedup: 0.996863)
-Y     [30000]:   1.012662      (using Farray1/direct speedup: 1.081950)
-Z     [30000]:   1.172223      (using Farray1/direct speedup: 1.037815)
-ZZ    [30000]:   1.617365      (using Farray1/direct speedup: 1.004675)
-int   [30000]:   0.747641      (using Farray1/direct speedup: 1.000434)
-size_t[30000]:   0.813288      (using Farray1/direct speedup: 1.041554)
-int16 [30000]:   0.636148      (using Farray1/direct speedup: 1.049146)
-int8  [30000]:   0.551693      (using Farray1/direct speedup: 0.979659)
-bool  [30000]:   0.531387      (using Farray1/direct speedup: 1.030074)
-
-X     [100000]:   2.090894      (using Farray1/direct speedup: 1.089108)
-X     [100000]:   2.139239      (using Farray1/direct speedup: 0.995624)
-Y     [100000]:   1.822995      (using Farray1/direct speedup: 1.050522)
-Z     [100000]:   1.439845      (using Farray1/direct speedup: 1.172583)
-ZZ    [100000]:   2.870368      (using Farray1/direct speedup: 1.053768)
-int   [100000]:   0.920268      (using Farray1/direct speedup: 1.006012)
-size_t[100000]:   1.294205      (using Farray1/direct speedup: 1.055141)
-int16 [100000]:   0.775583      (using Farray1/direct speedup: 1.090139)
-int8  [100000]:   0.571634      (using Farray1/direct speedup: 1.008838)
-bool  [100000]:   0.597900      (using Farray1/direct speedup: 0.986285)
-
-X     [300000]:   5.554816      (using Farray1/direct speedup: 0.967777)
-X     [300000]:   4.738779      (using Farray1/direct speedup: 1.032125)
-Y     [300000]:   3.635221      (using Farray1/direct speedup: 0.924135)
-Z     [300000]:   2.979531      (using Farray1/direct speedup: 1.012128)
-ZZ    [300000]:   7.062153      (using Farray1/direct speedup: 1.013956)
-int   [300000]:   1.656049      (using Farray1/direct speedup: 1.010259)
-size_t[300000]:   2.681190      (using Farray1/direct speedup: 1.010065)
-int16 [300000]:   1.048573      (using Farray1/direct speedup: 0.970564)
-int8  [300000]:   0.636833      (using Farray1/direct speedup: 1.019371)
-bool  [300000]:   0.654955      (using Farray1/direct speedup: 1.055304)
-
-X     [1000000]:   11.954951      (using Farray1/direct speedup: 1.047685)
-X     [1000000]:   11.271898      (using Farray1/direct speedup: 0.925510)
-Y     [1000000]:   8.503967      (using Farray1/direct speedup: 0.951961)
-Z     [1000000]:   10.108840      (using Farray1/direct speedup: 1.154195)
-ZZ    [1000000]:   20.382424      (using Farray1/direct speedup: 0.855488)
-int   [1000000]:   3.459303      (using Farray1/direct speedup: 0.966503)
-size_t[1000000]:   8.249607      (using Farray1/direct speedup: 0.948450)
-int16 [1000000]:   1.520689      (using Farray1/direct speedup: 0.977807)
-int8  [1000000]:   1.019848      (using Farray1/direct speedup: 1.098203)
-bool  [1000000]:   1.377130      (using Farray1/direct speedup: 0.931439)
 
 --------------------------------
 
-0.150000% of ops are fills:
+Scenario:  5.000% of the operations are array-fills:
 
-X     [10000]:   0.863259      (using Farray1/direct speedup: 1.008378)
-X     [10000]:   0.871814      (using Farray1/direct speedup: 1.030432)
-Y     [10000]:   0.804700      (using Farray1/direct speedup: 0.986246)
-Z     [10000]:   1.039687      (using Farray1/direct speedup: 0.975768)
-ZZ    [10000]:   1.406812      (using Farray1/direct speedup: 1.019986)
-int   [10000]:   0.660787      (using Farray1/direct speedup: 1.024172)
-size_t[10000]:   0.655192      (using Farray1/direct speedup: 1.123673)
-int16 [10000]:   0.613012      (using Farray1/direct speedup: 1.012551)
-int8  [10000]:   0.570509      (using Farray1/direct speedup: 1.020951)
-bool  [10000]:   0.542101      (using Farray1/direct speedup: 1.036951)
+X     [10000]  Farray1/array speedup:    4.609
+X     [10000]  Farray1/array speedup:    4.693
+Y     [10000]  Farray1/array speedup:    11.086
+Z     [10000]  Farray1/array speedup:    4.499
+ZZ    [10000]  Farray1/array speedup:    4.955
+int64 [10000]  Farray1/array speedup:    3.485
+int32 [10000]  Farray1/array speedup:    2.956
+int16 [10000]  Farray1/array speedup:    2.762
+int8  [10000]  Farray1/array speedup:    2.890
+bool  [10000]  Farray1/array speedup:    2.923
 
-X     [30000]:   1.532843      (using Farray1/direct speedup: 0.960027)
-X     [30000]:   1.358901      (using Farray1/direct speedup: 1.015490)
-Y     [30000]:   1.212614      (using Farray1/direct speedup: 1.033955)
-Z     [30000]:   1.446129      (using Farray1/direct speedup: 0.988730)
-ZZ    [30000]:   2.225963      (using Farray1/direct speedup: 0.878907)
-int   [30000]:   0.780554      (using Farray1/direct speedup: 1.024273)
-size_t[30000]:   0.867125      (using Farray1/direct speedup: 1.030064)
-int16 [30000]:   0.737898      (using Farray1/direct speedup: 0.949583)
-int8  [30000]:   0.523018      (using Farray1/direct speedup: 1.032427)
-bool  [30000]:   0.495895      (using Farray1/direct speedup: 1.108545)
+X     [30000]  Farray1/array speedup:    14.230
+X     [30000]  Farray1/array speedup:    14.598
+Y     [30000]  Farray1/array speedup:    33.481
+Z     [30000]  Farray1/array speedup:    9.702
+ZZ    [30000]  Farray1/array speedup:    11.353
+int64 [30000]  Farray1/array speedup:    7.905
+int32 [30000]  Farray1/array speedup:    7.629
+int16 [30000]  Farray1/array speedup:    7.558
+int8  [30000]  Farray1/array speedup:    7.140
+bool  [30000]  Farray1/array speedup:    6.867
 
-X     [100000]:   2.931994      (using Farray1/direct speedup: 1.026142)
-X     [100000]:   2.926923      (using Farray1/direct speedup: 1.026879)
-Y     [100000]:   2.827302      (using Farray1/direct speedup: 0.797729)
-Z     [100000]:   1.809582      (using Farray1/direct speedup: 1.096139)
-ZZ    [100000]:   4.334963      (using Farray1/direct speedup: 0.999704)
-int   [100000]:   1.126898      (using Farray1/direct speedup: 1.047353)
-size_t[100000]:   1.541255      (using Farray1/direct speedup: 0.956352)
-int16 [100000]:   0.848909      (using Farray1/direct speedup: 1.113376)
-int8  [100000]:   0.558949      (using Farray1/direct speedup: 1.077317)
-bool  [100000]:   0.589676      (using Farray1/direct speedup: 0.996191)
+X     [100000]  Farray1/array speedup:    48.154
+X     [100000]  Farray1/array speedup:    43.599
+Y     [100000]  Farray1/array speedup:    99.475
+Z     [100000]  Farray1/array speedup:    34.856
+ZZ    [100000]  Farray1/array speedup:    48.929
+int64 [100000]  Farray1/array speedup:    24.994
+int32 [100000]  Farray1/array speedup:    21.919
+int16 [100000]  Farray1/array speedup:    22.329
+int8  [100000]  Farray1/array speedup:    23.221
+bool  [100000]  Farray1/array speedup:    22.123
 
-X     [300000]:   6.455911      (using Farray1/direct speedup: 0.992518)
-X     [300000]:   5.796200      (using Farray1/direct speedup: 1.040483)
-Y     [300000]:   4.572918      (using Farray1/direct speedup: 0.848711)
-Z     [300000]:   5.817649      (using Farray1/direct speedup: 1.084435)
-ZZ    [300000]:   10.766926      (using Farray1/direct speedup: 1.122814)
-int   [300000]:   2.222068      (using Farray1/direct speedup: 0.942764)
-size_t[300000]:   3.160420      (using Farray1/direct speedup: 1.009688)
-int16 [300000]:   1.002061      (using Farray1/direct speedup: 1.157306)
-int8  [300000]:   0.674543      (using Farray1/direct speedup: 1.057965)
-bool  [300000]:   0.751648      (using Farray1/direct speedup: 0.980142)
+X     [300000]  Farray1/array speedup:    135.308
+X     [300000]  Farray1/array speedup:    141.934
+Y     [300000]  Farray1/array speedup:    420.855
+Z     [300000]  Farray1/array speedup:    103.672
+ZZ    [300000]  Farray1/array speedup:    144.631
+int64 [300000]  Farray1/array speedup:    93.093
+int32 [300000]  Farray1/array speedup:    66.510
+int16 [300000]  Farray1/array speedup:    68.574
+int8  [300000]  Farray1/array speedup:    65.438
+bool  [300000]  Farray1/array speedup:    68.093
 
-X     [1000000]:   19.208136      (using Farray1/direct speedup: 1.062740)
-X     [1000000]:   13.481542      (using Farray1/direct speedup: 0.961819)
-Y     [1000000]:   9.769377      (using Farray1/direct speedup: 1.128404)
-Z     [1000000]:   19.839736      (using Farray1/direct speedup: 1.007743)
-ZZ    [1000000]:   27.779238      (using Farray1/direct speedup: 0.820212)
-int   [1000000]:   3.784384      (using Farray1/direct speedup: 1.020702)
-size_t[1000000]:   12.035475      (using Farray1/direct speedup: 0.852193)
-int16 [1000000]:   2.353433      (using Farray1/direct speedup: 0.925067)
-int8  [1000000]:   1.396981      (using Farray1/direct speedup: 1.055993)
-bool  [1000000]:   1.457627      (using Farray1/direct speedup: 0.947724)
+X     [1000000]  Farray1/array speedup:    472.308
+X     [1000000]  Farray1/array speedup:    471.817
+Y     [1000000]  Farray1/array speedup:    1052.824
+Z     [1000000]  Farray1/array speedup:    378.848
+ZZ    [1000000]  Farray1/array speedup:    1006.875
+int64 [1000000]  Farray1/array speedup:    279.215
+int32 [1000000]  Farray1/array speedup:    233.710
+int16 [1000000]  Farray1/array speedup:    229.490
+int8  [1000000]  Farray1/array speedup:    222.247
+bool  [1000000]  Farray1/array speedup:    220.883
 
---------------------------------
-
-0.200000% of ops are fills:
-
-X     [10000]:   0.924703      (using Farray1/direct speedup: 1.014858)
-X     [10000]:   0.953702      (using Farray1/direct speedup: 0.996121)
-Y     [10000]:   0.977275      (using Farray1/direct speedup: 0.994087)
-Z     [10000]:   1.126772      (using Farray1/direct speedup: 1.002767)
-ZZ    [10000]:   1.391820      (using Farray1/direct speedup: 0.909235)
-int   [10000]:   0.710462      (using Farray1/direct speedup: 1.007669)
-size_t[10000]:   0.842180      (using Farray1/direct speedup: 0.963953)
-int16 [10000]:   0.616703      (using Farray1/direct speedup: 1.016838)
-int8  [10000]:   0.569815      (using Farray1/direct speedup: 0.995951)
-bool  [10000]:   0.533630      (using Farray1/direct speedup: 1.047881)
-
-X     [30000]:   1.600650      (using Farray1/direct speedup: 0.999034)
-X     [30000]:   1.616478      (using Farray1/direct speedup: 1.013726)
-Y     [30000]:   1.566181      (using Farray1/direct speedup: 0.932688)
-Z     [30000]:   1.690075      (using Farray1/direct speedup: 0.912067)
-ZZ    [30000]:   2.282793      (using Farray1/direct speedup: 1.041913)
-int   [30000]:   0.892422      (using Farray1/direct speedup: 1.012218)
-size_t[30000]:   0.925078      (using Farray1/direct speedup: 1.055503)
-int16 [30000]:   0.728365      (using Farray1/direct speedup: 0.987318)
-int8  [30000]:   0.584524      (using Farray1/direct speedup: 0.969073)
-bool  [30000]:   0.589870      (using Farray1/direct speedup: 0.973584)
-
-X     [100000]:   3.538260      (using Farray1/direct speedup: 1.085938)
-X     [100000]:   4.190242      (using Farray1/direct speedup: 0.999643)
-Y     [100000]:   3.201027      (using Farray1/direct speedup: 1.035876)
-Z     [100000]:   3.125989      (using Farray1/direct speedup: 1.021752)
-ZZ    [100000]:   4.855602      (using Farray1/direct speedup: 1.026851)
-int   [100000]:   1.228574      (using Farray1/direct speedup: 1.026331)
-size_t[100000]:   2.029427      (using Farray1/direct speedup: 0.988569)
-int16 [100000]:   0.895846      (using Farray1/direct speedup: 0.996917)
-int8  [100000]:   0.640861      (using Farray1/direct speedup: 0.994246)
-bool  [100000]:   0.626778      (using Farray1/direct speedup: 1.083890)
-
-X     [300000]:   8.991554      (using Farray1/direct speedup: 1.004621)
-X     [300000]:   10.028598      (using Farray1/direct speedup: 1.006280)
-Y     [300000]:   7.020578      (using Farray1/direct speedup: 1.044370)
-Z     [300000]:   6.573820      (using Farray1/direct speedup: 0.906101)
-ZZ    [300000]:   15.405662      (using Farray1/direct speedup: 0.992450)
-int   [300000]:   2.930254      (using Farray1/direct speedup: 0.938504)
-size_t[300000]:   4.069968      (using Farray1/direct speedup: 1.000000)
-int16 [300000]:   1.374378      (using Farray1/direct speedup: 1.009423)
-int8  [300000]:   0.858668      (using Farray1/direct speedup: 1.005626)
-bool  [300000]:   0.807138      (using Farray1/direct speedup: 1.002088)
-
-X     [1000000]:   19.453135      (using Farray1/direct speedup: 1.126301)
-X     [1000000]:   15.048417      (using Farray1/direct speedup: 1.433912)
-Y     [1000000]:   14.337851      (using Farray1/direct speedup: 1.019995)
-Z     [1000000]:   20.992210      (using Farray1/direct speedup: 1.091889)
-ZZ    [1000000]:   39.863126      (using Farray1/direct speedup: 0.788499)
-int   [1000000]:   5.865407      (using Farray1/direct speedup: 1.081660)
-size_t[1000000]:   19.813862      (using Farray1/direct speedup: 0.919467)
-int16 [1000000]:   2.837439      (using Farray1/direct speedup: 1.180794)
-int8  [1000000]:   1.720950      (using Farray1/direct speedup: 1.021398)
-bool  [1000000]:   1.674637      (using Farray1/direct speedup: 1.124253)
 
 --------------------------------
 
-0.500000% of ops are fills:
+Scenario:  2.000% of the operations are array-fills:
 
-X     [10000]:   1.369582      (using Farray1/direct speedup: 0.955159)
-X     [10000]:   1.373829      (using Farray1/direct speedup: 1.001228)
-Y     [10000]:   1.230991      (using Farray1/direct speedup: 1.061660)
-Z     [10000]:   1.499831      (using Farray1/direct speedup: 0.909214)
-ZZ    [10000]:   2.131715      (using Farray1/direct speedup: 0.967142)
-int   [10000]:   0.809167      (using Farray1/direct speedup: 1.030996)
-size_t[10000]:   0.953878      (using Farray1/direct speedup: 1.049089)
-int16 [10000]:   0.637017      (using Farray1/direct speedup: 0.949015)
-int8  [10000]:   0.534618      (using Farray1/direct speedup: 1.033866)
-bool  [10000]:   0.533242      (using Farray1/direct speedup: 1.003035)
+X     [10000]  Farray1/array speedup:    2.137
+X     [10000]  Farray1/array speedup:    2.242
+Y     [10000]  Farray1/array speedup:    4.570
+Z     [10000]  Farray1/array speedup:    2.200
+ZZ    [10000]  Farray1/array speedup:    2.502
+int64 [10000]  Farray1/array speedup:    1.754
+int32 [10000]  Farray1/array speedup:    1.654
+int16 [10000]  Farray1/array speedup:    1.497
+int8  [10000]  Farray1/array speedup:    1.508
+bool  [10000]  Farray1/array speedup:    1.670
 
-X     [30000]:   3.038658      (using Farray1/direct speedup: 1.007749)
-X     [30000]:   3.089491      (using Farray1/direct speedup: 0.991205)
-Y     [30000]:   2.515963      (using Farray1/direct speedup: 1.014603)
-Z     [30000]:   2.702996      (using Farray1/direct speedup: 1.002615)
-ZZ    [30000]:   4.628391      (using Farray1/direct speedup: 0.872628)
-int   [30000]:   1.111101      (using Farray1/direct speedup: 1.029940)
-size_t[30000]:   1.437468      (using Farray1/direct speedup: 1.018809)
-int16 [30000]:   0.869087      (using Farray1/direct speedup: 0.979329)
-int8  [30000]:   0.601596      (using Farray1/direct speedup: 0.976688)
-bool  [30000]:   0.577893      (using Farray1/direct speedup: 1.009633)
+X     [30000]  Farray1/array speedup:    6.422
+X     [30000]  Farray1/array speedup:    6.123
+Y     [30000]  Farray1/array speedup:    11.528
+Z     [30000]  Farray1/array speedup:    4.613
+ZZ    [30000]  Farray1/array speedup:    5.397
+int64 [30000]  Farray1/array speedup:    3.871
+int32 [30000]  Farray1/array speedup:    3.038
+int16 [30000]  Farray1/array speedup:    3.368
+int8  [30000]  Farray1/array speedup:    3.211
+bool  [30000]  Farray1/array speedup:    3.154
 
-X     [100000]:   7.986741      (using Farray1/direct speedup: 0.870803)
-X     [100000]:   7.891294      (using Farray1/direct speedup: 1.012001)
-Y     [100000]:   5.442340      (using Farray1/direct speedup: 1.104737)
-Z     [100000]:   7.702799      (using Farray1/direct speedup: 0.987851)
-ZZ    [100000]:   9.536677      (using Farray1/direct speedup: 1.066296)
-int   [100000]:   1.904864      (using Farray1/direct speedup: 1.092779)
-size_t[100000]:   3.787683      (using Farray1/direct speedup: 1.054738)
-int16 [100000]:   1.378589      (using Farray1/direct speedup: 0.992634)
-int8  [100000]:   0.647635      (using Farray1/direct speedup: 1.230668)
-bool  [100000]:   0.718825      (using Farray1/direct speedup: 0.993720)
+X     [100000]  Farray1/array speedup:    19.299
+X     [100000]  Farray1/array speedup:    17.488
+Y     [100000]  Farray1/array speedup:    29.843
+Z     [100000]  Farray1/array speedup:    15.603
+ZZ    [100000]  Farray1/array speedup:    20.689
+int64 [100000]  Farray1/array speedup:    10.118
+int32 [100000]  Farray1/array speedup:    9.416
+int16 [100000]  Farray1/array speedup:    8.899
+int8  [100000]  Farray1/array speedup:    9.536
+bool  [100000]  Farray1/array speedup:    9.919
 
-X     [300000]:   13.791728      (using Farray1/direct speedup: 1.398578)
-X     [300000]:   22.441209      (using Farray1/direct speedup: 1.042901)
-Y     [300000]:   7.121622      (using Farray1/direct speedup: 2.024214)
-Z     [300000]:   16.956846      (using Farray1/direct speedup: 0.963187)
-ZZ    [300000]:   44.274049      (using Farray1/direct speedup: 1.036812)
-int   [300000]:   4.335070      (using Farray1/direct speedup: 1.120090)
-size_t[300000]:   6.788651      (using Farray1/direct speedup: 0.907241)
-int16 [300000]:   1.983585      (using Farray1/direct speedup: 1.146540)
-int8  [300000]:   1.063275      (using Farray1/direct speedup: 1.045813)
-bool  [300000]:   1.097352      (using Farray1/direct speedup: 0.894462)
+X     [300000]  Farray1/array speedup:    54.795
+X     [300000]  Farray1/array speedup:    54.171
+Y     [300000]  Farray1/array speedup:    123.864
+Z     [300000]  Farray1/array speedup:    46.107
+ZZ    [300000]  Farray1/array speedup:    59.946
+int64 [300000]  Farray1/array speedup:    37.417
+int32 [300000]  Farray1/array speedup:    25.720
+int16 [300000]  Farray1/array speedup:    27.465
+int8  [300000]  Farray1/array speedup:    25.339
+bool  [300000]  Farray1/array speedup:    24.399
 
-X     [1000000]:   36.120872      (using Farray1/direct speedup: 0.989466)
-X     [1000000]:   41.394445      (using Farray1/direct speedup: 0.715267)
-Y     [1000000]:   30.719149      (using Farray1/direct speedup: 0.963467)
-Z     [1000000]:   52.225131      (using Farray1/direct speedup: 1.069196)
-ZZ    [1000000]:   96.460075      (using Farray1/direct speedup: 0.718119)
-int   [1000000]:   11.600187      (using Farray1/direct speedup: 0.918590)
-size_t[1000000]:   61.509909      (using Farray1/direct speedup: 0.941985)
-int16 [1000000]:   5.547247      (using Farray1/direct speedup: 0.768951)
-int8  [1000000]:   2.557749      (using Farray1/direct speedup: 0.905368)
-bool  [1000000]:   2.238510      (using Farray1/direct speedup: 1.028294)
+X     [1000000]  Farray1/array speedup:    184.904
+X     [1000000]  Farray1/array speedup:    181.900
+Y     [1000000]  Farray1/array speedup:    413.731
+Z     [1000000]  Farray1/array speedup:    158.689
+ZZ    [1000000]  Farray1/array speedup:    415.704
+int64 [1000000]  Farray1/array speedup:    124.697
+int32 [1000000]  Farray1/array speedup:    91.638
+int16 [1000000]  Farray1/array speedup:    89.082
+int8  [1000000]  Farray1/array speedup:    84.227
+bool  [1000000]  Farray1/array speedup:    86.426
 
---------------------------------
-
-1.000000% of ops are fills:
-
-X     [10000]:   1.988514      (using Farray1/direct speedup: 0.951884)
-X     [10000]:   1.945440      (using Farray1/direct speedup: 1.048147)
-Y     [10000]:   2.213288      (using Farray1/direct speedup: 0.932476)
-Z     [10000]:   1.832813      (using Farray1/direct speedup: 1.058754)
-ZZ    [10000]:   3.500296      (using Farray1/direct speedup: 0.939510)
-int   [10000]:   0.859157      (using Farray1/direct speedup: 1.066831)
-size_t[10000]:   1.310993      (using Farray1/direct speedup: 1.004148)
-int16 [10000]:   0.801776      (using Farray1/direct speedup: 0.979755)
-int8  [10000]:   0.584818      (using Farray1/direct speedup: 0.996643)
-bool  [10000]:   0.582645      (using Farray1/direct speedup: 0.987338)
-
-X     [30000]:   5.065221      (using Farray1/direct speedup: 1.021345)
-X     [30000]:   5.448737      (using Farray1/direct speedup: 0.999258)
-Y     [30000]:   3.702776      (using Farray1/direct speedup: 1.178158)
-Z     [30000]:   4.262677      (using Farray1/direct speedup: 0.987718)
-ZZ    [30000]:   8.741592      (using Farray1/direct speedup: 1.003059)
-int   [30000]:   1.483214      (using Farray1/direct speedup: 1.093548)
-size_t[30000]:   2.238683      (using Farray1/direct speedup: 1.019631)
-int16 [30000]:   1.113432      (using Farray1/direct speedup: 0.956817)
-int8  [30000]:   0.577914      (using Farray1/direct speedup: 1.094486)
-bool  [30000]:   0.645363      (using Farray1/direct speedup: 1.002706)
-
-X     [100000]:   15.105739      (using Farray1/direct speedup: 1.009397)
-X     [100000]:   17.093675      (using Farray1/direct speedup: 1.018262)
-Y     [100000]:   12.853610      (using Farray1/direct speedup: 1.001330)
-Z     [100000]:   12.701718      (using Farray1/direct speedup: 0.894890)
-ZZ    [100000]:   16.180675      (using Farray1/direct speedup: 0.896358)
-int   [100000]:   3.177080      (using Farray1/direct speedup: 1.032056)
-size_t[100000]:   7.143845      (using Farray1/direct speedup: 0.991971)
-int16 [100000]:   1.814150      (using Farray1/direct speedup: 1.024576)
-int8  [100000]:   1.017429      (using Farray1/direct speedup: 1.055966)
-bool  [100000]:   1.041448      (using Farray1/direct speedup: 0.978736)
-
-X     [300000]:   32.883087      (using Farray1/direct speedup: 1.395577)
-X     [300000]:   29.715850      (using Farray1/direct speedup: 1.019216)
-Y     [300000]:   16.382865      (using Farray1/direct speedup: 1.300779)
-Z     [300000]:   19.968266      (using Farray1/direct speedup: 1.023943)
-ZZ    [300000]:   48.937740      (using Farray1/direct speedup: 1.136663)
-int   [300000]:   10.315311      (using Farray1/direct speedup: 1.016043)
-size_t[300000]:   19.084045      (using Farray1/direct speedup: 0.920952)
-int16 [300000]:   2.395980      (using Farray1/direct speedup: 1.764906)
-int8  [300000]:   1.845427      (using Farray1/direct speedup: 1.087993)
-bool  [300000]:   1.979390      (using Farray1/direct speedup: 0.986238)
-
-X     [1000000]:   112.019119      (using Farray1/direct speedup: 0.971176)
-X     [1000000]:   85.432030      (using Farray1/direct speedup: 0.887140)
-Y     [1000000]:   57.121599      (using Farray1/direct speedup: 0.759920)
-Z     [1000000]:   69.114560      (using Farray1/direct speedup: 1.211105)
-ZZ    [1000000]:   127.547859      (using Farray1/direct speedup: 0.690097)
-int   [1000000]:   22.285110      (using Farray1/direct speedup: 0.976334)
-size_t[1000000]:   59.885995      (using Farray1/direct speedup: 0.866449)
-int16 [1000000]:   12.662106      (using Farray1/direct speedup: 0.948771)
-int8  [1000000]:   5.802038      (using Farray1/direct speedup: 0.955459)
-bool  [1000000]:   6.473185      (using Farray1/direct speedup: 1.001027)
 
 --------------------------------
 
-2.000000% of ops are fills:
+Scenario:  1.000% of the operations are array-fills:
 
-X     [10000]:   3.651152      (using Farray1/direct speedup: 1.011530)
-X     [10000]:   3.792901      (using Farray1/direct speedup: 0.899659)
-Y     [10000]:   3.283173      (using Farray1/direct speedup: 1.018959)
-Z     [10000]:   3.317521      (using Farray1/direct speedup: 0.980394)
-ZZ    [10000]:   6.025126      (using Farray1/direct speedup: 1.002427)
-int   [10000]:   1.086842      (using Farray1/direct speedup: 0.994620)
-size_t[10000]:   1.870489      (using Farray1/direct speedup: 1.010039)
-int16 [10000]:   0.800105      (using Farray1/direct speedup: 0.974106)
-int8  [10000]:   0.674856      (using Farray1/direct speedup: 0.929463)
-bool  [10000]:   0.573287      (using Farray1/direct speedup: 1.005732)
+X     [10000]  Farray1/array speedup:    1.465
+X     [10000]  Farray1/array speedup:    1.416
+Y     [10000]  Farray1/array speedup:    2.637
+Z     [10000]  Farray1/array speedup:    1.505
+ZZ    [10000]  Farray1/array speedup:    1.768
+int64 [10000]  Farray1/array speedup:    1.381
+int32 [10000]  Farray1/array speedup:    1.171
+int16 [10000]  Farray1/array speedup:    1.068
+int8  [10000]  Farray1/array speedup:    1.093
+bool  [10000]  Farray1/array speedup:    1.095
 
-X     [30000]:   10.777323      (using Farray1/direct speedup: 0.992196)
-X     [30000]:   9.931066      (using Farray1/direct speedup: 0.984239)
-Y     [30000]:   8.678537      (using Farray1/direct speedup: 1.007055)
-Z     [30000]:   7.389247      (using Farray1/direct speedup: 1.099277)
-ZZ    [30000]:   16.637700      (using Farray1/direct speedup: 0.963658)
-int   [30000]:   2.396367      (using Farray1/direct speedup: 1.004867)
-size_t[30000]:   3.678251      (using Farray1/direct speedup: 1.020659)
-int16 [30000]:   1.584493      (using Farray1/direct speedup: 0.993893)
-int8  [30000]:   0.599791      (using Farray1/direct speedup: 0.998067)
-bool  [30000]:   0.737743      (using Farray1/direct speedup: 1.115199)
+X     [30000]  Farray1/array speedup:    3.423
+X     [30000]  Farray1/array speedup:    3.273
+Y     [30000]  Farray1/array speedup:    6.357
+Z     [30000]  Farray1/array speedup:    2.755
+ZZ    [30000]  Farray1/array speedup:    3.076
+int64 [30000]  Farray1/array speedup:    2.003
+int32 [30000]  Farray1/array speedup:    1.978
+int16 [30000]  Farray1/array speedup:    2.001
+int8  [30000]  Farray1/array speedup:    2.040
+bool  [30000]  Farray1/array speedup:    1.928
 
-X     [100000]:   32.151428      (using Farray1/direct speedup: 0.990435)
-X     [100000]:   31.609583      (using Farray1/direct speedup: 1.001879)
-Y     [100000]:   24.384527      (using Farray1/direct speedup: 0.971537)
-Z     [100000]:   21.662761      (using Farray1/direct speedup: 1.011508)
-ZZ    [100000]:   61.689816      (using Farray1/direct speedup: 0.962230)
-int   [100000]:   5.502428      (using Farray1/direct speedup: 1.109973)
-size_t[100000]:   8.421808      (using Farray1/direct speedup: 1.143461)
-int16 [100000]:   2.918408      (using Farray1/direct speedup: 0.951930)
-int8  [100000]:   1.486714      (using Farray1/direct speedup: 0.972683)
-bool  [100000]:   1.263290      (using Farray1/direct speedup: 1.177167)
+X     [100000]  Farray1/array speedup:    9.857
+X     [100000]  Farray1/array speedup:    9.766
+Y     [100000]  Farray1/array speedup:    20.415
+Z     [100000]  Farray1/array speedup:    8.269
+ZZ    [100000]  Farray1/array speedup:    11.225
+int64 [100000]  Farray1/array speedup:    5.287
+int32 [100000]  Farray1/array speedup:    4.842
+int16 [100000]  Farray1/array speedup:    5.038
+int8  [100000]  Farray1/array speedup:    5.023
+bool  [100000]  Farray1/array speedup:    4.953
 
-X     [300000]:   55.203137      (using Farray1/direct speedup: 1.052124)
-X     [300000]:   72.257723      (using Farray1/direct speedup: 1.093155)
-Y     [300000]:   55.558817      (using Farray1/direct speedup: 0.831681)
-Z     [300000]:   63.767818      (using Farray1/direct speedup: 0.983131)
-ZZ    [300000]:   113.151867      (using Farray1/direct speedup: 0.852305)
-int   [300000]:   19.203424      (using Farray1/direct speedup: 0.851705)
-size_t[300000]:   28.371119      (using Farray1/direct speedup: 0.966371)
-int16 [300000]:   7.714746      (using Farray1/direct speedup: 1.067680)
-int8  [300000]:   3.069262      (using Farray1/direct speedup: 1.127387)
-bool  [300000]:   3.395182      (using Farray1/direct speedup: 0.844514)
+X     [300000]  Farray1/array speedup:    28.148
+X     [300000]  Farray1/array speedup:    27.866
+Y     [300000]  Farray1/array speedup:    65.141
+Z     [300000]  Farray1/array speedup:    23.746
+ZZ    [300000]  Farray1/array speedup:    29.609
+int64 [300000]  Farray1/array speedup:    20.338
+int32 [300000]  Farray1/array speedup:    13.528
+int16 [300000]  Farray1/array speedup:    13.619
+int8  [300000]  Farray1/array speedup:    13.330
+bool  [300000]  Farray1/array speedup:    13.758
 
-X     [1000000]:   167.475818      (using Farray1/direct speedup: 0.841723)
-X     [1000000]:   180.848282      (using Farray1/direct speedup: 0.854534)
-Y     [1000000]:   109.896214      (using Farray1/direct speedup: 0.809447)
-Z     [1000000]:   95.587719      (using Farray1/direct speedup: 1.170539)
-ZZ    [1000000]:   313.534141      (using Farray1/direct speedup: 0.503115)
-int   [1000000]:   25.546341      (using Farray1/direct speedup: 1.329578)
-size_t[1000000]:   152.136893      (using Farray1/direct speedup: 0.791298)
-int16 [1000000]:   22.813205      (using Farray1/direct speedup: 1.007790)
-int8  [1000000]:   10.370264      (using Farray1/direct speedup: 1.230226)
-bool  [1000000]:   12.659951      (using Farray1/direct speedup: 0.935207)
+X     [1000000]  Farray1/array speedup:    90.525
+X     [1000000]  Farray1/array speedup:    91.549
+Y     [1000000]  Farray1/array speedup:    213.238
+Z     [1000000]  Farray1/array speedup:    85.313
+ZZ    [1000000]  Farray1/array speedup:    202.232
+int64 [1000000]  Farray1/array speedup:    61.032
+int32 [1000000]  Farray1/array speedup:    46.008
+int16 [1000000]  Farray1/array speedup:    43.699
+int8  [1000000]  Farray1/array speedup:    42.013
+bool  [1000000]  Farray1/array speedup:    42.886
 
---------------------------------
-
-5.000000% of ops are fills:
-
-X     [10000]:   8.092157      (using Farray1/direct speedup: 0.992218)
-X     [10000]:   7.429812      (using Farray1/direct speedup: 0.995159)
-Y     [10000]:   7.661931      (using Farray1/direct speedup: 0.980869)
-Z     [10000]:   6.710891      (using Farray1/direct speedup: 0.851824)
-ZZ    [10000]:   15.153152      (using Farray1/direct speedup: 0.983882)
-int   [10000]:   1.623320      (using Farray1/direct speedup: 0.946540)
-size_t[10000]:   2.626048      (using Farray1/direct speedup: 1.276448)
-int16 [10000]:   1.084437      (using Farray1/direct speedup: 0.990792)
-int8  [10000]:   0.784926      (using Farray1/direct speedup: 0.978246)
-bool  [10000]:   0.689287      (using Farray1/direct speedup: 0.963332)
-
-X     [30000]:   19.621467      (using Farray1/direct speedup: 1.075130)
-X     [30000]:   23.552302      (using Farray1/direct speedup: 1.102972)
-Y     [30000]:   18.253142      (using Farray1/direct speedup: 1.155723)
-Z     [30000]:   17.029044      (using Farray1/direct speedup: 0.934985)
-ZZ    [30000]:   40.906438      (using Farray1/direct speedup: 0.923761)
-int   [30000]:   4.790385      (using Farray1/direct speedup: 1.002893)
-size_t[30000]:   7.994181      (using Farray1/direct speedup: 0.974336)
-int16 [30000]:   2.787402      (using Farray1/direct speedup: 0.987331)
-int8  [30000]:   0.920579      (using Farray1/direct speedup: 0.996764)
-bool  [30000]:   0.854386      (using Farray1/direct speedup: 1.056824)
-
-X     [100000]:   86.664553      (using Farray1/direct speedup: 1.037660)
-X     [100000]:   57.279749      (using Farray1/direct speedup: 1.285426)
-Y     [100000]:   46.197581      (using Farray1/direct speedup: 1.078573)
-Z     [100000]:   52.330159      (using Farray1/direct speedup: 0.947478)
-ZZ    [100000]:   163.005739      (using Farray1/direct speedup: 0.909274)
-int   [100000]:   8.445838      (using Farray1/direct speedup: 1.377072)
-size_t[100000]:   34.602276      (using Farray1/direct speedup: 1.004946)
-int16 [100000]:   5.184879      (using Farray1/direct speedup: 0.885513)
-int8  [100000]:   2.769649      (using Farray1/direct speedup: 1.045773)
-bool  [100000]:   2.887594      (using Farray1/direct speedup: 1.100867)
-
-X     [300000]:   136.372037      (using Farray1/direct speedup: 1.649641)
-X     [300000]:   126.225622      (using Farray1/direct speedup: 1.396365)
-Y     [300000]:   128.840376      (using Farray1/direct speedup: 0.974191)
-Z     [300000]:   93.546390      (using Farray1/direct speedup: 1.190695)
-ZZ    [300000]:   308.175913      (using Farray1/direct speedup: 0.873654)
-int   [300000]:   43.457785      (using Farray1/direct speedup: 1.038784)
-size_t[300000]:   63.724228      (using Farray1/direct speedup: 0.701012)
-int16 [300000]:   16.995409      (using Farray1/direct speedup: 0.909850)
-int8  [300000]:   6.060316      (using Farray1/direct speedup: 0.893820)
-bool  [300000]:   6.056890      (using Farray1/direct speedup: 0.878326)
-
-X     [1000000]:   425.978862      (using Farray1/direct speedup: 0.610784)
-X     [1000000]:   439.003009      (using Farray1/direct speedup: 0.847069)
-Y     [1000000]:   419.718064      (using Farray1/direct speedup: 0.568486)
-Z     [1000000]:   255.131032      (using Farray1/direct speedup: 0.955890)
-ZZ    [1000000]:   796.807462      (using Farray1/direct speedup: 0.429678)
-int   [1000000]:   75.176339      (using Farray1/direct speedup: 1.201993)
-size_t[1000000]:   265.182752      (using Farray1/direct speedup: 0.979598)
-int16 [1000000]:   56.712128      (using Farray1/direct speedup: 1.030141)
-int8  [1000000]:   25.754113      (using Farray1/direct speedup: 1.098945)
-bool  [1000000]:   29.641975      (using Farray1/direct speedup: 0.830258)
 
 --------------------------------
 
-10.000000% of ops are fills:
+Scenario:  0.500% of the operations are array-fills:
 
-X     [10000]:   14.633725      (using Farray1/direct speedup: 1.066513)
-X     [10000]:   15.397768      (using Farray1/direct speedup: 1.005099)
-Y     [10000]:   13.572436      (using Farray1/direct speedup: 1.084840)
-Z     [10000]:   13.364255      (using Farray1/direct speedup: 0.809922)
-ZZ    [10000]:   22.529071      (using Farray1/direct speedup: 1.068759)
-int   [10000]:   2.569483      (using Farray1/direct speedup: 0.987927)
-size_t[10000]:   6.067830      (using Farray1/direct speedup: 1.014023)
-int16 [10000]:   1.609823      (using Farray1/direct speedup: 0.943979)
-int8  [10000]:   0.831672      (using Farray1/direct speedup: 1.024681)
-bool  [10000]:   0.874854      (using Farray1/direct speedup: 0.988751)
+X     [10000]  Farray1/array speedup:    0.974
+X     [10000]  Farray1/array speedup:    1.014
+Y     [10000]  Farray1/array speedup:    1.695
+Z     [10000]  Farray1/array speedup:    1.154
+ZZ    [10000]  Farray1/array speedup:    1.354
+int64 [10000]  Farray1/array speedup:    0.964
+int32 [10000]  Farray1/array speedup:    0.931
+int16 [10000]  Farray1/array speedup:    0.860
+int8  [10000]  Farray1/array speedup:    0.894
+bool  [10000]  Farray1/array speedup:    0.876
 
-X     [30000]:   52.473565      (using Farray1/direct speedup: 0.967836)
-X     [30000]:   44.303343      (using Farray1/direct speedup: 1.162544)
-Y     [30000]:   42.975746      (using Farray1/direct speedup: 1.013712)
-Z     [30000]:   31.242095      (using Farray1/direct speedup: 1.010968)
-ZZ    [30000]:   75.702626      (using Farray1/direct speedup: 1.033940)
-int   [30000]:   8.631765      (using Farray1/direct speedup: 0.999494)
-size_t[30000]:   14.392461      (using Farray1/direct speedup: 1.096790)
-int16 [30000]:   4.811321      (using Farray1/direct speedup: 0.986830)
-int8  [30000]:   1.230335      (using Farray1/direct speedup: 0.967226)
-bool  [30000]:   1.228431      (using Farray1/direct speedup: 0.935794)
+X     [30000]  Farray1/array speedup:    1.959
+X     [30000]  Farray1/array speedup:    1.949
+Y     [30000]  Farray1/array speedup:    3.806
+Z     [30000]  Farray1/array speedup:    1.809
+ZZ    [30000]  Farray1/array speedup:    2.136
+int64 [30000]  Farray1/array speedup:    1.549
+int32 [30000]  Farray1/array speedup:    1.381
+int16 [30000]  Farray1/array speedup:    1.319
+int8  [30000]  Farray1/array speedup:    1.284
+bool  [30000]  Farray1/array speedup:    1.243
 
-X     [100000]:   166.444110      (using Farray1/direct speedup: 1.031008)
-X     [100000]:   169.840662      (using Farray1/direct speedup: 0.993830)
-Y     [100000]:   127.334270      (using Farray1/direct speedup: 0.837647)
-Z     [100000]:   93.203508      (using Farray1/direct speedup: 0.913267)
-ZZ    [100000]:   212.944067      (using Farray1/direct speedup: 0.880755)
-int   [100000]:   24.686941      (using Farray1/direct speedup: 1.041615)
-size_t[100000]:   51.071997      (using Farray1/direct speedup: 0.960275)
-int16 [100000]:   12.107570      (using Farray1/direct speedup: 0.981016)
-int8  [100000]:   5.027040      (using Farray1/direct speedup: 1.038424)
-bool  [100000]:   5.322991      (using Farray1/direct speedup: 1.004599)
+X     [100000]  Farray1/array speedup:    5.113
+X     [100000]  Farray1/array speedup:    5.037
+Y     [100000]  Farray1/array speedup:    10.883
+Z     [100000]  Farray1/array speedup:    4.529
+ZZ    [100000]  Farray1/array speedup:    6.116
+int64 [100000]  Farray1/array speedup:    3.112
+int32 [100000]  Farray1/array speedup:    2.812
+int16 [100000]  Farray1/array speedup:    2.778
+int8  [100000]  Farray1/array speedup:    2.572
+bool  [100000]  Farray1/array speedup:    2.809
 
-X     [300000]:   349.050682      (using Farray1/direct speedup: 1.081138)
-X     [300000]:   362.565557      (using Farray1/direct speedup: 1.003655)
-Y     [300000]:   222.444948      (using Farray1/direct speedup: 0.700857)
-Z     [300000]:   147.139731      (using Farray1/direct speedup: 1.046475)
-ZZ    [300000]:   625.422358      (using Farray1/direct speedup: 0.687715)
-int   [300000]:   75.351104      (using Farray1/direct speedup: 0.918852)
-size_t[300000]:   128.140618      (using Farray1/direct speedup: 0.917513)
-int16 [300000]:   35.925546      (using Farray1/direct speedup: 1.013663)
-int8  [300000]:   13.509542      (using Farray1/direct speedup: 0.990548)
-bool  [300000]:   14.392130      (using Farray1/direct speedup: 0.968463)
+X     [300000]  Farray1/array speedup:    14.837
+X     [300000]  Farray1/array speedup:    13.444
+Y     [300000]  Farray1/array speedup:    32.431
+Z     [300000]  Farray1/array speedup:    11.007
+ZZ    [300000]  Farray1/array speedup:    17.063
+int64 [300000]  Farray1/array speedup:    10.674
+int32 [300000]  Farray1/array speedup:    6.956
+int16 [300000]  Farray1/array speedup:    7.170
+int8  [300000]  Farray1/array speedup:    6.886
+bool  [300000]  Farray1/array speedup:    6.943
 
-X     [1000000]:   835.204131      (using Farray1/direct speedup: 0.765723)
-X     [1000000]:   878.589578      (using Farray1/direct speedup: 0.728226)
-Y     [1000000]:   532.839540      (using Farray1/direct speedup: 0.616058)
-Z     [1000000]:   377.394995      (using Farray1/direct speedup: 1.037604)
-ZZ    [1000000]:   1130.818688      (using Farray1/direct speedup: 0.428267)
-int   [1000000]:   137.687728      (using Farray1/direct speedup: 1.006618)
-size_t[1000000]:   734.702253      (using Farray1/direct speedup: 0.681038)
-int16 [1000000]:   97.023213      (using Farray1/direct speedup: 1.046006)
-int8  [1000000]:   52.425172      (using Farray1/direct speedup: 0.897191)
-bool  [1000000]:   58.844316      (using Farray1/direct speedup: 0.884689)
+X     [1000000]  Farray1/array speedup:    45.652
+X     [1000000]  Farray1/array speedup:    43.662
+Y     [1000000]  Farray1/array speedup:    108.610
+Z     [1000000]  Farray1/array speedup:    43.135
+ZZ    [1000000]  Farray1/array speedup:    117.879
+int64 [1000000]  Farray1/array speedup:    33.363
+int32 [1000000]  Farray1/array speedup:    23.398
+int16 [1000000]  Farray1/array speedup:    22.195
+int8  [1000000]  Farray1/array speedup:    21.207
+bool  [1000000]  Farray1/array speedup:    20.218
 
---------------------------------
-
-20.000000% of ops are fills:
-
-X     [10000]:   31.529345      (using Farray1/direct speedup: 1.003419)
-X     [10000]:   34.871470      (using Farray1/direct speedup: 0.775556)
-Y     [10000]:   29.262214      (using Farray1/direct speedup: 0.941350)
-Z     [10000]:   24.096005      (using Farray1/direct speedup: 0.994658)
-ZZ    [10000]:   45.513018      (using Farray1/direct speedup: 1.058626)
-int   [10000]:   6.340990      (using Farray1/direct speedup: 0.991899)
-size_t[10000]:   15.579882      (using Farray1/direct speedup: 1.093851)
-int16 [10000]:   3.247156      (using Farray1/direct speedup: 0.990862)
-int8  [10000]:   1.018925      (using Farray1/direct speedup: 0.955749)
-bool  [10000]:   1.138499      (using Farray1/direct speedup: 0.989277)
-
-X     [30000]:   84.342603      (using Farray1/direct speedup: 1.067696)
-X     [30000]:   83.756868      (using Farray1/direct speedup: 1.130213)
-Y     [30000]:   81.182214      (using Farray1/direct speedup: 1.010050)
-Z     [30000]:   64.037781      (using Farray1/direct speedup: 1.001207)
-ZZ    [30000]:   137.421558      (using Farray1/direct speedup: 1.022898)
-int   [30000]:   16.125174      (using Farray1/direct speedup: 1.068351)
-size_t[30000]:   30.866109      (using Farray1/direct speedup: 0.947160)
-int16 [30000]:   9.100754      (using Farray1/direct speedup: 0.991842)
-int8  [30000]:   1.896370      (using Farray1/direct speedup: 0.981045)
-bool  [30000]:   1.880579      (using Farray1/direct speedup: 0.982227)
-
-X     [100000]:   323.175105      (using Farray1/direct speedup: 1.047128)
-X     [100000]:   327.242690      (using Farray1/direct speedup: 0.996358)
-Y     [100000]:   245.191896      (using Farray1/direct speedup: 0.918539)
-Z     [100000]:   171.130845      (using Farray1/direct speedup: 0.928685)
-ZZ    [100000]:   422.429727      (using Farray1/direct speedup: 0.853591)
-int   [100000]:   47.938528      (using Farray1/direct speedup: 1.006975)
-size_t[100000]:   120.303745      (using Farray1/direct speedup: 0.997924)
-int16 [100000]:   19.367556      (using Farray1/direct speedup: 1.128185)
-int8  [100000]:   10.065046      (using Farray1/direct speedup: 1.036296)
-bool  [100000]:   10.955434      (using Farray1/direct speedup: 0.980828)
-
-X     [300000]:   604.898949      (using Farray1/direct speedup: 1.203092)
-X     [300000]:   812.244251      (using Farray1/direct speedup: 0.964067)
-Y     [300000]:   429.463580      (using Farray1/direct speedup: 0.816505)
-Z     [300000]:   267.902016      (using Farray1/direct speedup: 1.027800)
-ZZ    [300000]:   1188.374791      (using Farray1/direct speedup: 0.540271)
-int   [300000]:   135.786657      (using Farray1/direct speedup: 1.107143)
-size_t[300000]:   240.318761      (using Farray1/direct speedup: 0.801850)
-int16 [300000]:   70.065934      (using Farray1/direct speedup: 1.020561)
-int8  [300000]:   26.972468      (using Farray1/direct speedup: 0.966730)
-bool  [300000]:   29.790393      (using Farray1/direct speedup: 0.934694)
-
-X     [1000000]:   1684.726141      (using Farray1/direct speedup: 0.617157)
-X     [1000000]:   1520.950594      (using Farray1/direct speedup: 0.701624)
-Y     [1000000]:   956.064502      (using Farray1/direct speedup: 0.516782)
-Z     [1000000]:   590.149446      (using Farray1/direct speedup: 1.013084)
-ZZ    [1000000]:   2100.632653      (using Farray1/direct speedup: 0.416270)
-int   [1000000]:   178.249001      (using Farray1/direct speedup: 1.059612)
-size_t[1000000]:   1296.016779      (using Farray1/direct speedup: 0.642796)
-int16 [1000000]:   200.319249      (using Farray1/direct speedup: 1.010436)
-int8  [1000000]:   99.802218      (using Farray1/direct speedup: 0.939236)
-bool  [1000000]:   98.701214      (using Farray1/direct speedup: 0.788079)
 
 --------------------------------
 
-50.000000% of ops are fills:
+Scenario:  0.200% of the operations are array-fills:
 
-X     [10000]:   78.276316      (using Farray1/direct speedup: 1.021767)
-X     [10000]:   87.365102      (using Farray1/direct speedup: 0.988912)
-Y     [10000]:   63.264442      (using Farray1/direct speedup: 1.260518)
-Z     [10000]:   58.416047      (using Farray1/direct speedup: 0.946680)
-ZZ    [10000]:   98.650342      (using Farray1/direct speedup: 1.163448)
-int   [10000]:   10.312500      (using Farray1/direct speedup: 1.019197)
-size_t[10000]:   28.328073      (using Farray1/direct speedup: 1.016892)
-int16 [10000]:   5.412533      (using Farray1/direct speedup: 1.020426)
-int8  [10000]:   2.191721      (using Farray1/direct speedup: 1.043973)
-bool  [10000]:   2.094354      (using Farray1/direct speedup: 1.042603)
+X     [10000]  Farray1/array speedup:    0.795
+X     [10000]  Farray1/array speedup:    0.773
+Y     [10000]  Farray1/array speedup:    1.104
+Z     [10000]  Farray1/array speedup:    0.875
+ZZ    [10000]  Farray1/array speedup:    1.029
+int64 [10000]  Farray1/array speedup:    0.858
+int32 [10000]  Farray1/array speedup:    0.792
+int16 [10000]  Farray1/array speedup:    0.756
+int8  [10000]  Farray1/array speedup:    0.785
+bool  [10000]  Farray1/array speedup:    0.791
 
-X     [30000]:   266.457215      (using Farray1/direct speedup: 0.987572)
-X     [30000]:   277.644991      (using Farray1/direct speedup: 1.058605)
-Y     [30000]:   224.589367      (using Farray1/direct speedup: 1.033918)
-Z     [30000]:   98.097561      (using Farray1/direct speedup: 0.919073)
-ZZ    [30000]:   321.443396      (using Farray1/direct speedup: 0.992622)
-int   [30000]:   41.589091      (using Farray1/direct speedup: 1.028678)
-size_t[30000]:   85.715311      (using Farray1/direct speedup: 0.890309)
-int16 [30000]:   22.063265      (using Farray1/direct speedup: 1.073384)
-int8  [30000]:   4.257171      (using Farray1/direct speedup: 1.005970)
-bool  [30000]:   4.101739      (using Farray1/direct speedup: 1.118677)
+X     [30000]  Farray1/array speedup:    1.150
+X     [30000]  Farray1/array speedup:    1.151
+Y     [30000]  Farray1/array speedup:    1.851
+Z     [30000]  Farray1/array speedup:    1.227
+ZZ    [30000]  Farray1/array speedup:    1.417
+int64 [30000]  Farray1/array speedup:    1.080
+int32 [30000]  Farray1/array speedup:    0.983
+int16 [30000]  Farray1/array speedup:    0.902
+int8  [30000]  Farray1/array speedup:    0.942
+bool  [30000]  Farray1/array speedup:    0.881
 
-X     [100000]:   760.580952      (using Farray1/direct speedup: 1.047672)
-X     [100000]:   876.576020      (using Farray1/direct speedup: 0.924571)
-Y     [100000]:   565.101996      (using Farray1/direct speedup: 0.954497)
-Z     [100000]:   445.424965      (using Farray1/direct speedup: 0.815789)
-ZZ    [100000]:   945.063866      (using Farray1/direct speedup: 0.821369)
-int   [100000]:   112.945069      (using Farray1/direct speedup: 1.098765)
-size_t[100000]:   339.060166      (using Farray1/direct speedup: 1.044420)
-int16 [100000]:   62.263946      (using Farray1/direct speedup: 1.016598)
-int8  [100000]:   28.932996      (using Farray1/direct speedup: 1.025940)
-bool  [100000]:   29.940950      (using Farray1/direct speedup: 1.040053)
+X     [100000]  Farray1/array speedup:    2.327
+X     [100000]  Farray1/array speedup:    2.274
+Y     [100000]  Farray1/array speedup:    4.174
+Z     [100000]  Farray1/array speedup:    2.281
+ZZ    [100000]  Farray1/array speedup:    2.999
+int64 [100000]  Farray1/array speedup:    1.660
+int32 [100000]  Farray1/array speedup:    1.602
+int16 [100000]  Farray1/array speedup:    1.485
+int8  [100000]  Farray1/array speedup:    1.437
+bool  [100000]  Farray1/array speedup:    1.482
 
-X     [300000]:   1665.097514      (using Farray1/direct speedup: 0.787651)
-X     [300000]:   2061.939929      (using Farray1/direct speedup: 0.452559)
-Y     [300000]:   1325.743982      (using Farray1/direct speedup: 0.578847)
-Z     [300000]:   723.598312      (using Farray1/direct speedup: 0.987496)
-ZZ    [300000]:   3022.162170      (using Farray1/direct speedup: 0.381211)
-int   [300000]:   286.344991      (using Farray1/direct speedup: 1.008580)
-size_t[300000]:   627.830835      (using Farray1/direct speedup: 0.578328)
-int16 [300000]:   156.542302      (using Farray1/direct speedup: 1.051020)
-int8  [300000]:   69.701783      (using Farray1/direct speedup: 0.936267)
-bool  [300000]:   78.397849      (using Farray1/direct speedup: 0.973822)
+X     [300000]  Farray1/array speedup:    5.528
+X     [300000]  Farray1/array speedup:    5.690
+Y     [300000]  Farray1/array speedup:    13.693
+Z     [300000]  Farray1/array speedup:    5.080
+ZZ    [300000]  Farray1/array speedup:    7.581
+int64 [300000]  Farray1/array speedup:    4.425
+int32 [300000]  Farray1/array speedup:    3.231
+int16 [300000]  Farray1/array speedup:    3.200
+int8  [300000]  Farray1/array speedup:    2.998
+bool  [300000]  Farray1/array speedup:    3.001
 
-X     [1000000]:   3001.041391      (using Farray1/direct speedup: 0.729909)
-X     [1000000]:   4688.883508      (using Farray1/direct speedup: 0.424444)
-Y     [1000000]:   2030.761118      (using Farray1/direct speedup: 0.430290)
-Z     [1000000]:   1176.983460      (using Farray1/direct speedup: 0.984563)
-ZZ    [1000000]:   5281.769002      (using Farray1/direct speedup: 0.433881)
-int   [1000000]:   384.376033      (using Farray1/direct speedup: 1.019663)
-size_t[1000000]:   2336.447883      (using Farray1/direct speedup: 0.653887)
-int16 [1000000]:   619.028286      (using Farray1/direct speedup: 0.998339)
-int8  [1000000]:   215.494845      (using Farray1/direct speedup: 0.815126)
-bool  [1000000]:   294.294613      (using Farray1/direct speedup: 0.698824)
+X     [1000000]  Farray1/array speedup:    17.339
+X     [1000000]  Farray1/array speedup:    17.349
+Y     [1000000]  Farray1/array speedup:    50.377
+Z     [1000000]  Farray1/array speedup:    16.909
+ZZ    [1000000]  Farray1/array speedup:    44.218
+int64 [1000000]  Farray1/array speedup:    13.435
+int32 [1000000]  Farray1/array speedup:    9.408
+int16 [1000000]  Farray1/array speedup:    8.899
+int8  [1000000]  Farray1/array speedup:    8.400
+bool  [1000000]  Farray1/array speedup:    7.753
 
-Overall time: 308.760240s.
+
+--------------------------------
+
+Scenario:  0.150% of the operations are array-fills:
+
+X     [10000]  Farray1/array speedup:    0.739
+X     [10000]  Farray1/array speedup:    0.741
+Y     [10000]  Farray1/array speedup:    0.996
+Z     [10000]  Farray1/array speedup:    0.871
+ZZ    [10000]  Farray1/array speedup:    0.952
+int64 [10000]  Farray1/array speedup:    0.760
+int32 [10000]  Farray1/array speedup:    0.760
+int16 [10000]  Farray1/array speedup:    0.708
+int8  [10000]  Farray1/array speedup:    0.798
+bool  [10000]  Farray1/array speedup:    0.781
+
+X     [30000]  Farray1/array speedup:    1.002
+X     [30000]  Farray1/array speedup:    1.008
+Y     [30000]  Farray1/array speedup:    1.598
+Z     [30000]  Farray1/array speedup:    1.075
+ZZ    [30000]  Farray1/array speedup:    1.185
+int64 [30000]  Farray1/array speedup:    0.964
+int32 [30000]  Farray1/array speedup:    0.891
+int16 [30000]  Farray1/array speedup:    0.844
+int8  [30000]  Farray1/array speedup:    0.828
+bool  [30000]  Farray1/array speedup:    0.865
+
+X     [100000]  Farray1/array speedup:    1.761
+X     [100000]  Farray1/array speedup:    1.631
+Y     [100000]  Farray1/array speedup:    3.666
+Z     [100000]  Farray1/array speedup:    2.028
+ZZ    [100000]  Farray1/array speedup:    2.452
+int64 [100000]  Farray1/array speedup:    1.455
+int32 [100000]  Farray1/array speedup:    1.351
+int16 [100000]  Farray1/array speedup:    1.268
+int8  [100000]  Farray1/array speedup:    1.221
+bool  [100000]  Farray1/array speedup:    1.279
+
+X     [300000]  Farray1/array speedup:    4.475
+X     [300000]  Farray1/array speedup:    4.303
+Y     [300000]  Farray1/array speedup:    8.985
+Z     [300000]  Farray1/array speedup:    4.560
+ZZ    [300000]  Farray1/array speedup:    5.803
+int64 [300000]  Farray1/array speedup:    3.528
+int32 [300000]  Farray1/array speedup:    2.612
+int16 [300000]  Farray1/array speedup:    2.471
+int8  [300000]  Farray1/array speedup:    2.418
+bool  [300000]  Farray1/array speedup:    2.420
+
+X     [1000000]  Farray1/array speedup:    13.117
+X     [1000000]  Farray1/array speedup:    13.141
+Y     [1000000]  Farray1/array speedup:    31.404
+Z     [1000000]  Farray1/array speedup:    13.574
+ZZ    [1000000]  Farray1/array speedup:    35.179
+int64 [1000000]  Farray1/array speedup:    9.987
+int32 [1000000]  Farray1/array speedup:    6.982
+int16 [1000000]  Farray1/array speedup:    6.756
+int8  [1000000]  Farray1/array speedup:    6.047
+bool  [1000000]  Farray1/array speedup:    6.410
+
+
+--------------------------------
+
+Scenario:  0.100% of the operations are array-fills:
+
+X     [10000]  Farray1/array speedup:    0.730
+X     [10000]  Farray1/array speedup:    0.758
+Y     [10000]  Farray1/array speedup:    0.992
+Z     [10000]  Farray1/array speedup:    0.830
+ZZ    [10000]  Farray1/array speedup:    0.938
+int64 [10000]  Farray1/array speedup:    0.761
+int32 [10000]  Farray1/array speedup:    0.795
+int16 [10000]  Farray1/array speedup:    0.732
+int8  [10000]  Farray1/array speedup:    0.798
+bool  [10000]  Farray1/array speedup:    0.798
+
+X     [30000]  Farray1/array speedup:    0.897
+X     [30000]  Farray1/array speedup:    0.889
+Y     [30000]  Farray1/array speedup:    1.272
+Z     [30000]  Farray1/array speedup:    0.957
+ZZ    [30000]  Farray1/array speedup:    1.046
+int64 [30000]  Farray1/array speedup:    0.875
+int32 [30000]  Farray1/array speedup:    0.827
+int16 [30000]  Farray1/array speedup:    0.785
+int8  [30000]  Farray1/array speedup:    0.771
+bool  [30000]  Farray1/array speedup:    0.816
+
+X     [100000]  Farray1/array speedup:    1.414
+X     [100000]  Farray1/array speedup:    1.422
+Y     [100000]  Farray1/array speedup:    2.764
+Z     [100000]  Farray1/array speedup:    1.477
+ZZ    [100000]  Farray1/array speedup:    1.943
+int64 [100000]  Farray1/array speedup:    1.151
+int32 [100000]  Farray1/array speedup:    1.133
+int16 [100000]  Farray1/array speedup:    1.072
+int8  [100000]  Farray1/array speedup:    1.095
+bool  [100000]  Farray1/array speedup:    1.106
+
+X     [300000]  Farray1/array speedup:    3.027
+X     [300000]  Farray1/array speedup:    2.988
+Y     [300000]  Farray1/array speedup:    6.808
+Z     [300000]  Farray1/array speedup:    3.092
+ZZ    [300000]  Farray1/array speedup:    4.082
+int64 [300000]  Farray1/array speedup:    2.355
+int32 [300000]  Farray1/array speedup:    1.921
+int16 [300000]  Farray1/array speedup:    1.827
+int8  [300000]  Farray1/array speedup:    1.840
+bool  [300000]  Farray1/array speedup:    1.881
+
+X     [1000000]  Farray1/array speedup:    9.060
+X     [1000000]  Farray1/array speedup:    8.518
+Y     [1000000]  Farray1/array speedup:    21.006
+Z     [1000000]  Farray1/array speedup:    7.936
+ZZ    [1000000]  Farray1/array speedup:    22.969
+int64 [1000000]  Farray1/array speedup:    6.554
+int32 [1000000]  Farray1/array speedup:    4.899
+int16 [1000000]  Farray1/array speedup:    4.100
+int8  [1000000]  Farray1/array speedup:    4.603
+bool  [1000000]  Farray1/array speedup:    4.678
+
+
+--------------------------------
+
+Scenario:  0.070% of the operations are array-fills:
+
+X     [10000]  Farray1/array speedup:    0.740
+X     [10000]  Farray1/array speedup:    0.729
+Y     [10000]  Farray1/array speedup:    0.828
+Z     [10000]  Farray1/array speedup:    0.786
+ZZ    [10000]  Farray1/array speedup:    0.900
+int64 [10000]  Farray1/array speedup:    0.738
+int32 [10000]  Farray1/array speedup:    0.734
+int16 [10000]  Farray1/array speedup:    0.743
+int8  [10000]  Farray1/array speedup:    0.807
+bool  [10000]  Farray1/array speedup:    0.806
+
+X     [30000]  Farray1/array speedup:    0.802
+X     [30000]  Farray1/array speedup:    0.747
+Y     [30000]  Farray1/array speedup:    1.230
+Z     [30000]  Farray1/array speedup:    0.897
+ZZ    [30000]  Farray1/array speedup:    0.955
+int64 [30000]  Farray1/array speedup:    0.817
+int32 [30000]  Farray1/array speedup:    0.801
+int16 [30000]  Farray1/array speedup:    0.698
+int8  [30000]  Farray1/array speedup:    0.887
+bool  [30000]  Farray1/array speedup:    0.780
+
+X     [100000]  Farray1/array speedup:    1.194
+X     [100000]  Farray1/array speedup:    1.013
+Y     [100000]  Farray1/array speedup:    1.925
+Z     [100000]  Farray1/array speedup:    1.272
+ZZ    [100000]  Farray1/array speedup:    1.596
+int64 [100000]  Farray1/array speedup:    1.048
+int32 [100000]  Farray1/array speedup:    0.983
+int16 [100000]  Farray1/array speedup:    0.974
+int8  [100000]  Farray1/array speedup:    0.995
+bool  [100000]  Farray1/array speedup:    0.993
+
+X     [300000]  Farray1/array speedup:    2.380
+X     [300000]  Farray1/array speedup:    2.280
+Y     [300000]  Farray1/array speedup:    4.769
+Z     [300000]  Farray1/array speedup:    2.379
+ZZ    [300000]  Farray1/array speedup:    3.084
+int64 [300000]  Farray1/array speedup:    2.017
+int32 [300000]  Farray1/array speedup:    1.499
+int16 [300000]  Farray1/array speedup:    1.507
+int8  [300000]  Farray1/array speedup:    1.504
+bool  [300000]  Farray1/array speedup:    1.517
+
+X     [1000000]  Farray1/array speedup:    6.274
+X     [1000000]  Farray1/array speedup:    6.157
+Y     [1000000]  Farray1/array speedup:    13.859
+Z     [1000000]  Farray1/array speedup:    6.213
+ZZ    [1000000]  Farray1/array speedup:    14.749
+int64 [1000000]  Farray1/array speedup:    4.957
+int32 [1000000]  Farray1/array speedup:    3.510
+int16 [1000000]  Farray1/array speedup:    3.450
+int8  [1000000]  Farray1/array speedup:    3.401
+bool  [1000000]  Farray1/array speedup:    3.537
+
+
+--------------------------------
+
+Scenario:  0.050% of the operations are array-fills:
+
+X     [10000]  Farray1/array speedup:    0.743
+X     [10000]  Farray1/array speedup:    0.758
+Y     [10000]  Farray1/array speedup:    0.841
+Z     [10000]  Farray1/array speedup:    0.764
+ZZ    [10000]  Farray1/array speedup:    0.877
+int64 [10000]  Farray1/array speedup:    0.765
+int32 [10000]  Farray1/array speedup:    0.753
+int16 [10000]  Farray1/array speedup:    0.748
+int8  [10000]  Farray1/array speedup:    0.811
+bool  [10000]  Farray1/array speedup:    0.823
+
+X     [30000]  Farray1/array speedup:    0.748
+X     [30000]  Farray1/array speedup:    0.761
+Y     [30000]  Farray1/array speedup:    1.090
+Z     [30000]  Farray1/array speedup:    0.853
+ZZ    [30000]  Farray1/array speedup:    0.945
+int64 [30000]  Farray1/array speedup:    0.781
+int32 [30000]  Farray1/array speedup:    0.764
+int16 [30000]  Farray1/array speedup:    0.747
+int8  [30000]  Farray1/array speedup:    0.759
+bool  [30000]  Farray1/array speedup:    0.781
+
+X     [100000]  Farray1/array speedup:    1.029
+X     [100000]  Farray1/array speedup:    1.031
+Y     [100000]  Farray1/array speedup:    1.627
+Z     [100000]  Farray1/array speedup:    1.072
+ZZ    [100000]  Farray1/array speedup:    1.328
+int64 [100000]  Farray1/array speedup:    0.944
+int32 [100000]  Farray1/array speedup:    0.918
+int16 [100000]  Farray1/array speedup:    0.864
+int8  [100000]  Farray1/array speedup:    0.920
+bool  [100000]  Farray1/array speedup:    0.941
+
+X     [300000]  Farray1/array speedup:    2.409
+X     [300000]  Farray1/array speedup:    1.791
+Y     [300000]  Farray1/array speedup:    3.730
+Z     [300000]  Farray1/array speedup:    1.943
+ZZ    [300000]  Farray1/array speedup:    2.370
+int64 [300000]  Farray1/array speedup:    1.586
+int32 [300000]  Farray1/array speedup:    1.227
+int16 [300000]  Farray1/array speedup:    1.318
+int8  [300000]  Farray1/array speedup:    1.291
+bool  [300000]  Farray1/array speedup:    1.312
+
+X     [1000000]  Farray1/array speedup:    4.504
+X     [1000000]  Farray1/array speedup:    4.501
+Y     [1000000]  Farray1/array speedup:    10.701
+Z     [1000000]  Farray1/array speedup:    4.888
+ZZ    [1000000]  Farray1/array speedup:    13.099
+int64 [1000000]  Farray1/array speedup:    3.415
+int32 [1000000]  Farray1/array speedup:    2.674
+int16 [1000000]  Farray1/array speedup:    2.968
+int8  [1000000]  Farray1/array speedup:    2.549
+bool  [1000000]  Farray1/array speedup:    2.612
+
+
+--------------------------------
+
+Scenario:  0.040% of the operations are array-fills:
+
+X     [10000]  Farray1/array speedup:    0.729
+X     [10000]  Farray1/array speedup:    0.744
+Y     [10000]  Farray1/array speedup:    0.795
+Z     [10000]  Farray1/array speedup:    0.764
+ZZ    [10000]  Farray1/array speedup:    0.869
+int64 [10000]  Farray1/array speedup:    0.733
+int32 [10000]  Farray1/array speedup:    0.749
+int16 [10000]  Farray1/array speedup:    0.758
+int8  [10000]  Farray1/array speedup:    0.802
+bool  [10000]  Farray1/array speedup:    0.901
+
+X     [30000]  Farray1/array speedup:    0.737
+X     [30000]  Farray1/array speedup:    0.736
+Y     [30000]  Farray1/array speedup:    0.986
+Z     [30000]  Farray1/array speedup:    0.803
+ZZ    [30000]  Farray1/array speedup:    0.924
+int64 [30000]  Farray1/array speedup:    0.761
+int32 [30000]  Farray1/array speedup:    0.778
+int16 [30000]  Farray1/array speedup:    0.742
+int8  [30000]  Farray1/array speedup:    0.798
+bool  [30000]  Farray1/array speedup:    0.776
+
+X     [100000]  Farray1/array speedup:    0.960
+X     [100000]  Farray1/array speedup:    0.955
+Y     [100000]  Farray1/array speedup:    1.413
+Z     [100000]  Farray1/array speedup:    1.029
+ZZ    [100000]  Farray1/array speedup:    1.210
+int64 [100000]  Farray1/array speedup:    0.900
+int32 [100000]  Farray1/array speedup:    0.845
+int16 [100000]  Farray1/array speedup:    0.835
+int8  [100000]  Farray1/array speedup:    0.885
+bool  [100000]  Farray1/array speedup:    0.874
+
+X     [300000]  Farray1/array speedup:    1.600
+X     [300000]  Farray1/array speedup:    1.576
+Y     [300000]  Farray1/array speedup:    3.006
+Z     [300000]  Farray1/array speedup:    1.642
+ZZ    [300000]  Farray1/array speedup:    2.078
+int64 [300000]  Farray1/array speedup:    1.388
+int32 [300000]  Farray1/array speedup:    1.179
+int16 [300000]  Farray1/array speedup:    1.249
+int8  [300000]  Farray1/array speedup:    1.349
+bool  [300000]  Farray1/array speedup:    1.208
+
+X     [1000000]  Farray1/array speedup:    3.903
+X     [1000000]  Farray1/array speedup:    3.730
+Y     [1000000]  Farray1/array speedup:    7.726
+Z     [1000000]  Farray1/array speedup:    4.010
+ZZ    [1000000]  Farray1/array speedup:    10.529
+int64 [1000000]  Farray1/array speedup:    3.060
+int32 [1000000]  Farray1/array speedup:    2.340
+int16 [1000000]  Farray1/array speedup:    2.399
+int8  [1000000]  Farray1/array speedup:    2.306
+bool  [1000000]  Farray1/array speedup:    2.240
+
+
+--------------------------------
+
+Scenario:  0.030% of the operations are array-fills:
+
+X     [10000]  Farray1/array speedup:    0.751
+X     [10000]  Farray1/array speedup:    0.775
+Y     [10000]  Farray1/array speedup:    0.788
+Z     [10000]  Farray1/array speedup:    0.791
+ZZ    [10000]  Farray1/array speedup:    0.865
+int64 [10000]  Farray1/array speedup:    0.747
+int32 [10000]  Farray1/array speedup:    0.751
+int16 [10000]  Farray1/array speedup:    0.787
+int8  [10000]  Farray1/array speedup:    0.839
+bool  [10000]  Farray1/array speedup:    0.858
+
+X     [30000]  Farray1/array speedup:    0.724
+X     [30000]  Farray1/array speedup:    0.720
+Y     [30000]  Farray1/array speedup:    0.885
+Z     [30000]  Farray1/array speedup:    0.775
+ZZ    [30000]  Farray1/array speedup:    0.904
+int64 [30000]  Farray1/array speedup:    0.752
+int32 [30000]  Farray1/array speedup:    0.784
+int16 [30000]  Farray1/array speedup:    0.681
+int8  [30000]  Farray1/array speedup:    0.752
+bool  [30000]  Farray1/array speedup:    0.791
+
+X     [100000]  Farray1/array speedup:    0.859
+X     [100000]  Farray1/array speedup:    0.866
+Y     [100000]  Farray1/array speedup:    1.511
+Z     [100000]  Farray1/array speedup:    0.949
+ZZ    [100000]  Farray1/array speedup:    1.093
+int64 [100000]  Farray1/array speedup:    0.834
+int32 [100000]  Farray1/array speedup:    0.652
+int16 [100000]  Farray1/array speedup:    0.827
+int8  [100000]  Farray1/array speedup:    0.835
+bool  [100000]  Farray1/array speedup:    0.824
+
+X     [300000]  Farray1/array speedup:    1.478
+X     [300000]  Farray1/array speedup:    1.357
+Y     [300000]  Farray1/array speedup:    2.847
+Z     [300000]  Farray1/array speedup:    1.382
+ZZ    [300000]  Farray1/array speedup:    1.769
+int64 [300000]  Farray1/array speedup:    1.211
+int32 [300000]  Farray1/array speedup:    1.276
+int16 [300000]  Farray1/array speedup:    1.082
+int8  [300000]  Farray1/array speedup:    1.149
+bool  [300000]  Farray1/array speedup:    1.100
+
+X     [1000000]  Farray1/array speedup:    3.109
+X     [1000000]  Farray1/array speedup:    3.119
+Y     [1000000]  Farray1/array speedup:    6.711
+Z     [1000000]  Farray1/array speedup:    2.966
+ZZ    [1000000]  Farray1/array speedup:    7.547
+int64 [1000000]  Farray1/array speedup:    2.404
+int32 [1000000]  Farray1/array speedup:    2.029
+int16 [1000000]  Farray1/array speedup:    1.928
+int8  [1000000]  Farray1/array speedup:    1.991
+bool  [1000000]  Farray1/array speedup:    2.120
+
+
+--------------------------------
+
+Scenario:  0.020% of the operations are array-fills:
+
+X     [10000]  Farray1/array speedup:    0.799
+X     [10000]  Farray1/array speedup:    0.817
+Y     [10000]  Farray1/array speedup:    0.830
+Z     [10000]  Farray1/array speedup:    0.771
+ZZ    [10000]  Farray1/array speedup:    0.851
+int64 [10000]  Farray1/array speedup:    0.730
+int32 [10000]  Farray1/array speedup:    0.782
+int16 [10000]  Farray1/array speedup:    0.814
+int8  [10000]  Farray1/array speedup:    0.885
+bool  [10000]  Farray1/array speedup:    0.885
+
+X     [30000]  Farray1/array speedup:    0.724
+X     [30000]  Farray1/array speedup:    0.723
+Y     [30000]  Farray1/array speedup:    0.834
+Z     [30000]  Farray1/array speedup:    0.762
+ZZ    [30000]  Farray1/array speedup:    0.845
+int64 [30000]  Farray1/array speedup:    0.716
+int32 [30000]  Farray1/array speedup:    0.737
+int16 [30000]  Farray1/array speedup:    0.764
+int8  [30000]  Farray1/array speedup:    0.807
+bool  [30000]  Farray1/array speedup:    0.777
+
+X     [100000]  Farray1/array speedup:    0.834
+X     [100000]  Farray1/array speedup:    0.845
+Y     [100000]  Farray1/array speedup:    1.095
+Z     [100000]  Farray1/array speedup:    0.872
+ZZ    [100000]  Farray1/array speedup:    1.029
+int64 [100000]  Farray1/array speedup:    0.779
+int32 [100000]  Farray1/array speedup:    0.790
+int16 [100000]  Farray1/array speedup:    0.754
+int8  [100000]  Farray1/array speedup:    0.862
+bool  [100000]  Farray1/array speedup:    0.821
+
+X     [300000]  Farray1/array speedup:    1.182
+X     [300000]  Farray1/array speedup:    1.158
+Y     [300000]  Farray1/array speedup:    1.986
+Z     [300000]  Farray1/array speedup:    1.088
+ZZ    [300000]  Farray1/array speedup:    1.422
+int64 [300000]  Farray1/array speedup:    1.071
+int32 [300000]  Farray1/array speedup:    1.001
+int16 [300000]  Farray1/array speedup:    0.949
+int8  [300000]  Farray1/array speedup:    0.985
+bool  [300000]  Farray1/array speedup:    0.986
+
+X     [1000000]  Farray1/array speedup:    2.351
+X     [1000000]  Farray1/array speedup:    2.346
+Y     [1000000]  Farray1/array speedup:    4.311
+Z     [1000000]  Farray1/array speedup:    2.203
+ZZ    [1000000]  Farray1/array speedup:    5.260
+int64 [1000000]  Farray1/array speedup:    1.848
+int32 [1000000]  Farray1/array speedup:    1.455
+int16 [1000000]  Farray1/array speedup:    1.645
+int8  [1000000]  Farray1/array speedup:    1.630
+bool  [1000000]  Farray1/array speedup:    1.768
+
+
+--------------------------------
+
+Scenario:  0.010% of the operations are array-fills:
+
+X     [10000]  Farray1/array speedup:    0.851
+X     [10000]  Farray1/array speedup:    0.843
+Y     [10000]  Farray1/array speedup:    0.835
+Z     [10000]  Farray1/array speedup:    0.806
+ZZ    [10000]  Farray1/array speedup:    0.880
+int64 [10000]  Farray1/array speedup:    0.804
+int32 [10000]  Farray1/array speedup:    0.842
+int16 [10000]  Farray1/array speedup:    0.881
+int8  [10000]  Farray1/array speedup:    0.932
+bool  [10000]  Farray1/array speedup:    0.923
+
+X     [30000]  Farray1/array speedup:    0.775
+X     [30000]  Farray1/array speedup:    0.764
+Y     [30000]  Farray1/array speedup:    0.908
+Z     [30000]  Farray1/array speedup:    0.692
+ZZ    [30000]  Farray1/array speedup:    0.850
+int64 [30000]  Farray1/array speedup:    0.818
+int32 [30000]  Farray1/array speedup:    0.759
+int16 [30000]  Farray1/array speedup:    0.796
+int8  [30000]  Farray1/array speedup:    0.853
+bool  [30000]  Farray1/array speedup:    0.867
+
+X     [100000]  Farray1/array speedup:    0.847
+X     [100000]  Farray1/array speedup:    0.805
+Y     [100000]  Farray1/array speedup:    0.952
+Z     [100000]  Farray1/array speedup:    0.809
+ZZ    [100000]  Farray1/array speedup:    0.891
+int64 [100000]  Farray1/array speedup:    0.765
+int32 [100000]  Farray1/array speedup:    0.767
+int16 [100000]  Farray1/array speedup:    0.785
+int8  [100000]  Farray1/array speedup:    0.870
+bool  [100000]  Farray1/array speedup:    0.840
+
+X     [300000]  Farray1/array speedup:    0.970
+X     [300000]  Farray1/array speedup:    0.957
+Y     [300000]  Farray1/array speedup:    1.450
+Z     [300000]  Farray1/array speedup:    0.982
+ZZ    [300000]  Farray1/array speedup:    1.169
+int64 [300000]  Farray1/array speedup:    0.866
+int32 [300000]  Farray1/array speedup:    0.793
+int16 [300000]  Farray1/array speedup:    0.922
+int8  [300000]  Farray1/array speedup:    0.934
+bool  [300000]  Farray1/array speedup:    0.932
+
+X     [1000000]  Farray1/array speedup:    1.684
+X     [1000000]  Farray1/array speedup:    1.575
+Y     [1000000]  Farray1/array speedup:    2.953
+Z     [1000000]  Farray1/array speedup:    1.532
+ZZ    [1000000]  Farray1/array speedup:    3.071
+int64 [1000000]  Farray1/array speedup:    1.307
+int32 [1000000]  Farray1/array speedup:    1.324
+int16 [1000000]  Farray1/array speedup:    1.166
+int8  [1000000]  Farray1/array speedup:    1.257
+bool  [1000000]  Farray1/array speedup:    1.134
+
+Overall time: 248.165s.
