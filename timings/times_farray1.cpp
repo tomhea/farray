@@ -11,7 +11,14 @@
 
 using namespace std;
 using namespace std::chrono;
-using namespace Farray1Direct;
+
+
+constexpr bool show_farray1_direct_speedup = false;
+
+
+/// This program prints the speedup gained from using Farray1 over using a regular array.
+/// It iterates over the intensity of fill-operations in the read/write/fill operations (in %).
+/// It also iterates on different array sizes.
 
 
 template<typename T, getRandom<T> rnd>
@@ -30,9 +37,9 @@ double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* hold
     auto startTime = high_resolution_clock::now();
     for (auto op : actions) {
         int i = rand() % n; T v = rnd();
-        if (op == 'F') flag = fill(A,n,v);
-        else if (op == 'W') flag = write(A,n,i,v,flag);
-        else last = read(A,n,i,flag);
+        if (op == 'F') flag = Farray1Direct::fill(A,n,v);
+        else if (op == 'W') flag = Farray1Direct::write(A,n,i,v,flag);
+        else last = Farray1Direct::read(A,n,i,flag);
     }
     auto endTime = high_resolution_clock::now();
     auto ms1 = duration_cast<microseconds>(endTime - startTime).count();
@@ -56,17 +63,21 @@ double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* hold
         int i = rand() % n; T v = rnd();
         if (op == 'F') for (int u = 0; u < n; u++) A[u] = v;
         else if (op == 'W') A[i] = v;
-        else last = A[i];
+        else last = std::move(A[i]);
     }
     endTime = high_resolution_clock::now();
     auto ms3 = duration_cast<microseconds>(endTime - startTime).count();
-    cout << (int)(((int*)&last)[0])*0 << "\b \b";   // use 'last' so that the compiler won't ignore the read operations.
+    cout << (int)(((int*)&last)[0])*0 << "\b \b" << flush;   // use 'last' so that the compiler won't ignore the read operations.
     return ms3/(double)ms1;
 }
 
 
 void handleTimeResult(const string& pretext, size_t size, double res, double holderVsPlain) {
-    cout << pretext << size << "]:   " << fixed << setprecision(6) << res << "      (using Farray1/direct speedup: " << holderVsPlain << ")" << endl;
+    cout << pretext << size << "]  Farray1/array speedup:    " << fixed << setprecision(3) << res;
+    if (show_farray1_direct_speedup) {
+        cout << "          (using Farray1/direct speedup: " << holderVsPlain << ")";
+    }
+    cout << endl;
 }
 
 
@@ -78,8 +89,8 @@ void times(vector<size_t> sizes, vector<double> percents, size_t fills = 100) {
     double maxSize = *max_element(sizes.begin(), sizes.end());
     double holderVsPlain;
     for (auto perc : percents) {
-        cout << "--------------------------------" << endl << endl;
-        cout << perc << "% of ops are fills:" << endl << endl;
+        cout << endl << "--------------------------------" << endl << endl;
+        cout << "Scenario:  " << perc << "% of the operations are array-fills:" << endl << endl;
         for (auto size : sizes) {
             double factor = pow(perc / minPerc, 0.5) / pow(size / maxSize, 0.3);
             size_t total = fills / (perc/100) * factor;
@@ -106,6 +117,8 @@ void times(vector<size_t> sizes, vector<double> percents, size_t fills = 100) {
 
 
 int main() {
-    times({10000, 30000, 100000, 300000, 1000000}, {0.01, 0.02, 0.03, 0.04, 0.05, 0.07, 0.1, 0.15, 0.2, 0.5, 1, 2, 5, 10, 20, 50}, 100);
+    times({10000, 30000, 100000, 300000, 1000000},
+          {50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.15, 0.1, 0.07, 0.05, 0.04, 0.03, 0.02, 0.01},
+          100);
     return 0;
 }

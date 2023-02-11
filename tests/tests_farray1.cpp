@@ -15,7 +15,6 @@
 
 using namespace std;
 using namespace std::chrono;
-using namespace Farray1Direct;
 
 
 /// run with  "-d yes"  to see times and progress
@@ -27,11 +26,11 @@ bool verify_all_four_arrays_equal(T *regular_array, const Farray1<T, ptr_size1> 
                                   const Farray1<T, ptr_size2> &farray2_using_operators, T *farray3_using_Farray1Direct,
                                   int farray3_n, bool farray3_flag) {
     for (size_t i = 0; i < farray3_n; i++) {
-        if (!(regular_array[i] == read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) &&
+        if (!(regular_array[i] == Farray1Direct::read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) &&
               regular_array[i] == farray1_using_functions.read(i) && regular_array[i] == farray2_using_operators[i])) {
             cout << "index " << i << ":  regular_array[i]=" << regular_array[i]
                  << ", while farray3_using_Farray1Direct.read(i)="
-                 << read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) << "."
+                 << Farray1Direct::read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) << "."
                  << endl;
             return false;
         }
@@ -75,7 +74,7 @@ bool stress_test(size_t array_size) {
     auto farr1 = Farray1<T, ptr_size1>(array_size, def);
     auto farr2 = Farray1<T, ptr_size2>(array_size, def);
     T *A = new T[array_size];
-    bool flag = fill(A, array_size, def);
+    bool flag = Farray1Direct::fill(A, array_size, def);
 
     vector<char> actions;
     actions.reserve(read_operations + write_operations + init_operations);
@@ -102,16 +101,16 @@ bool stress_test(size_t array_size) {
             lastF = count;
             if (rand() & 1) def = v;
             for (int u = 0; u < array_size; u++) arr[u] = def;
-            flag = fill(A, array_size, def);
+            flag = Farray1Direct::fill(A, array_size, def);
             farr1.fill(def);
             farr2 = def;
         } else if (op == 'W') {
             arr[i] = v;
-            flag = write(A, array_size, i, v, flag);
+            flag = Farray1Direct::write(A, array_size, i, v, flag);
             farr1.write(i, v);
             farr2[i] = v;
         } else {
-            if (!(arr[i] == read(A, array_size, i, flag) && arr[i] == farr1.read(i) && arr[i] == farr2[i])) {
+            if (!(arr[i] == Farray1Direct::read(A, array_size, i, flag) && arr[i] == farr1.read(i) && arr[i] == farr2[i])) {
                 cout << "Bad Read: at index " << i << ",  count " << count << endl;
                 return false;
             }
@@ -134,13 +133,13 @@ bool verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initializ
                                                                                   const vector<int> &written_indices) {
     vector<bool> isWritten(farray.n, false);
     vector<bool> reallyWritten(farray.n, false);
-    int bsize = defines::blockSize<T, ptr_size>();
+    int bsize = Farray1Direct::defines::blockSize<T, ptr_size>();
 
-    for (int j = defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n); j < farray.n; j++) {
+    for (int j = Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n); j < farray.n; j++) {
         isWritten[j] = true;
     }
     for (auto i: written_indices) {
-        if (i >= defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n)) {
+        if (i >= Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n)) {
             continue;
         }
         for (int j = (i / bsize) * bsize; j < (i / bsize + 1) * bsize; j++) {

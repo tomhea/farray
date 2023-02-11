@@ -42,7 +42,8 @@ This must be seven: 7
 ```
 
 You can also use the `A.fill(v), A.read(i), A.write(i,v)` syntax,<br>
-instread of `A=v, A[i], A[i]=v`.
+instread of `A=v, A[i], A[i]=v`.<br>
+Also, indexing is circular, so ```A[i] is A[i % n]``` (e.g ```A[2n+5] == A[5]```).
 
 # Farray Website!
 
