@@ -25,12 +25,12 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
       run: |
-        mkdir tests_results -p
-        ./farray1_tests -r junit > tests_results/farray1.xml
+        mkdir ~/tests_results -p
+        ./farray1_tests -r junit > ~/tests_results/farray1.xml
 
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
         files: |
-          ${{github.workspace}}/build/test-results/**/*.xml
+          ~/tests_results/farray1.xml
