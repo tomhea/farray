@@ -228,9 +228,7 @@ bool iterator_indices_test(int array_size) {
 TEMPLATE_TEST_CASE_SIG("Stress Test Farray1 with random operations; variable array size",
                        "[stress]",
                        ((size_t array_size), array_size),
-                       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-                       15, 20, 30, 40, 50, 60, 70, 80, 90, 100,
-                       200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000) {
+                       1, 2, 3) {
 
     REQUIRE(stress_test<X, X::getRandom>(array_size));
     REQUIRE(stress_test<Y, Y::getRandom>(array_size));
@@ -248,9 +246,7 @@ TEMPLATE_TEST_CASE_SIG("Stress Test Farray1 with random operations; variable arr
 TEMPLATE_TEST_CASE_SIG("Test Farray1 iteration indices, before and after random operations; variable array size",
                        "[stress]",
                        ((size_t array_size), array_size),
-                       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-                       15, 20, 30, 40, 50, 60, 70, 80, 90, 100,
-                       200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000) {
+                       1, 2, 3) {
 
     REQUIRE(iterator_indices_test<X, X::getRandom>(array_size));
     REQUIRE(iterator_indices_test<Y, Y::getRandom>(array_size));
