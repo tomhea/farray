@@ -33,4 +33,4 @@ jobs:
       with:
         name: Farray1 Tests
         path: build/tests_results/farray1.xml
-        reporter: jest-junit
+        reporter: java-junit
