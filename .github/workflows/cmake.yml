@@ -1,0 +1,36 @@
+name: CMake
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure CMake
+      run: cmake -B ./build
+
+    - name: Build Tests
+      run: cmake --build ./build --target farray1_tests
+
+    - name: Test
+      run: |
+        mkdir build/tests_results -p
+        build/farray1_tests -r junit > build/tests_results/farray1.xml
+
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: Farray1 Tests
+        path: build/tests_results/farray1.xml
+        reporter: java-junit
