@@ -1,9 +1,12 @@
-<div style="text-align: center;">
-    <img src="res/logo.svg" alt="Farray logo: Initialize Arrays in O(1)">
-</div>
-
 <div align="center">
-  <a href="https://github.com/tomhea/farray/actions/workflows/tests.yml"><img src="https://github.com/tomhea/farray/actions/workflows/tests.yml/badge.svg" /></a>
+    <a href="#readme"><img src="https://raw.githubusercontent.com/tomhea/farray/master/res/logo.png" height="150"></a>
+
+[![Tests Badge](https://github.com/tomhea/farray/actions/workflows/tests.yml/badge.svg)](https://github.com/tomhea/farray/actions/workflows/tests.yml)
+[![GitHub file size in bytes](https://img.shields.io/github/size/tomhea/farray/include/farray1.hpp)](include/farray1.hpp)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/tomhea/farray)](https://github.com/tomhea/farray/releases/latest)
+[![GitHub](https://img.shields.io/github/license/tomhea/farray)](LICENSE)
+[![Website](https://img.shields.io/website?down_color=red&down_message=down&up_message=up&url=https%3A%2F%2Ftomhea.github.io%2Ffarray%2F)](https://tomhea.github.io/farray/)
+
 </div>
 
 ## Initialize arrays in constant time
