@@ -1,7 +1,16 @@
-# Farray - Fillable Array
+<div style="text-align: center;">
+    <img src="res/logo.svg" alt="Farray logo: Initialize Arrays in O(1)">
+</div>
+
+<div align="center">
+  <a href="https://github.com/tomhea/farray/actions/workflows/tests.yml"><img src="https://github.com/tomhea/farray/actions/workflows/tests.yml/badge.svg" /></a>
+</div>
+
+## Initialize arrays in constant time
+
 C++ **Header-only** Implementation of the [In-Place Initializable Arrays](https://arxiv.org/abs/1709.08900) paper.
 
-It's a templated array with **constant-time** fill(v), read(i), write(i,v) operations, all with 1 bit of extra memory.<br>
+It's a templated array with **constant-time** fill(v), read(i), write(i,v) operations, all with just 1 bit of extra memory.<br>
 You can really [sense the **speedup**](#is-it-really-better) it provides.
 
 This **single-file** library is [**thoroughly tested**](tests/tests_farray1.cpp), and is **Embedded-friendly** as it has no exceptions, and use no other library. It can also use no dynamic allocations.
