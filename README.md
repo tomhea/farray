@@ -1,9 +1,8 @@
-<div style="text-align: center;">
-    <img src="res/logo.svg" alt="Farray logo: Initialize Arrays in O(1)">
-</div>
-
 <div align="center">
-  <a href="https://github.com/tomhea/farray/actions/workflows/tests.yml"><img src="https://github.com/tomhea/farray/actions/workflows/tests.yml/badge.svg" /></a>
+    <a href="#readme"><img src="https://raw.githubusercontent.com/tomhea/farray/master/res/logo.svg" width="800" height="250"></a>
+
+[![Tests Badge](https://github.com/tomhea/farray/actions/workflows/tests.yml/badge.svg)](https://github.com/tomhea/farray/actions/workflows/tests.yml)
+
 </div>
 
 ## Initialize arrays in constant time
