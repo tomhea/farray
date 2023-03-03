@@ -2,7 +2,7 @@
 
 Reading (at least the start of) this page is highly recommended before reading the [Advanced Features](Advanced-Features.md) page.
 
-You can also choose to read the [Medium article](https://link.medium.com/Q8YbkDJX2bb) I wrote about this subject. It has more details and it goes through some older implementations of the concept too.
+You can also choose to read the [Medium article](https://link.medium.com/Q8YbkDJX2bb) I wrote about this subject. It has more details, and it goes through some older implementations of the concept too.
 
 The algorithm uses the lower part of the array (addresses 0-\[almost n\]) as blocks of adjacent cells.<br>
 The last cells in the array, which can't form a block, are initialized and accessed normally.<br />
@@ -15,7 +15,7 @@ If the flag is 1, then the array is fully written and can be accessed as a regul
 A block consists of two half-blocks, each is a union of `|ptr|b|def|` and `value[]`.<br />
 The lower part of the array is divided into 2 parts - UCA (lower) and WCA (upper).<br />
 The UCA consists of the blocks 0-\[b-1\], while WCA consists of the blocks \[b-last_block\].<br />
-b, and the curret default value of the array, are saved in the |...|b|def| part of the last block.
+b, and the current default value of the array, are saved in the |...|b|def| part of the last block.
 
 Initialization is done block-wise, i.e. a whole block is initialized at once.<br />
 Two blocks with indices (b1,b2) are considered *chained* if b1/b2 are in both UCA/WCA and <br />

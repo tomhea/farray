@@ -7,16 +7,16 @@ The [include](https://github.com/tomhea/farray/tree/master/include) folder conta
 They are completely independent and can be used by simply downloading and including them.
 
 ### file farray1.hpp:
-* `namespace Farray1Direct` - 1bit implementation of fill, read, write, writtenSize, begin/end, <br/>
+* `namespace Farray1Direct` - 1-extra-bit implementation of fill, read, write, writtenSize, begin/end, 
 and an interior `namespace defines` for the interior functions.
-* `class Farray1` - The wrapper for the 1bit functions (proxy operator[], operator=, iterator, no need for A,n,flag each call).
+* `class Farray1` - The wrapper for the 1-extra-bit functions (proxy operator[], operator=, iterator, no need for A,n,flag each call).
 
 ### file farray.hpp:
-* `class Farray` - The implementation of the log(n) bits (b and def outside), with the Farray1 features ([], =, iterator, ...).
+* **Not Implemented yet** - `class Farray` - The implementation of the log(n) bits (b and def outside), with the Farray1 features ([], =, iterator, ...).
 
 ### file nfarray.hpp:
-* `class NFarray : public Farray` - extends `Farray` with numerical features:<br/>
-++,--,+=,-=,*=,/=, (for proxy, and for the whole Array), and maintaining the sum of all vars. All of the operations are still O(1).
+* **Not Implemented yet** - `class NFarray : public Farray` - extends `Farray` with numerical features:<br/>
+++,--,+=,-=,*=,/=, (for proxy, and for the whole Array), and maintaining the sum of all vars. All the operations are still O(1).
 
 ## `docs`
 The [docs](https://github.com/tomhea/farray/tree/master/docs) folder contains the project's [GitHub-Pages Site](https://tomhea.github.io/farray/) files.

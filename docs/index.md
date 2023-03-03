@@ -12,7 +12,7 @@ We chose C++ for its *templates* and easy *manipulation of memory*, <br />
 and header-only to make it simple for existing projects to include it.
 
 The Website features:
-* [Short Despription of the paper and implementation](Short-Description.md)
+* [Short Description of the paper and implementation](Short-Description.md)
 * [Advanced Features](Advanced-Features.md)
 * [Project Structure](Project-Structure.md)
 * [Time and Space Analysis](Time-and-Space-Analysis.md)

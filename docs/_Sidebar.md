@@ -4,7 +4,7 @@
 
 [Main](https://github.com/tomhea/farray/wiki)
 
-* [Short Despription](https://github.com/tomhea/farray/wiki/Short-Description)
+* [Short Description](https://github.com/tomhea/farray/wiki/Short-Description)
 * [Advanced Features](https://github.com/tomhea/farray/wiki/Advanced-Features)
     * [iterator](https://github.com/tomhea/farray/wiki/Advanced-Features#the-iterator)
     * [smaller blocks](https://github.com/tomhea/farray/wiki/Advanced-Features#using-smaller-blocks)
