@@ -45,7 +45,7 @@ double O1_timed_vs_regular(int n, int inits, int reads, int writes, double* hold
     auto ms1 = duration_cast<microseconds>(endTime - startTime).count();
 
     if (holderVsPlain) {
-        auto arr = Farray1<T>(n);
+        auto arr = Farray1<T>(n, T{});
         startTime = high_resolution_clock::now();
         for (auto op : actions) {
             int i = rand() % n; T v = rnd();
