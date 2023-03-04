@@ -22,16 +22,22 @@ using namespace std::chrono;
 
 
 template<typename T, typename ptr_size1, typename ptr_size2>
-bool verify_all_four_arrays_equal(T *regular_array, const Farray1<T, ptr_size1> &farray1_using_functions,
-                                  const Farray1<T, ptr_size2> &farray2_using_operators, T *farray3_using_Farray1Direct,
+bool verify_all_four_arrays_equal(T *regular_array, const Farray1<T, ptr_size1> &farray1_ptr_size1,
+                                  const Farray1<T, ptr_size2> &farray2_ptr_size2, T *farray3_using_Farray1Direct,
                                   int farray3_n, bool farray3_flag) {
     for (size_t i = 0; i < farray3_n; i++) {
         if (!(regular_array[i] == Farray1Direct::read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) &&
-              regular_array[i] == farray1_using_functions.read(i) && regular_array[i] == farray2_using_operators[i])) {
-            cout << "index " << i << ":  regular_array[i]=" << regular_array[i]
-                 << ", while farray3_using_Farray1Direct.read(i)="
+              regular_array[i] == farray1_ptr_size1[i] && regular_array[i] == farray2_ptr_size2[i] &&
+              regular_array[i] == farray1_ptr_size1.read(i) && regular_array[i] == farray2_ptr_size2.read(i))) {
+            cout << "index " << i << ":" << endl
+                 << "               regular_array[i] = " << regular_array[i] << endl
+                 << "     farray1<ptr_size1>.read(i) = " << farray1_ptr_size1.read(i) << endl
+                 << "          farray1<ptr_size1>[i] = " << (T) farray1_ptr_size1[i] << endl
+                 << "     farray2<ptr_size2>.read(i) = " << farray2_ptr_size2.read(i) << endl
+                 << "          farray2<ptr_size2>[i] = " << (T) farray2_ptr_size2[i] << endl
+                 << "Farray1Direct::read(farray3, i) = "
                  << Farray1Direct::read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) << "."
-                 << endl;
+                 << endl << endl;
             return false;
         }
     }
@@ -110,15 +116,18 @@ bool stress_test(size_t array_size) {
             farr1.write(i, v);
             farr2[i] = v;
         } else {
-            if (!(arr[i] == Farray1Direct::read(A, array_size, i, flag) && arr[i] == farr1.read(i) && arr[i] == farr2[i])) {
+            if (!(arr[i] == Farray1Direct::read(A, array_size, i, flag) && arr[i] == farr1.read(i) &&
+                  arr[i] == farr2[i])) {
                 cout << "Bad Read: at index " << i << ",  count " << count << endl;
                 return false;
             }
         }
 
         if (!verify_all_four_arrays_equal<T, ptr_size1, ptr_size2>(arr, farr1, farr2, A, array_size, flag)) {
-            cout << "Last op = " << op << ":    i = " << i << ", v = " << v << "." << endl;
-            cout << "Last def = " << def << ", flag = " << (int) flag << ".    op count = " << count << ", lastF = "
+            cout << "Last op = " << op << ":    i = " << i << ", value = " << v << "." << endl;
+            cout << "N = " << array_size << ".    block-size: " << Farray1Direct::defines::blockSize<T, size_t>()
+                 << endl;
+            cout << "Last def = " << def << ", flag = " << (int) flag << ".    op count = " << count << ", lastFill = "
                  << lastF << "." << endl;
             return false;
         }

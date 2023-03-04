@@ -1,5 +1,5 @@
 <div align="center">
-    <a href="#readme"><img src="https://raw.githubusercontent.com/tomhea/farray/master/res/logo.png" height="150"></a>
+    <a href="#readme"><img src="https://raw.githubusercontent.com/tomhea/farray/master/res/logo.png" alt="Farray logo: Initialize Arrays in O(1)" height="150"></a>
 
 [![Tests Badge](https://github.com/tomhea/farray/actions/workflows/tests.yml/badge.svg)](https://github.com/tomhea/farray/actions/workflows/tests.yml)
 [![GitHub file size in bytes](https://img.shields.io/github/size/tomhea/farray/include/farray1.hpp)](include/farray1.hpp)
@@ -14,7 +14,7 @@
 C++ **Header-only** Implementation of the [In-Place Initializable Arrays](https://arxiv.org/abs/1709.08900) paper.
 
 It's a templated array with **constant-time** fill(v), read(i), write(i,v) operations, all with just 1 bit of extra memory.<br>
-You can really [sense the **speedup**](#is-it-really-better) it provides.
+You can really [sense the **speedup**](#how-much-faster-) it provides.
 
 This **single-file** library is [**thoroughly tested**](tests/tests_farray1.cpp), and is **Embedded-friendly** as it has no exceptions, and use no other library. It can also use no dynamic allocations.
 
@@ -22,7 +22,7 @@ The paper is based on the simpler [Initializing an array in constant time](https
 I wrote a **[Medium article](https://link.medium.com/Q8YbkDJX2bb)** about array initialization and this project. Read it and come back 🧑‍💻. 
 
 # Basic Use:
-To use the array, just download and include the header file. *That's it.*
+To use the array, just [download](https://github.com/tomhea/farray/releases/latest/download/farray1.hpp) and include the header file. *That's it.*
 ```c
 #include "farray1.hpp"
 ```
@@ -61,9 +61,9 @@ This must be seven: 7
 2020 2020 25 36 49 64 81 100 2020 2020 
 ```
 
-You can also use the `A.fill(v), A.read(i), A.write(i,v)` syntax,<br>
-instread of `A=v, A[i], A[i]=v`.<br>
-Also, indexing is circular, so ```A[i] is A[i % n]``` (e.g ```A[2n+5] == A[5]```).
+You can also use the `A.fill(v), A.read(i), A.write(i,v)` syntax, instead of `A=v, A[i], A[i]=v`.
+
+Also, indexing is circular, so ```A[i] is A[i % n]``` (e.g ```A[2n+5] == A[5] == A[-n+5]```).
 
 # How much Faster? 🚀
 
@@ -72,7 +72,7 @@ Take a look at the time [speedups](timings/times_farray1_output.txt) gained by u
 Speedups of the average operation (read/write/fill) on Farray1/c-arrays of size 1000000:
 
 When 10% of the operations are array-fills:
-  Farray1<int64_t, 1000000> is 570 times(!) faster than int64_t[1000000].
+  Farray1<int64_t, 1000000> is 547 times(!) faster than int64_t[1000000].
 
 When 2% of the operations are array-fills:
   Farray1<int64_t, 1000000> is 110 times(!) faster than int64_t[1000000].
@@ -89,8 +89,6 @@ You can also run the timings benchmark on your pc with [times_farray1.cpp](timin
 
 # Farray Website!
 
-This project has a [Website](https://tomhea.github.io/farray/)! containing more information:<br>
-* [Short Despription about the algorithm](https://tomhea.github.io/farray/Short-Description.html)
+This project has a [Website](https://tomhea.github.io/farray/)! It covers to following topics:
+* [Short Description about the algorithm](https://tomhea.github.io/farray/Short-Description.html)
 * [Advanced Features](https://tomhea.github.io/farray/Advanced-Features.html) - iterator, direct-functions, smaller-blocks, templates
-* Much More!
-

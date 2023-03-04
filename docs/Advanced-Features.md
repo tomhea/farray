@@ -1,6 +1,19 @@
 # Advanced Features
 
-Make sure you read the [Short Description](Short-Description.md), as some of the explanations here rely on that.
+Make sure you read the [Short Description](Short-Description.md), as some explanations here rely on that.
+
+
+### Circular Indexing
+You can access the array out of its bounds. Every access is first %n, and then accessed.<br>
+So ```A[i] is A[i % n]``` (e.g ```A[2n+5] == A[5] == A[-n+5]```).
+
+
+### Compile Without Dynamic Allocations
+If you want to compile the library without any dynamic allocations, just add the following #define:
+```c
+#define FARRAY1_NO_DYNAMIC_ALLOCATIONS
+#include "farray1.hpp"
+```
 
 ### The Iterator
 You can also iterate exactly over the written indices (*O(written)* time).<br />
@@ -51,12 +64,12 @@ A[19] = 7
 ### Using smaller blocks
 
 The block size is `2 * ((sizeof(ptr_size)*2+sizeof(T)-1)/sizeof(T)+1)`, with the default `ptr_size` is `size_t`.<br />
-The block size for a 4-byte int and a 8-byte size_t is 10 ints (40 bytes), so first writes are taking quite a lot of memory accesses,<br />
+The block size for a 4-byte int and an 8-byte size_t is 10 ints (40 bytes), so the first **write** to each block takes quite a lot of memory accesses, **O(block_size)**,<br />
 and the iterator and the fill operation are affected too.
 
 The Farray1 class can get a second template argument - which is the `ptr_size`.<br />
 It can be as small as you want, but it will work (for an n-bit unsigned ptr_size) with #blocks < 2<sup>n</sup> arrays.<br />
-For example, an uint16_t (16-bit) ptr_size can be used with a char (1-byte) array of up to 2<sup>16</sup> blocks, or 2<sup>16</sup>\*5 bytes.
+For example, an uint16_t (16-bit) ptr_size can be used with a char (1-byte) array of up to 2<sup>16</sup> blocks, or 2<sup>16</sup>*5 bytes.
 
 ```c
 Farray<char, uint16_t> A(200000);

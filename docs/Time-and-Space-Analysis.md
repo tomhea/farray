@@ -13,7 +13,7 @@ The `Farray1` class is simpler to use but holds a pointer to the array, its (con
 
 The `Farray` takes an extra word and the default value saved separately, but it is a bit faster than Farray1 because the block size is smaller.
 
-The `NFarray` takes a few extra words of memory than `Farray` but allows you to sum all of the values in the array in _O(1)_ time, and to add/multiply all values simultaneously in _O(1)_.
+The `NFarray` takes a few extra words of memory than `Farray` but allows you to sum all the values in the array in _O(1)_ time, and to add/multiply all values simultaneously in _O(1)_.
 
 ## Time Analysis
 
