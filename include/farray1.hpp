@@ -56,7 +56,6 @@ namespace Farray1Direct {
             Block<T,ptr_size,halfBlockSize<T,ptr_size>()>* A;
             size_t n;
             bool flag;
-            ptr_size b;
             T def;
 
             // r <= 2
@@ -64,7 +63,6 @@ namespace Farray1Direct {
             : A((Block<T,ptr_size,halfBlockSize<T,ptr_size>()>*)A), n(n), flag(flag) {
                 if (!flag) {
                     auto p = lastP();
-                    b = p.b;
                     def = p.def;
                 }
             }
@@ -74,7 +72,8 @@ namespace Farray1Direct {
             static size_t blocksEnd(size_t n) { return numBlocks(n) * blockSize<T,ptr_size>(); }
 
             ptrBdef<T,ptr_size>& lastP() { return A[numBlocks()-1].first.p; }
-            void expendB() { flag = ((b=++lastP().b) == numBlocks()); }  // r == 1, w == 1
+            const ptrBdef<T,ptr_size>& lastP() const { return A[numBlocks()-1].first.p; }
+            void expendB() { flag = ((++lastP().b) == numBlocks()); }  // r == 1, w == 1
             void fillBottom(const T& v) { auto& p = lastP(); p.b = 0; p.def = v; }   // w == 2
 
             ptr_size setIndices(size_t i, size_t& mod, bool& first) const {
@@ -89,6 +88,7 @@ namespace Farray1Direct {
             // r == 2
             bool chainedTo(ptr_size i, ptr_size& k) const {
                 k = A[i].first.p.ptr;
+                const auto& b = lastP().b;
                 return (k != i) && (k < numBlocks()) && ((i<b) ^ (k<b))
                     && (A[k].first.p.ptr == i);
             }
@@ -125,8 +125,10 @@ namespace Farray1Direct {
             // r <= 5, w <= 2HB+2
             ptr_size extend() {
                 ptr_size k;
-                bool chained = chainedTo(b, k);
+                bool chained = chainedTo(lastP().b, k);
                 expendB();
+                auto b = lastP().b;
+                
                 if (!chained) {
                     k = b-1;
                 } else {
@@ -184,7 +186,7 @@ namespace Farray1Direct {
         ptr_size i = h.setIndices(index, mod, first), k;
         chained = h.chainedTo(i, k);
 
-        if (i < h.b) {  // UCA
+        if (i < h.lastP().b) {  // UCA
             if ( chained) return h.def;
             return h.read(i, mod, first);
         } else {        // WCA
@@ -211,7 +213,7 @@ namespace Farray1Direct {
         ptr_size i = h.setIndices(index, mod, first), k;
         chained = h.chainedTo(i, k);
 
-        if (i < h.b) {    // UCA
+        if (i < h.lastP().b) {    // UCA
             if ( chained) {     // not written
                 ptr_size j = h.extend();
                 if (i == j) {
