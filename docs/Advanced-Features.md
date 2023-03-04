@@ -68,8 +68,8 @@ The block size for a 4-byte int and an 8-byte size_t is 10 ints (40 bytes), so t
 and the iterator and the fill operation are affected too.
 
 The Farray1 class can get a second template argument - which is the `ptr_size`.<br />
-It can be as small as you want, but it will work (for an n-bit unsigned ptr_size) with #blocks < 2<sup>n</sup> arrays.<br />
-For example, an uint16_t (16-bit) ptr_size can be used with a char (1-byte) array of up to 2<sup>16</sup> blocks, or 2<sup>16</sup>*5 bytes.
+It can be as small as you want, but it will work (for an n-bit unsigned ptr_size) with #blocks < 2^n arrays.<br />
+For example, an uint16_t (16-bit) ptr_size can be used with a char (1-byte) array of up to 2^16 blocks, or (2^16)*5 bytes (up to 327,680 bytes).
 
 ```c
 Farray<char, uint16_t> A(200000);
