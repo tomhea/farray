@@ -54,18 +54,12 @@ namespace Farray1Direct {
         struct ArrayHelper {
         public:
             Block<T,ptr_size,halfBlockSize<T,ptr_size>()>* A;
-            size_t n;
+            const size_t n;
             bool flag;
-            T def;
 
             // r <= 2
             ArrayHelper(const T* A, size_t n, bool flag = true)
-            : A((Block<T,ptr_size,halfBlockSize<T,ptr_size>()>*)A), n(n), flag(flag) {
-                if (!flag) {
-                    auto p = lastP();
-                    def = p.def;
-                }
-            }
+            : A((Block<T,ptr_size,halfBlockSize<T,ptr_size>()>*)A), n(n), flag(flag) { }
             size_t numBlocks() const { return n / blockSize<T,ptr_size>(); }
             size_t blocksEnd() const { return numBlocks() * blockSize<T,ptr_size>(); }
             static size_t numBlocks(size_t n) { return n / blockSize<T,ptr_size>(); }
@@ -99,20 +93,20 @@ namespace Farray1Direct {
             }
 
             // r <= 2, w <= 2HB+1
-            void initBlock(ptr_size i) {
-                 firstHalfInitBlock(i);
-                secondHalfInitBlock(i);
+            void initBlock(ptr_size i, const T& v) {
+                 firstHalfInitBlock(i, v);
+                secondHalfInitBlock(i, v);
             }
             // r <= 2, w <= HB+1
-            void firstHalfInitBlock(ptr_size i) {
+            void firstHalfInitBlock(ptr_size i, const T& v) {
                 for (int t = 0; t < halfBlockSize<T,ptr_size>(); t++)
-                    A[i].first.v[t] = def;
+                    A[i].first.v[t] = v;
                 breakChain(i);
             }
             // w == HB
-            void secondHalfInitBlock(ptr_size i) {
+            void secondHalfInitBlock(ptr_size i, const T& v) {
                 for (int t = 0; t < halfBlockSize<T,ptr_size>(); t++)
-                    A[i].second.v[t] = def;
+                    A[i].second.v[t] = v;
             }
 
             // r <= 2, w <= 1
@@ -125,7 +119,8 @@ namespace Farray1Direct {
             // r <= 5, w <= 2HB+2
             ptr_size extend() {
                 ptr_size k;
-                bool chained = chainedTo(lastP().b, k);
+                const bool chained = chainedTo(lastP().b, k);
+                const auto def = lastP().def;
                 expendB();
                 auto b = lastP().b;
                 
@@ -135,7 +130,7 @@ namespace Farray1Direct {
                     A[b-1].first = A[k].second;
                     breakChain(b-1);
                 }
-                secondHalfInitBlock(k);
+                secondHalfInitBlock(k, def);
                 return k;
             }
 
@@ -187,10 +182,10 @@ namespace Farray1Direct {
         chained = h.chainedTo(i, k);
 
         if (i < h.lastP().b) {  // UCA
-            if ( chained) return h.def;
+            if ( chained) return h.lastP().def;
             return h.read(i, mod, first);
         } else {        // WCA
-            if (!chained) return h.def;
+            if (!chained) return h.lastP().def;
             return h.read(first ? k : i, mod, false);
         }
     }
@@ -209,20 +204,21 @@ namespace Farray1Direct {
         }
 
         size_t mod;
-        bool first, chained;
+        bool first;
         ptr_size i = h.setIndices(index, mod, first), k;
-        chained = h.chainedTo(i, k);
+        const bool chained = h.chainedTo(i, k);
+        const T def = h.lastP().def;
 
         if (i < h.lastP().b) {    // UCA
             if ( chained) {     // not written
                 ptr_size j = h.extend();
                 if (i == j) {
-                    h.firstHalfInitBlock(i);
+                    h.firstHalfInitBlock(i, def);
                     h.write(i, mod, first, v);
                 } else {
                     h.copySecondHalfBlock(j, i);
                     h.makeChain(j, k);
-                    h.initBlock(i);
+                    h.initBlock(i, def);
                     h.write(i, mod, first, v);
                 }
             } else {            // already written
@@ -232,10 +228,10 @@ namespace Farray1Direct {
             if (!chained) {     // not written
                 k = h.extend();
                 if (i == k) {
-                    h.firstHalfInitBlock(i);
+                    h.firstHalfInitBlock(i, def);
                     h.write(i, mod, first, v);
                 } else {
-                    h.secondHalfInitBlock(i);
+                    h.secondHalfInitBlock(i, def);
                     h.makeChain(k, i);
                     h.write(first ? k : i, mod, false, v);
                 }
