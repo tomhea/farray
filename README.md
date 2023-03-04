@@ -72,7 +72,7 @@ Take a look at the time [speedups](timings/times_farray1_output.txt) gained by u
 Speedups of the average operation (read/write/fill) on Farray1/c-arrays of size 1000000:
 
 When 10% of the operations are array-fills:
-  Farray1<int64_t, 1000000> is 570 times(!) faster than int64_t[1000000].
+  Farray1<int64_t, 1000000> is 547 times(!) faster than int64_t[1000000].
 
 When 2% of the operations are array-fills:
   Farray1<int64_t, 1000000> is 110 times(!) faster than int64_t[1000000].

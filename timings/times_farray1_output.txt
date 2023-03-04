@@ -5,879 +5,879 @@ Speedups of using Farray instead of regular array (Bigger than 1 is better):
 
 Scenario:  50% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    4.360
-Y     [10000]  Farray1/array speedup:    42.240
-Z     [10000]  Farray1/array speedup:    25.886
-ZZ    [10000]  Farray1/array speedup:    30.933
-int64 [10000]  Farray1/array speedup:    21.540
-int32 [10000]  Farray1/array speedup:    6.259
-int16 [10000]  Farray1/array speedup:    3.879
-int8  [10000]  Farray1/array speedup:    1.826
-bool  [10000]  Farray1/array speedup:    2.515
+X     [10000]  Farray1/array speedup:    4.282
+Y     [10000]  Farray1/array speedup:    40.710
+Z     [10000]  Farray1/array speedup:    21.916
+ZZ    [10000]  Farray1/array speedup:    31.748
+int64 [10000]  Farray1/array speedup:    20.755
+int32 [10000]  Farray1/array speedup:    6.579
+int16 [10000]  Farray1/array speedup:    3.804
+int8  [10000]  Farray1/array speedup:    2.503
+bool  [10000]  Farray1/array speedup:    3.163
 
-X     [30000]  Farray1/array speedup:    16.510
-Y     [30000]  Farray1/array speedup:    141.313
-Z     [30000]  Farray1/array speedup:    69.879
-ZZ    [30000]  Farray1/array speedup:    82.821
-int64 [30000]  Farray1/array speedup:    55.050
-int32 [30000]  Farray1/array speedup:    31.717
-int16 [30000]  Farray1/array speedup:    17.774
-int8  [30000]  Farray1/array speedup:    5.270
-bool  [30000]  Farray1/array speedup:    4.844
+X     [30000]  Farray1/array speedup:    13.854
+Y     [30000]  Farray1/array speedup:    129.989
+Z     [30000]  Farray1/array speedup:    70.935
+ZZ    [30000]  Farray1/array speedup:    76.106
+int64 [30000]  Farray1/array speedup:    59.605
+int32 [30000]  Farray1/array speedup:    30.128
+int16 [30000]  Farray1/array speedup:    12.733
+int8  [30000]  Farray1/array speedup:    5.244
+bool  [30000]  Farray1/array speedup:    4.845
 
-X     [100000]  Farray1/array speedup:    63.163
-Y     [100000]  Farray1/array speedup:    407.089
-Z     [100000]  Farray1/array speedup:    254.009
-ZZ    [100000]  Farray1/array speedup:    442.970
-int64 [100000]  Farray1/array speedup:    203.550
-int32 [100000]  Farray1/array speedup:    102.752
-int16 [100000]  Farray1/array speedup:    50.894
-int8  [100000]  Farray1/array speedup:    26.358
-bool  [100000]  Farray1/array speedup:    24.654
+X     [100000]  Farray1/array speedup:    56.151
+Y     [100000]  Farray1/array speedup:    155.243
+Z     [100000]  Farray1/array speedup:    255.256
+ZZ    [100000]  Farray1/array speedup:    401.871
+int64 [100000]  Farray1/array speedup:    183.837
+int32 [100000]  Farray1/array speedup:    96.744
+int16 [100000]  Farray1/array speedup:    43.867
+int8  [100000]  Farray1/array speedup:    24.719
+bool  [100000]  Farray1/array speedup:    24.919
 
-X     [300000]  Farray1/array speedup:    163.971
-Y     [300000]  Farray1/array speedup:    1317.437
-Z     [300000]  Farray1/array speedup:    958.313
-ZZ    [300000]  Farray1/array speedup:    1294.093
-int64 [300000]  Farray1/array speedup:    871.425
-int32 [300000]  Farray1/array speedup:    303.476
-int16 [300000]  Farray1/array speedup:    146.051
-int8  [300000]  Farray1/array speedup:    78.671
-bool  [300000]  Farray1/array speedup:    63.471
+X     [300000]  Farray1/array speedup:    160.536
+Y     [300000]  Farray1/array speedup:    916.632
+Z     [300000]  Farray1/array speedup:    744.805
+ZZ    [300000]  Farray1/array speedup:    1120.731
+int64 [300000]  Farray1/array speedup:    857.381
+int32 [300000]  Farray1/array speedup:    289.264
+int16 [300000]  Farray1/array speedup:    149.538
+int8  [300000]  Farray1/array speedup:    74.486
+bool  [300000]  Farray1/array speedup:    78.409
 
-X     [1000000]  Farray1/array speedup:    939.710
-Y     [1000000]  Farray1/array speedup:    3422.873
-Z     [1000000]  Farray1/array speedup:    3556.988
-ZZ    [1000000]  Farray1/array speedup:    7538.094
-int64 [1000000]  Farray1/array speedup:    4663.751
-int32 [1000000]  Farray1/array speedup:    241.760
-int16 [1000000]  Farray1/array speedup:    721.010
-int8  [1000000]  Farray1/array speedup:    287.787
-bool  [1000000]  Farray1/array speedup:    234.504
+X     [1000000]  Farray1/array speedup:    899.821
+Y     [1000000]  Farray1/array speedup:    4195.720
+Z     [1000000]  Farray1/array speedup:    3258.355
+ZZ    [1000000]  Farray1/array speedup:    7864.189
+int64 [1000000]  Farray1/array speedup:    1893.685
+int32 [1000000]  Farray1/array speedup:    1318.302
+int16 [1000000]  Farray1/array speedup:    757.008
+int8  [1000000]  Farray1/array speedup:    241.153
+bool  [1000000]  Farray1/array speedup:    229.755
 
 
 --------------------------------
 
 Scenario:  20.000% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    2.118
-Y     [10000]  Farray1/array speedup:    18.958
-Z     [10000]  Farray1/array speedup:    10.436
-ZZ    [10000]  Farray1/array speedup:    12.631
-int64 [10000]  Farray1/array speedup:    9.423
-int32 [10000]  Farray1/array speedup:    3.112
-int16 [10000]  Farray1/array speedup:    1.974
-int8  [10000]  Farray1/array speedup:    1.352
-bool  [10000]  Farray1/array speedup:    1.523
+X     [10000]  Farray1/array speedup:    1.978
+Y     [10000]  Farray1/array speedup:    17.126
+Z     [10000]  Farray1/array speedup:    10.034
+ZZ    [10000]  Farray1/array speedup:    12.501
+int64 [10000]  Farray1/array speedup:    7.387
+int32 [10000]  Farray1/array speedup:    2.844
+int16 [10000]  Farray1/array speedup:    1.939
+int8  [10000]  Farray1/array speedup:    1.293
+bool  [10000]  Farray1/array speedup:    1.390
 
-X     [30000]  Farray1/array speedup:    6.116
-Y     [30000]  Farray1/array speedup:    51.132
-Z     [30000]  Farray1/array speedup:    27.020
-ZZ    [30000]  Farray1/array speedup:    35.097
-int64 [30000]  Farray1/array speedup:    23.476
-int32 [30000]  Farray1/array speedup:    11.771
-int16 [30000]  Farray1/array speedup:    6.302
-int8  [30000]  Farray1/array speedup:    2.490
-bool  [30000]  Farray1/array speedup:    2.517
+X     [30000]  Farray1/array speedup:    6.929
+Y     [30000]  Farray1/array speedup:    47.148
+Z     [30000]  Farray1/array speedup:    26.255
+ZZ    [30000]  Farray1/array speedup:    32.802
+int64 [30000]  Farray1/array speedup:    19.579
+int32 [30000]  Farray1/array speedup:    11.072
+int16 [30000]  Farray1/array speedup:    5.864
+int8  [30000]  Farray1/array speedup:    2.413
+bool  [30000]  Farray1/array speedup:    2.417
 
-X     [100000]  Farray1/array speedup:    19.946
-Y     [100000]  Farray1/array speedup:    155.302
-Z     [100000]  Farray1/array speedup:    129.548
-ZZ    [100000]  Farray1/array speedup:    180.901
-int64 [100000]  Farray1/array speedup:    82.269
-int32 [100000]  Farray1/array speedup:    39.984
-int16 [100000]  Farray1/array speedup:    23.570
-int8  [100000]  Farray1/array speedup:    9.635
-bool  [100000]  Farray1/array speedup:    9.720
+X     [100000]  Farray1/array speedup:    20.824
+Y     [100000]  Farray1/array speedup:    155.487
+Z     [100000]  Farray1/array speedup:    112.766
+ZZ    [100000]  Farray1/array speedup:    165.040
+int64 [100000]  Farray1/array speedup:    28.133
+int32 [100000]  Farray1/array speedup:    35.887
+int16 [100000]  Farray1/array speedup:    18.432
+int8  [100000]  Farray1/array speedup:    9.821
+bool  [100000]  Farray1/array speedup:    9.520
 
-X     [300000]  Farray1/array speedup:    62.243
-Y     [300000]  Farray1/array speedup:    534.690
-Z     [300000]  Farray1/array speedup:    402.138
-ZZ    [300000]  Farray1/array speedup:    582.565
-int64 [300000]  Farray1/array speedup:    336.528
-int32 [300000]  Farray1/array speedup:    111.585
-int16 [300000]  Farray1/array speedup:    56.276
-int8  [300000]  Farray1/array speedup:    36.766
-bool  [300000]  Farray1/array speedup:    22.116
+X     [300000]  Farray1/array speedup:    56.131
+Y     [300000]  Farray1/array speedup:    507.646
+Z     [300000]  Farray1/array speedup:    344.461
+ZZ    [300000]  Farray1/array speedup:    505.498
+int64 [300000]  Farray1/array speedup:    339.977
+int32 [300000]  Farray1/array speedup:    106.796
+int16 [300000]  Farray1/array speedup:    56.769
+int8  [300000]  Farray1/array speedup:    27.965
+bool  [300000]  Farray1/array speedup:    27.095
 
-X     [1000000]  Farray1/array speedup:    353.652
-Y     [1000000]  Farray1/array speedup:    1840.099
-Z     [1000000]  Farray1/array speedup:    1252.756
-ZZ    [1000000]  Farray1/array speedup:    2137.503
-int64 [1000000]  Farray1/array speedup:    1326.095
-int32 [1000000]  Farray1/array speedup:    1261.116
-int16 [1000000]  Farray1/array speedup:    294.200
-int8  [1000000]  Farray1/array speedup:    92.805
-bool  [1000000]  Farray1/array speedup:    86.376
+X     [1000000]  Farray1/array speedup:    353.025
+Y     [1000000]  Farray1/array speedup:    1628.148
+Z     [1000000]  Farray1/array speedup:    1186.990
+ZZ    [1000000]  Farray1/array speedup:    2888.268
+int64 [1000000]  Farray1/array speedup:    979.956
+int32 [1000000]  Farray1/array speedup:    597.195
+int16 [1000000]  Farray1/array speedup:    298.171
+int8  [1000000]  Farray1/array speedup:    93.065
+bool  [1000000]  Farray1/array speedup:    91.999
 
 
 --------------------------------
 
 Scenario:  10.000% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    1.488
-Y     [10000]  Farray1/array speedup:    9.244
-Z     [10000]  Farray1/array speedup:    6.260
-ZZ    [10000]  Farray1/array speedup:    7.273
-int64 [10000]  Farray1/array speedup:    5.005
-int32 [10000]  Farray1/array speedup:    1.821
-int16 [10000]  Farray1/array speedup:    1.463
-int8  [10000]  Farray1/array speedup:    1.186
-bool  [10000]  Farray1/array speedup:    0.943
+X     [10000]  Farray1/array speedup:    0.832
+Y     [10000]  Farray1/array speedup:    8.579
+Z     [10000]  Farray1/array speedup:    5.157
+ZZ    [10000]  Farray1/array speedup:    7.092
+int64 [10000]  Farray1/array speedup:    4.226
+int32 [10000]  Farray1/array speedup:    1.715
+int16 [10000]  Farray1/array speedup:    1.561
+int8  [10000]  Farray1/array speedup:    1.149
+bool  [10000]  Farray1/array speedup:    1.042
 
-X     [30000]  Farray1/array speedup:    3.988
-Y     [30000]  Farray1/array speedup:    23.744
-Z     [30000]  Farray1/array speedup:    13.462
-ZZ    [30000]  Farray1/array speedup:    19.893
-int64 [30000]  Farray1/array speedup:    10.375
-int32 [30000]  Farray1/array speedup:    5.905
-int16 [30000]  Farray1/array speedup:    2.828
-int8  [30000]  Farray1/array speedup:    1.643
-bool  [30000]  Farray1/array speedup:    1.665
+X     [30000]  Farray1/array speedup:    3.869
+Y     [30000]  Farray1/array speedup:    23.533
+Z     [30000]  Farray1/array speedup:    14.503
+ZZ    [30000]  Farray1/array speedup:    18.528
+int64 [30000]  Farray1/array speedup:    13.692
+int32 [30000]  Farray1/array speedup:    5.935
+int16 [30000]  Farray1/array speedup:    3.581
+int8  [30000]  Farray1/array speedup:    1.470
+bool  [30000]  Farray1/array speedup:    1.616
 
-X     [100000]  Farray1/array speedup:    12.558
-Y     [100000]  Farray1/array speedup:    49.588
-Z     [100000]  Farray1/array speedup:    71.735
-ZZ    [100000]  Farray1/array speedup:    101.951
-int64 [100000]  Farray1/array speedup:    36.930
-int32 [100000]  Farray1/array speedup:    15.068
-int16 [100000]  Farray1/array speedup:    7.506
-int8  [100000]  Farray1/array speedup:    5.237
-bool  [100000]  Farray1/array speedup:    4.739
+X     [100000]  Farray1/array speedup:    11.582
+Y     [100000]  Farray1/array speedup:    81.264
+Z     [100000]  Farray1/array speedup:    57.574
+ZZ    [100000]  Farray1/array speedup:    88.818
+int64 [100000]  Farray1/array speedup:    34.083
+int32 [100000]  Farray1/array speedup:    17.444
+int16 [100000]  Farray1/array speedup:    9.449
+int8  [100000]  Farray1/array speedup:    5.223
+bool  [100000]  Farray1/array speedup:    5.478
 
-X     [300000]  Farray1/array speedup:    31.426
-Y     [300000]  Farray1/array speedup:    259.499
-Z     [300000]  Farray1/array speedup:    225.379
-ZZ    [300000]  Farray1/array speedup:    282.193
-int64 [300000]  Farray1/array speedup:    157.229
-int32 [300000]  Farray1/array speedup:    74.252
-int16 [300000]  Farray1/array speedup:    28.143
-int8  [300000]  Farray1/array speedup:    12.455
-bool  [300000]  Farray1/array speedup:    15.060
+X     [300000]  Farray1/array speedup:    32.058
+Y     [300000]  Farray1/array speedup:    246.216
+Z     [300000]  Farray1/array speedup:    176.407
+ZZ    [300000]  Farray1/array speedup:    251.571
+int64 [300000]  Farray1/array speedup:    167.893
+int32 [300000]  Farray1/array speedup:    53.347
+int16 [300000]  Farray1/array speedup:    27.985
+int8  [300000]  Farray1/array speedup:    13.929
+bool  [300000]  Farray1/array speedup:    13.716
 
-X     [1000000]  Farray1/array speedup:    163.067
-Y     [1000000]  Farray1/array speedup:    1396.950
-Z     [1000000]  Farray1/array speedup:    783.192
-ZZ    [1000000]  Farray1/array speedup:    1607.842
-int64 [1000000]  Farray1/array speedup:    573.158
-int32 [1000000]  Farray1/array speedup:    305.392
-int16 [1000000]  Farray1/array speedup:    162.332
-int8  [1000000]  Farray1/array speedup:    48.841
-bool  [1000000]  Farray1/array speedup:    49.142
+X     [1000000]  Farray1/array speedup:    164.621
+Y     [1000000]  Farray1/array speedup:    845.117
+Z     [1000000]  Farray1/array speedup:    644.887
+ZZ    [1000000]  Farray1/array speedup:    1991.312
+int64 [1000000]  Farray1/array speedup:    547.508
+int32 [1000000]  Farray1/array speedup:    287.210
+int16 [1000000]  Farray1/array speedup:    150.688
+int8  [1000000]  Farray1/array speedup:    47.571
+bool  [1000000]  Farray1/array speedup:    44.877
 
 
 --------------------------------
 
 Scenario:  5.000% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    1.052
-Y     [10000]  Farray1/array speedup:    5.073
-Z     [10000]  Farray1/array speedup:    3.211
-ZZ    [10000]  Farray1/array speedup:    3.849
-int64 [10000]  Farray1/array speedup:    2.462
-int32 [10000]  Farray1/array speedup:    1.287
-int16 [10000]  Farray1/array speedup:    0.909
-int8  [10000]  Farray1/array speedup:    1.106
-bool  [10000]  Farray1/array speedup:    0.962
+X     [10000]  Farray1/array speedup:    1.093
+Y     [10000]  Farray1/array speedup:    4.681
+Z     [10000]  Farray1/array speedup:    2.950
+ZZ    [10000]  Farray1/array speedup:    3.756
+int64 [10000]  Farray1/array speedup:    2.376
+int32 [10000]  Farray1/array speedup:    1.268
+int16 [10000]  Farray1/array speedup:    1.037
+int8  [10000]  Farray1/array speedup:    0.902
+bool  [10000]  Farray1/array speedup:    0.889
 
-X     [30000]  Farray1/array speedup:    2.240
-Y     [30000]  Farray1/array speedup:    9.352
-Z     [30000]  Farray1/array speedup:    8.309
-ZZ    [30000]  Farray1/array speedup:    9.437
-int64 [30000]  Farray1/array speedup:    5.922
-int32 [30000]  Farray1/array speedup:    3.576
-int16 [30000]  Farray1/array speedup:    1.908
-int8  [30000]  Farray1/array speedup:    1.065
-bool  [30000]  Farray1/array speedup:    1.142
+X     [30000]  Farray1/array speedup:    2.221
+Y     [30000]  Farray1/array speedup:    12.415
+Z     [30000]  Farray1/array speedup:    7.116
+ZZ    [30000]  Farray1/array speedup:    7.696
+int64 [30000]  Farray1/array speedup:    5.648
+int32 [30000]  Farray1/array speedup:    3.197
+int16 [30000]  Farray1/array speedup:    1.891
+int8  [30000]  Farray1/array speedup:    1.219
+bool  [30000]  Farray1/array speedup:    1.135
 
-X     [100000]  Farray1/array speedup:    5.328
-Y     [100000]  Farray1/array speedup:    45.394
-Z     [100000]  Farray1/array speedup:    36.427
-ZZ    [100000]  Farray1/array speedup:    51.555
-int64 [100000]  Farray1/array speedup:    24.832
-int32 [100000]  Farray1/array speedup:    9.692
-int16 [100000]  Farray1/array speedup:    7.260
-int8  [100000]  Farray1/array speedup:    2.850
-bool  [100000]  Farray1/array speedup:    3.227
+X     [100000]  Farray1/array speedup:    5.726
+Y     [100000]  Farray1/array speedup:    38.355
+Z     [100000]  Farray1/array speedup:    30.033
+ZZ    [100000]  Farray1/array speedup:    44.487
+int64 [100000]  Farray1/array speedup:    17.546
+int32 [100000]  Farray1/array speedup:    8.946
+int16 [100000]  Farray1/array speedup:    4.765
+int8  [100000]  Farray1/array speedup:    2.887
+bool  [100000]  Farray1/array speedup:    2.822
 
-X     [300000]  Farray1/array speedup:    15.854
-Y     [300000]  Farray1/array speedup:    149.568
-Z     [300000]  Farray1/array speedup:    107.440
-ZZ    [300000]  Farray1/array speedup:    157.351
-int64 [300000]  Farray1/array speedup:    88.550
-int32 [300000]  Farray1/array speedup:    23.735
-int16 [300000]  Farray1/array speedup:    14.698
-int8  [300000]  Farray1/array speedup:    6.853
-bool  [300000]  Farray1/array speedup:    7.130
+X     [300000]  Farray1/array speedup:    15.316
+Y     [300000]  Farray1/array speedup:    125.805
+Z     [300000]  Farray1/array speedup:    102.631
+ZZ    [300000]  Farray1/array speedup:    133.704
+int64 [300000]  Farray1/array speedup:    81.470
+int32 [300000]  Farray1/array speedup:    25.486
+int16 [300000]  Farray1/array speedup:    13.057
+int8  [300000]  Farray1/array speedup:    6.875
+bool  [300000]  Farray1/array speedup:    7.064
 
-X     [1000000]  Farray1/array speedup:    108.577
-Y     [1000000]  Farray1/array speedup:    414.731
-Z     [1000000]  Farray1/array speedup:    416.006
-ZZ    [1000000]  Farray1/array speedup:    635.632
-int64 [1000000]  Farray1/array speedup:    317.293
-int32 [1000000]  Farray1/array speedup:    163.022
-int16 [1000000]  Farray1/array speedup:    80.726
-int8  [1000000]  Farray1/array speedup:    26.989
-bool  [1000000]  Farray1/array speedup:    24.007
+X     [1000000]  Farray1/array speedup:    82.152
+Y     [1000000]  Farray1/array speedup:    420.824
+Z     [1000000]  Farray1/array speedup:    336.831
+ZZ    [1000000]  Farray1/array speedup:    784.466
+int64 [1000000]  Farray1/array speedup:    274.624
+int32 [1000000]  Farray1/array speedup:    144.216
+int16 [1000000]  Farray1/array speedup:    67.386
+int8  [1000000]  Farray1/array speedup:    20.418
+bool  [1000000]  Farray1/array speedup:    22.099
 
 
 --------------------------------
 
 Scenario:  2.000% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.944
-Y     [10000]  Farray1/array speedup:    2.377
-Z     [10000]  Farray1/array speedup:    1.762
-ZZ    [10000]  Farray1/array speedup:    2.133
-int64 [10000]  Farray1/array speedup:    1.504
-int32 [10000]  Farray1/array speedup:    1.029
-int16 [10000]  Farray1/array speedup:    0.722
-int8  [10000]  Farray1/array speedup:    0.722
-bool  [10000]  Farray1/array speedup:    0.719
+X     [10000]  Farray1/array speedup:    1.039
+Y     [10000]  Farray1/array speedup:    2.288
+Z     [10000]  Farray1/array speedup:    1.703
+ZZ    [10000]  Farray1/array speedup:    2.097
+int64 [10000]  Farray1/array speedup:    1.431
+int32 [10000]  Farray1/array speedup:    0.939
+int16 [10000]  Farray1/array speedup:    0.845
+int8  [10000]  Farray1/array speedup:    0.738
+bool  [10000]  Farray1/array speedup:    0.736
 
-X     [30000]  Farray1/array speedup:    1.447
-Y     [30000]  Farray1/array speedup:    5.453
-Z     [30000]  Farray1/array speedup:    3.755
-ZZ    [30000]  Farray1/array speedup:    4.320
-int64 [30000]  Farray1/array speedup:    2.790
-int32 [30000]  Farray1/array speedup:    1.694
-int16 [30000]  Farray1/array speedup:    1.273
-int8  [30000]  Farray1/array speedup:    0.888
-bool  [30000]  Farray1/array speedup:    0.858
+X     [30000]  Farray1/array speedup:    1.354
+Y     [30000]  Farray1/array speedup:    5.210
+Z     [30000]  Farray1/array speedup:    3.176
+ZZ    [30000]  Farray1/array speedup:    4.263
+int64 [30000]  Farray1/array speedup:    2.738
+int32 [30000]  Farray1/array speedup:    1.733
+int16 [30000]  Farray1/array speedup:    1.262
+int8  [30000]  Farray1/array speedup:    0.734
+bool  [30000]  Farray1/array speedup:    0.870
 
-X     [100000]  Farray1/array speedup:    2.773
-Y     [100000]  Farray1/array speedup:    12.723
-Z     [100000]  Farray1/array speedup:    14.024
-ZZ    [100000]  Farray1/array speedup:    20.267
-int64 [100000]  Farray1/array speedup:    8.226
-int32 [100000]  Farray1/array speedup:    4.447
-int16 [100000]  Farray1/array speedup:    2.004
-int8  [100000]  Farray1/array speedup:    1.764
-bool  [100000]  Farray1/array speedup:    1.596
+X     [100000]  Farray1/array speedup:    2.630
+Y     [100000]  Farray1/array speedup:    15.320
+Z     [100000]  Farray1/array speedup:    13.751
+ZZ    [100000]  Farray1/array speedup:    20.293
+int64 [100000]  Farray1/array speedup:    7.433
+int32 [100000]  Farray1/array speedup:    4.061
+int16 [100000]  Farray1/array speedup:    2.522
+int8  [100000]  Farray1/array speedup:    1.197
+bool  [100000]  Farray1/array speedup:    1.560
 
-X     [300000]  Farray1/array speedup:    7.068
-Y     [300000]  Farray1/array speedup:    51.859
-Z     [300000]  Farray1/array speedup:    44.051
-ZZ    [300000]  Farray1/array speedup:    62.012
-int64 [300000]  Farray1/array speedup:    35.009
-int32 [300000]  Farray1/array speedup:    11.504
-int16 [300000]  Farray1/array speedup:    6.271
-int8  [300000]  Farray1/array speedup:    3.415
-bool  [300000]  Farray1/array speedup:    3.637
+X     [300000]  Farray1/array speedup:    6.559
+Y     [300000]  Farray1/array speedup:    50.323
+Z     [300000]  Farray1/array speedup:    43.555
+ZZ    [300000]  Farray1/array speedup:    58.959
+int64 [300000]  Farray1/array speedup:    34.552
+int32 [300000]  Farray1/array speedup:    10.643
+int16 [300000]  Farray1/array speedup:    5.533
+int8  [300000]  Farray1/array speedup:    3.104
+bool  [300000]  Farray1/array speedup:    3.167
 
-X     [1000000]  Farray1/array speedup:    34.320
-Y     [1000000]  Farray1/array speedup:    191.527
-Z     [1000000]  Farray1/array speedup:    139.723
-ZZ    [1000000]  Farray1/array speedup:    221.526
-int64 [1000000]  Farray1/array speedup:    111.142
-int32 [1000000]  Farray1/array speedup:    50.560
-int16 [1000000]  Farray1/array speedup:    29.326
-int8  [1000000]  Farray1/array speedup:    9.752
-bool  [1000000]  Farray1/array speedup:    9.720
+X     [1000000]  Farray1/array speedup:    34.137
+Y     [1000000]  Farray1/array speedup:    167.979
+Z     [1000000]  Farray1/array speedup:    142.608
+ZZ    [1000000]  Farray1/array speedup:    334.336
+int64 [1000000]  Farray1/array speedup:    110.763
+int32 [1000000]  Farray1/array speedup:    55.083
+int16 [1000000]  Farray1/array speedup:    27.367
+int8  [1000000]  Farray1/array speedup:    8.870
+bool  [1000000]  Farray1/array speedup:    8.915
 
 
 --------------------------------
 
 Scenario:  1.000% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.786
-Y     [10000]  Farray1/array speedup:    1.698
-Z     [10000]  Farray1/array speedup:    1.274
-ZZ    [10000]  Farray1/array speedup:    1.577
-int64 [10000]  Farray1/array speedup:    1.077
-int32 [10000]  Farray1/array speedup:    0.821
-int16 [10000]  Farray1/array speedup:    0.763
-int8  [10000]  Farray1/array speedup:    0.673
-bool  [10000]  Farray1/array speedup:    0.682
+X     [10000]  Farray1/array speedup:    0.797
+Y     [10000]  Farray1/array speedup:    1.376
+Z     [10000]  Farray1/array speedup:    1.243
+ZZ    [10000]  Farray1/array speedup:    1.469
+int64 [10000]  Farray1/array speedup:    1.053
+int32 [10000]  Farray1/array speedup:    0.809
+int16 [10000]  Farray1/array speedup:    0.746
+int8  [10000]  Farray1/array speedup:    0.677
+bool  [10000]  Farray1/array speedup:    0.675
 
-X     [30000]  Farray1/array speedup:    1.003
-Y     [30000]  Farray1/array speedup:    2.452
-Z     [30000]  Farray1/array speedup:    2.268
-ZZ    [30000]  Farray1/array speedup:    2.590
-int64 [30000]  Farray1/array speedup:    1.768
-int32 [30000]  Farray1/array speedup:    1.217
-int16 [30000]  Farray1/array speedup:    1.010
-int8  [30000]  Farray1/array speedup:    0.826
-bool  [30000]  Farray1/array speedup:    0.692
+X     [30000]  Farray1/array speedup:    1.049
+Y     [30000]  Farray1/array speedup:    3.118
+Z     [30000]  Farray1/array speedup:    2.052
+ZZ    [30000]  Farray1/array speedup:    2.699
+int64 [30000]  Farray1/array speedup:    1.642
+int32 [30000]  Farray1/array speedup:    1.247
+int16 [30000]  Farray1/array speedup:    1.022
+int8  [30000]  Farray1/array speedup:    0.898
+bool  [30000]  Farray1/array speedup:    0.760
 
-X     [100000]  Farray1/array speedup:    1.773
-Y     [100000]  Farray1/array speedup:    8.966
-Z     [100000]  Farray1/array speedup:    7.210
-ZZ    [100000]  Farray1/array speedup:    11.334
-int64 [100000]  Farray1/array speedup:    4.389
-int32 [100000]  Farray1/array speedup:    2.468
-int16 [100000]  Farray1/array speedup:    1.702
-int8  [100000]  Farray1/array speedup:    1.208
-bool  [100000]  Farray1/array speedup:    1.173
+X     [100000]  Farray1/array speedup:    1.878
+Y     [100000]  Farray1/array speedup:    8.448
+Z     [100000]  Farray1/array speedup:    6.627
+ZZ    [100000]  Farray1/array speedup:    10.648
+int64 [100000]  Farray1/array speedup:    4.014
+int32 [100000]  Farray1/array speedup:    2.548
+int16 [100000]  Farray1/array speedup:    1.635
+int8  [100000]  Farray1/array speedup:    1.190
+bool  [100000]  Farray1/array speedup:    1.153
 
-X     [300000]  Farray1/array speedup:    4.461
-Y     [300000]  Farray1/array speedup:    25.588
-Z     [300000]  Farray1/array speedup:    23.714
-ZZ    [300000]  Farray1/array speedup:    32.762
-int64 [300000]  Farray1/array speedup:    14.290
-int32 [300000]  Farray1/array speedup:    8.947
-int16 [300000]  Farray1/array speedup:    4.194
-int8  [300000]  Farray1/array speedup:    2.000
-bool  [300000]  Farray1/array speedup:    2.095
+X     [300000]  Farray1/array speedup:    3.990
+Y     [300000]  Farray1/array speedup:    24.070
+Z     [300000]  Farray1/array speedup:    22.031
+ZZ    [300000]  Farray1/array speedup:    30.009
+int64 [300000]  Farray1/array speedup:    17.777
+int32 [300000]  Farray1/array speedup:    5.540
+int16 [300000]  Farray1/array speedup:    3.155
+int8  [300000]  Farray1/array speedup:    1.931
+bool  [300000]  Farray1/array speedup:    1.922
 
-X     [1000000]  Farray1/array speedup:    15.595
-Y     [1000000]  Farray1/array speedup:    101.198
-Z     [1000000]  Farray1/array speedup:    111.701
-ZZ    [1000000]  Farray1/array speedup:    255.532
-int64 [1000000]  Farray1/array speedup:    59.483
-int32 [1000000]  Farray1/array speedup:    28.839
-int16 [1000000]  Farray1/array speedup:    13.986
-int8  [1000000]  Farray1/array speedup:    5.088
-bool  [1000000]  Farray1/array speedup:    4.645
+X     [1000000]  Farray1/array speedup:    16.974
+Y     [1000000]  Farray1/array speedup:    83.811
+Z     [1000000]  Farray1/array speedup:    76.145
+ZZ    [1000000]  Farray1/array speedup:    172.278
+int64 [1000000]  Farray1/array speedup:    56.092
+int32 [1000000]  Farray1/array speedup:    29.646
+int16 [1000000]  Farray1/array speedup:    14.219
+int8  [1000000]  Farray1/array speedup:    4.761
+bool  [1000000]  Farray1/array speedup:    4.723
 
 
 --------------------------------
 
 Scenario:  0.500% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.721
-Y     [10000]  Farray1/array speedup:    1.155
-Z     [10000]  Farray1/array speedup:    1.040
-ZZ    [10000]  Farray1/array speedup:    1.343
-int64 [10000]  Farray1/array speedup:    0.875
-int32 [10000]  Farray1/array speedup:    0.793
-int16 [10000]  Farray1/array speedup:    0.688
-int8  [10000]  Farray1/array speedup:    0.621
-bool  [10000]  Farray1/array speedup:    0.671
+X     [10000]  Farray1/array speedup:    0.891
+Y     [10000]  Farray1/array speedup:    1.302
+Z     [10000]  Farray1/array speedup:    0.977
+ZZ    [10000]  Farray1/array speedup:    1.209
+int64 [10000]  Farray1/array speedup:    0.882
+int32 [10000]  Farray1/array speedup:    0.643
+int16 [10000]  Farray1/array speedup:    0.669
+int8  [10000]  Farray1/array speedup:    0.464
+bool  [10000]  Farray1/array speedup:    0.630
 
-X     [30000]  Farray1/array speedup:    0.903
-Y     [30000]  Farray1/array speedup:    1.812
-Z     [30000]  Farray1/array speedup:    1.426
+X     [30000]  Farray1/array speedup:    0.850
+Y     [30000]  Farray1/array speedup:    1.603
+Z     [30000]  Farray1/array speedup:    1.245
 ZZ    [30000]  Farray1/array speedup:    1.761
-int64 [30000]  Farray1/array speedup:    1.383
-int32 [30000]  Farray1/array speedup:    1.055
-int16 [30000]  Farray1/array speedup:    0.828
-int8  [30000]  Farray1/array speedup:    0.751
+int64 [30000]  Farray1/array speedup:    1.205
+int32 [30000]  Farray1/array speedup:    0.784
+int16 [30000]  Farray1/array speedup:    0.827
+int8  [30000]  Farray1/array speedup:    0.713
 bool  [30000]  Farray1/array speedup:    0.699
 
-X     [100000]  Farray1/array speedup:    1.199
-Y     [100000]  Farray1/array speedup:    4.891
-Z     [100000]  Farray1/array speedup:    4.145
-ZZ    [100000]  Farray1/array speedup:    6.017
-int64 [100000]  Farray1/array speedup:    2.449
-int32 [100000]  Farray1/array speedup:    1.682
-int16 [100000]  Farray1/array speedup:    1.180
-int8  [100000]  Farray1/array speedup:    0.920
-bool  [100000]  Farray1/array speedup:    0.929
+X     [100000]  Farray1/array speedup:    1.233
+Y     [100000]  Farray1/array speedup:    4.231
+Z     [100000]  Farray1/array speedup:    3.492
+ZZ    [100000]  Farray1/array speedup:    5.691
+int64 [100000]  Farray1/array speedup:    2.278
+int32 [100000]  Farray1/array speedup:    1.530
+int16 [100000]  Farray1/array speedup:    1.107
+int8  [100000]  Farray1/array speedup:    0.872
+bool  [100000]  Farray1/array speedup:    0.878
 
-X     [300000]  Farray1/array speedup:    2.249
-Y     [300000]  Farray1/array speedup:    14.692
-Z     [300000]  Farray1/array speedup:    11.213
-ZZ    [300000]  Farray1/array speedup:    15.688
-int64 [300000]  Farray1/array speedup:    9.428
-int32 [300000]  Farray1/array speedup:    3.156
-int16 [300000]  Farray1/array speedup:    1.981
-int8  [300000]  Farray1/array speedup:    1.325
-bool  [300000]  Farray1/array speedup:    1.275
+X     [300000]  Farray1/array speedup:    2.162
+Y     [300000]  Farray1/array speedup:    11.991
+Z     [300000]  Farray1/array speedup:    11.300
+ZZ    [300000]  Farray1/array speedup:    15.792
+int64 [300000]  Farray1/array speedup:    8.841
+int32 [300000]  Farray1/array speedup:    3.042
+int16 [300000]  Farray1/array speedup:    1.917
+int8  [300000]  Farray1/array speedup:    1.349
+bool  [300000]  Farray1/array speedup:    1.287
 
-X     [1000000]  Farray1/array speedup:    10.131
-Y     [1000000]  Farray1/array speedup:    44.720
-Z     [1000000]  Farray1/array speedup:    46.102
-ZZ    [1000000]  Farray1/array speedup:    108.424
-int64 [1000000]  Farray1/array speedup:    27.577
-int32 [1000000]  Farray1/array speedup:    17.000
-int16 [1000000]  Farray1/array speedup:    7.716
-int8  [1000000]  Farray1/array speedup:    2.358
-bool  [1000000]  Farray1/array speedup:    2.594
+X     [1000000]  Farray1/array speedup:    8.985
+Y     [1000000]  Farray1/array speedup:    42.909
+Z     [1000000]  Farray1/array speedup:    35.005
+ZZ    [1000000]  Farray1/array speedup:    93.200
+int64 [1000000]  Farray1/array speedup:    29.317
+int32 [1000000]  Farray1/array speedup:    15.350
+int16 [1000000]  Farray1/array speedup:    7.306
+int8  [1000000]  Farray1/array speedup:    2.788
+bool  [1000000]  Farray1/array speedup:    2.627
 
 
 --------------------------------
 
 Scenario:  0.200% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.687
-Y     [10000]  Farray1/array speedup:    0.810
-Z     [10000]  Farray1/array speedup:    0.900
-ZZ    [10000]  Farray1/array speedup:    0.988
-int64 [10000]  Farray1/array speedup:    0.802
-int32 [10000]  Farray1/array speedup:    0.717
-int16 [10000]  Farray1/array speedup:    0.640
-int8  [10000]  Farray1/array speedup:    0.655
-bool  [10000]  Farray1/array speedup:    0.649
+X     [10000]  Farray1/array speedup:    0.710
+Y     [10000]  Farray1/array speedup:    0.792
+Z     [10000]  Farray1/array speedup:    0.850
+ZZ    [10000]  Farray1/array speedup:    0.974
+int64 [10000]  Farray1/array speedup:    0.741
+int32 [10000]  Farray1/array speedup:    0.665
+int16 [10000]  Farray1/array speedup:    0.610
+int8  [10000]  Farray1/array speedup:    1.049
+bool  [10000]  Farray1/array speedup:    0.642
 
-X     [30000]  Farray1/array speedup:    0.754
-Y     [30000]  Farray1/array speedup:    1.222
-Z     [30000]  Farray1/array speedup:    1.075
-ZZ    [30000]  Farray1/array speedup:    1.292
-int64 [30000]  Farray1/array speedup:    0.862
-int32 [30000]  Farray1/array speedup:    0.793
-int16 [30000]  Farray1/array speedup:    0.682
-int8  [30000]  Farray1/array speedup:    0.655
+X     [30000]  Farray1/array speedup:    0.774
+Y     [30000]  Farray1/array speedup:    1.107
+Z     [30000]  Farray1/array speedup:    1.040
+ZZ    [30000]  Farray1/array speedup:    1.235
+int64 [30000]  Farray1/array speedup:    0.868
+int32 [30000]  Farray1/array speedup:    0.714
+int16 [30000]  Farray1/array speedup:    0.716
+int8  [30000]  Farray1/array speedup:    0.645
 bool  [30000]  Farray1/array speedup:    0.655
 
-X     [100000]  Farray1/array speedup:    0.938
-Y     [100000]  Farray1/array speedup:    2.267
-Z     [100000]  Farray1/array speedup:    2.179
-ZZ    [100000]  Farray1/array speedup:    2.861
-int64 [100000]  Farray1/array speedup:    1.621
-int32 [100000]  Farray1/array speedup:    1.031
-int16 [100000]  Farray1/array speedup:    0.905
-int8  [100000]  Farray1/array speedup:    0.702
-bool  [100000]  Farray1/array speedup:    0.713
+X     [100000]  Farray1/array speedup:    0.930
+Y     [100000]  Farray1/array speedup:    1.989
+Z     [100000]  Farray1/array speedup:    2.075
+ZZ    [100000]  Farray1/array speedup:    2.757
+int64 [100000]  Farray1/array speedup:    1.329
+int32 [100000]  Farray1/array speedup:    0.996
+int16 [100000]  Farray1/array speedup:    0.835
+int8  [100000]  Farray1/array speedup:    0.685
+bool  [100000]  Farray1/array speedup:    0.717
 
-X     [300000]  Farray1/array speedup:    1.285
-Y     [300000]  Farray1/array speedup:    5.705
-Z     [300000]  Farray1/array speedup:    5.157
-ZZ    [300000]  Farray1/array speedup:    7.156
-int64 [300000]  Farray1/array speedup:    3.959
-int32 [300000]  Farray1/array speedup:    1.802
-int16 [300000]  Farray1/array speedup:    1.140
-int8  [300000]  Farray1/array speedup:    0.871
-bool  [300000]  Farray1/array speedup:    0.903
+X     [300000]  Farray1/array speedup:    1.252
+Y     [300000]  Farray1/array speedup:    5.452
+Z     [300000]  Farray1/array speedup:    5.292
+ZZ    [300000]  Farray1/array speedup:    6.732
+int64 [300000]  Farray1/array speedup:    3.812
+int32 [300000]  Farray1/array speedup:    1.675
+int16 [300000]  Farray1/array speedup:    1.163
+int8  [300000]  Farray1/array speedup:    0.858
+bool  [300000]  Farray1/array speedup:    0.866
 
-X     [1000000]  Farray1/array speedup:    3.968
-Y     [1000000]  Farray1/array speedup:    18.141
-Z     [1000000]  Farray1/array speedup:    17.101
-ZZ    [1000000]  Farray1/array speedup:    42.770
-int64 [1000000]  Farray1/array speedup:    12.376
-int32 [1000000]  Farray1/array speedup:    5.870
-int16 [1000000]  Farray1/array speedup:    3.399
-int8  [1000000]  Farray1/array speedup:    0.689
-bool  [1000000]  Farray1/array speedup:    1.421
+X     [1000000]  Farray1/array speedup:    3.778
+Y     [1000000]  Farray1/array speedup:    17.061
+Z     [1000000]  Farray1/array speedup:    15.930
+ZZ    [1000000]  Farray1/array speedup:    33.826
+int64 [1000000]  Farray1/array speedup:    12.057
+int32 [1000000]  Farray1/array speedup:    5.920
+int16 [1000000]  Farray1/array speedup:    3.254
+int8  [1000000]  Farray1/array speedup:    1.370
+bool  [1000000]  Farray1/array speedup:    1.360
 
 
 --------------------------------
 
 Scenario:  0.150% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.687
-Y     [10000]  Farray1/array speedup:    0.778
-Z     [10000]  Farray1/array speedup:    0.819
-ZZ    [10000]  Farray1/array speedup:    0.952
-int64 [10000]  Farray1/array speedup:    0.742
-int32 [10000]  Farray1/array speedup:    0.670
-int16 [10000]  Farray1/array speedup:    0.650
-int8  [10000]  Farray1/array speedup:    0.665
-bool  [10000]  Farray1/array speedup:    0.656
+X     [10000]  Farray1/array speedup:    0.720
+Y     [10000]  Farray1/array speedup:    0.731
+Z     [10000]  Farray1/array speedup:    0.815
+ZZ    [10000]  Farray1/array speedup:    0.971
+int64 [10000]  Farray1/array speedup:    0.690
+int32 [10000]  Farray1/array speedup:    0.649
+int16 [10000]  Farray1/array speedup:    0.659
+int8  [10000]  Farray1/array speedup:    0.652
+bool  [10000]  Farray1/array speedup:    0.646
 
-X     [30000]  Farray1/array speedup:    0.728
-Y     [30000]  Farray1/array speedup:    1.271
-Z     [30000]  Farray1/array speedup:    1.043
-ZZ    [30000]  Farray1/array speedup:    1.123
-int64 [30000]  Farray1/array speedup:    0.857
-int32 [30000]  Farray1/array speedup:    0.760
-int16 [30000]  Farray1/array speedup:    0.693
-int8  [30000]  Farray1/array speedup:    0.662
-bool  [30000]  Farray1/array speedup:    0.660
+X     [30000]  Farray1/array speedup:    0.759
+Y     [30000]  Farray1/array speedup:    0.989
+Z     [30000]  Farray1/array speedup:    0.942
+ZZ    [30000]  Farray1/array speedup:    1.126
+int64 [30000]  Farray1/array speedup:    0.817
+int32 [30000]  Farray1/array speedup:    0.708
+int16 [30000]  Farray1/array speedup:    0.675
+int8  [30000]  Farray1/array speedup:    0.637
+bool  [30000]  Farray1/array speedup:    0.639
 
-X     [100000]  Farray1/array speedup:    0.823
-Y     [100000]  Farray1/array speedup:    1.653
-Z     [100000]  Farray1/array speedup:    1.786
-ZZ    [100000]  Farray1/array speedup:    2.336
-int64 [100000]  Farray1/array speedup:    1.214
-int32 [100000]  Farray1/array speedup:    0.986
-int16 [100000]  Farray1/array speedup:    0.755
-int8  [100000]  Farray1/array speedup:    0.701
-bool  [100000]  Farray1/array speedup:    0.719
+X     [100000]  Farray1/array speedup:    0.829
+Y     [100000]  Farray1/array speedup:    1.722
+Z     [100000]  Farray1/array speedup:    1.792
+ZZ    [100000]  Farray1/array speedup:    2.313
+int64 [100000]  Farray1/array speedup:    1.183
+int32 [100000]  Farray1/array speedup:    0.874
+int16 [100000]  Farray1/array speedup:    0.775
+int8  [100000]  Farray1/array speedup:    0.695
+bool  [100000]  Farray1/array speedup:    0.684
 
-X     [300000]  Farray1/array speedup:    1.155
-Y     [300000]  Farray1/array speedup:    4.350
-Z     [300000]  Farray1/array speedup:    3.556
-ZZ    [300000]  Farray1/array speedup:    5.092
-int64 [300000]  Farray1/array speedup:    3.085
-int32 [300000]  Farray1/array speedup:    1.580
-int16 [300000]  Farray1/array speedup:    1.082
-int8  [300000]  Farray1/array speedup:    0.841
-bool  [300000]  Farray1/array speedup:    0.813
+X     [300000]  Farray1/array speedup:    1.101
+Y     [300000]  Farray1/array speedup:    4.167
+Z     [300000]  Farray1/array speedup:    4.156
+ZZ    [300000]  Farray1/array speedup:    5.372
+int64 [300000]  Farray1/array speedup:    2.987
+int32 [300000]  Farray1/array speedup:    1.400
+int16 [300000]  Farray1/array speedup:    1.019
+int8  [300000]  Farray1/array speedup:    0.822
+bool  [300000]  Farray1/array speedup:    0.770
 
-X     [1000000]  Farray1/array speedup:    3.129
-Y     [1000000]  Farray1/array speedup:    14.009
-Z     [1000000]  Farray1/array speedup:    11.887
-ZZ    [1000000]  Farray1/array speedup:    31.505
-int64 [1000000]  Farray1/array speedup:    8.585
-int32 [1000000]  Farray1/array speedup:    4.803
-int16 [1000000]  Farray1/array speedup:    2.373
-int8  [1000000]  Farray1/array speedup:    1.231
-bool  [1000000]  Farray1/array speedup:    1.229
+X     [1000000]  Farray1/array speedup:    3.048
+Y     [1000000]  Farray1/array speedup:    11.167
+Z     [1000000]  Farray1/array speedup:    12.124
+ZZ    [1000000]  Farray1/array speedup:    26.171
+int64 [1000000]  Farray1/array speedup:    8.404
+int32 [1000000]  Farray1/array speedup:    4.538
+int16 [1000000]  Farray1/array speedup:    2.513
+int8  [1000000]  Farray1/array speedup:    1.105
+bool  [1000000]  Farray1/array speedup:    1.177
 
 
 --------------------------------
 
 Scenario:  0.100% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.703
-Y     [10000]  Farray1/array speedup:    0.734
-Z     [10000]  Farray1/array speedup:    0.800
-ZZ    [10000]  Farray1/array speedup:    0.903
-int64 [10000]  Farray1/array speedup:    0.690
-int32 [10000]  Farray1/array speedup:    0.742
-int16 [10000]  Farray1/array speedup:    0.662
-int8  [10000]  Farray1/array speedup:    0.684
-bool  [10000]  Farray1/array speedup:    0.656
+X     [10000]  Farray1/array speedup:    0.768
+Y     [10000]  Farray1/array speedup:    0.675
+Z     [10000]  Farray1/array speedup:    0.764
+ZZ    [10000]  Farray1/array speedup:    0.894
+int64 [10000]  Farray1/array speedup:    0.688
+int32 [10000]  Farray1/array speedup:    0.638
+int16 [10000]  Farray1/array speedup:    0.661
+int8  [10000]  Farray1/array speedup:    0.674
+bool  [10000]  Farray1/array speedup:    0.653
 
-X     [30000]  Farray1/array speedup:    0.693
-Y     [30000]  Farray1/array speedup:    0.875
-Z     [30000]  Farray1/array speedup:    0.931
-ZZ    [30000]  Farray1/array speedup:    0.910
-int64 [30000]  Farray1/array speedup:    0.816
-int32 [30000]  Farray1/array speedup:    0.710
-int16 [30000]  Farray1/array speedup:    0.719
-int8  [30000]  Farray1/array speedup:    0.645
-bool  [30000]  Farray1/array speedup:    0.646
+X     [30000]  Farray1/array speedup:    0.711
+Y     [30000]  Farray1/array speedup:    0.857
+Z     [30000]  Farray1/array speedup:    0.812
+ZZ    [30000]  Farray1/array speedup:    1.089
+int64 [30000]  Farray1/array speedup:    0.790
+int32 [30000]  Farray1/array speedup:    0.690
+int16 [30000]  Farray1/array speedup:    0.692
+int8  [30000]  Farray1/array speedup:    0.676
+bool  [30000]  Farray1/array speedup:    0.618
 
-X     [100000]  Farray1/array speedup:    0.766
-Y     [100000]  Farray1/array speedup:    1.420
-Z     [100000]  Farray1/array speedup:    1.479
-ZZ    [100000]  Farray1/array speedup:    1.924
-int64 [100000]  Farray1/array speedup:    1.036
-int32 [100000]  Farray1/array speedup:    0.832
-int16 [100000]  Farray1/array speedup:    0.741
-int8  [100000]  Farray1/array speedup:    0.682
-bool  [100000]  Farray1/array speedup:    0.683
+X     [100000]  Farray1/array speedup:    0.742
+Y     [100000]  Farray1/array speedup:    1.303
+Z     [100000]  Farray1/array speedup:    1.392
+ZZ    [100000]  Farray1/array speedup:    1.885
+int64 [100000]  Farray1/array speedup:    1.127
+int32 [100000]  Farray1/array speedup:    0.805
+int16 [100000]  Farray1/array speedup:    0.652
+int8  [100000]  Farray1/array speedup:    0.685
+bool  [100000]  Farray1/array speedup:    0.677
 
-X     [300000]  Farray1/array speedup:    0.985
-Y     [300000]  Farray1/array speedup:    2.424
-Z     [300000]  Farray1/array speedup:    3.141
-ZZ    [300000]  Farray1/array speedup:    4.140
-int64 [300000]  Farray1/array speedup:    2.259
-int32 [300000]  Farray1/array speedup:    1.163
-int16 [300000]  Farray1/array speedup:    0.873
-int8  [300000]  Farray1/array speedup:    0.756
-bool  [300000]  Farray1/array speedup:    0.773
+X     [300000]  Farray1/array speedup:    0.967
+Y     [300000]  Farray1/array speedup:    2.883
+Z     [300000]  Farray1/array speedup:    2.998
+ZZ    [300000]  Farray1/array speedup:    3.919
+int64 [300000]  Farray1/array speedup:    2.142
+int32 [300000]  Farray1/array speedup:    1.093
+int16 [300000]  Farray1/array speedup:    0.856
+int8  [300000]  Farray1/array speedup:    0.723
+bool  [300000]  Farray1/array speedup:    0.724
 
-X     [1000000]  Farray1/array speedup:    2.310
-Y     [1000000]  Farray1/array speedup:    10.843
-Z     [1000000]  Farray1/array speedup:    8.670
-ZZ    [1000000]  Farray1/array speedup:    21.856
-int64 [1000000]  Farray1/array speedup:    5.911
-int32 [1000000]  Farray1/array speedup:    3.272
-int16 [1000000]  Farray1/array speedup:    1.910
-int8  [1000000]  Farray1/array speedup:    1.053
-bool  [1000000]  Farray1/array speedup:    1.021
+X     [1000000]  Farray1/array speedup:    2.307
+Y     [1000000]  Farray1/array speedup:    8.584
+Z     [1000000]  Farray1/array speedup:    8.478
+ZZ    [1000000]  Farray1/array speedup:    17.418
+int64 [1000000]  Farray1/array speedup:    5.791
+int32 [1000000]  Farray1/array speedup:    3.166
+int16 [1000000]  Farray1/array speedup:    1.758
+int8  [1000000]  Farray1/array speedup:    1.042
+bool  [1000000]  Farray1/array speedup:    0.995
 
 
 --------------------------------
 
 Scenario:  0.070% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.705
-Y     [10000]  Farray1/array speedup:    0.695
-Z     [10000]  Farray1/array speedup:    0.783
-ZZ    [10000]  Farray1/array speedup:    0.892
-int64 [10000]  Farray1/array speedup:    0.674
-int32 [10000]  Farray1/array speedup:    0.657
-int16 [10000]  Farray1/array speedup:    0.685
-int8  [10000]  Farray1/array speedup:    0.682
-bool  [10000]  Farray1/array speedup:    0.710
+X     [10000]  Farray1/array speedup:    0.694
+Y     [10000]  Farray1/array speedup:    0.664
+Z     [10000]  Farray1/array speedup:    0.741
+ZZ    [10000]  Farray1/array speedup:    0.888
+int64 [10000]  Farray1/array speedup:    0.672
+int32 [10000]  Farray1/array speedup:    0.653
+int16 [10000]  Farray1/array speedup:    0.657
+int8  [10000]  Farray1/array speedup:    0.715
+bool  [10000]  Farray1/array speedup:    0.687
 
-X     [30000]  Farray1/array speedup:    0.688
-Y     [30000]  Farray1/array speedup:    0.655
-Z     [30000]  Farray1/array speedup:    0.856
-ZZ    [30000]  Farray1/array speedup:    0.984
-int64 [30000]  Farray1/array speedup:    0.740
-int32 [30000]  Farray1/array speedup:    0.704
-int16 [30000]  Farray1/array speedup:    0.524
-int8  [30000]  Farray1/array speedup:    0.674
-bool  [30000]  Farray1/array speedup:    0.651
+X     [30000]  Farray1/array speedup:    0.680
+Y     [30000]  Farray1/array speedup:    0.771
+Z     [30000]  Farray1/array speedup:    0.859
+ZZ    [30000]  Farray1/array speedup:    1.001
+int64 [30000]  Farray1/array speedup:    0.736
+int32 [30000]  Farray1/array speedup:    0.659
+int16 [30000]  Farray1/array speedup:    0.675
+int8  [30000]  Farray1/array speedup:    0.615
+bool  [30000]  Farray1/array speedup:    0.626
 
-X     [100000]  Farray1/array speedup:    0.776
-Y     [100000]  Farray1/array speedup:    1.172
-Z     [100000]  Farray1/array speedup:    1.273
-ZZ    [100000]  Farray1/array speedup:    1.657
-int64 [100000]  Farray1/array speedup:    0.905
-int32 [100000]  Farray1/array speedup:    0.783
-int16 [100000]  Farray1/array speedup:    0.689
-int8  [100000]  Farray1/array speedup:    0.697
-bool  [100000]  Farray1/array speedup:    0.658
+X     [100000]  Farray1/array speedup:    0.750
+Y     [100000]  Farray1/array speedup:    1.184
+Z     [100000]  Farray1/array speedup:    1.184
+ZZ    [100000]  Farray1/array speedup:    1.476
+int64 [100000]  Farray1/array speedup:    0.843
+int32 [100000]  Farray1/array speedup:    0.749
+int16 [100000]  Farray1/array speedup:    0.698
+int8  [100000]  Farray1/array speedup:    0.668
+bool  [100000]  Farray1/array speedup:    0.669
 
-X     [300000]  Farray1/array speedup:    0.859
-Y     [300000]  Farray1/array speedup:    2.298
-Z     [300000]  Farray1/array speedup:    2.314
-ZZ    [300000]  Farray1/array speedup:    2.683
-int64 [300000]  Farray1/array speedup:    1.651
-int32 [300000]  Farray1/array speedup:    1.003
-int16 [300000]  Farray1/array speedup:    0.836
-int8  [300000]  Farray1/array speedup:    0.691
-bool  [300000]  Farray1/array speedup:    0.736
+X     [300000]  Farray1/array speedup:    0.770
+Y     [300000]  Farray1/array speedup:    2.129
+Z     [300000]  Farray1/array speedup:    2.203
+ZZ    [300000]  Farray1/array speedup:    3.001
+int64 [300000]  Farray1/array speedup:    1.565
+int32 [300000]  Farray1/array speedup:    0.942
+int16 [300000]  Farray1/array speedup:    0.820
+int8  [300000]  Farray1/array speedup:    0.591
+bool  [300000]  Farray1/array speedup:    1.255
 
-X     [1000000]  Farray1/array speedup:    1.760
-Y     [1000000]  Farray1/array speedup:    6.384
-Z     [1000000]  Farray1/array speedup:    7.004
-ZZ    [1000000]  Farray1/array speedup:    16.561
-int64 [1000000]  Farray1/array speedup:    4.804
-int32 [1000000]  Farray1/array speedup:    2.544
-int16 [1000000]  Farray1/array speedup:    1.534
-int8  [1000000]  Farray1/array speedup:    0.790
-bool  [1000000]  Farray1/array speedup:    0.928
+X     [1000000]  Farray1/array speedup:    1.650
+Y     [1000000]  Farray1/array speedup:    6.060
+Z     [1000000]  Farray1/array speedup:    5.973
+ZZ    [1000000]  Farray1/array speedup:    13.314
+int64 [1000000]  Farray1/array speedup:    4.123
+int32 [1000000]  Farray1/array speedup:    2.353
+int16 [1000000]  Farray1/array speedup:    1.620
+int8  [1000000]  Farray1/array speedup:    0.909
+bool  [1000000]  Farray1/array speedup:    0.891
 
 
 --------------------------------
 
 Scenario:  0.050% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.736
-Y     [10000]  Farray1/array speedup:    0.659
-Z     [10000]  Farray1/array speedup:    0.765
-ZZ    [10000]  Farray1/array speedup:    0.895
-int64 [10000]  Farray1/array speedup:    0.657
-int32 [10000]  Farray1/array speedup:    0.635
-int16 [10000]  Farray1/array speedup:    0.688
-int8  [10000]  Farray1/array speedup:    0.730
-bool  [10000]  Farray1/array speedup:    0.717
+X     [10000]  Farray1/array speedup:    0.740
+Y     [10000]  Farray1/array speedup:    0.667
+Z     [10000]  Farray1/array speedup:    0.723
+ZZ    [10000]  Farray1/array speedup:    0.857
+int64 [10000]  Farray1/array speedup:    0.632
+int32 [10000]  Farray1/array speedup:    0.652
+int16 [10000]  Farray1/array speedup:    0.699
+int8  [10000]  Farray1/array speedup:    0.733
+bool  [10000]  Farray1/array speedup:    0.751
 
-X     [30000]  Farray1/array speedup:    0.732
-Y     [30000]  Farray1/array speedup:    0.743
-Z     [30000]  Farray1/array speedup:    0.816
-ZZ    [30000]  Farray1/array speedup:    0.943
-int64 [30000]  Farray1/array speedup:    0.702
-int32 [30000]  Farray1/array speedup:    0.715
-int16 [30000]  Farray1/array speedup:    0.631
-int8  [30000]  Farray1/array speedup:    0.674
-bool  [30000]  Farray1/array speedup:    0.679
+X     [30000]  Farray1/array speedup:    0.693
+Y     [30000]  Farray1/array speedup:    0.715
+Z     [30000]  Farray1/array speedup:    0.788
+ZZ    [30000]  Farray1/array speedup:    0.952
+int64 [30000]  Farray1/array speedup:    0.677
+int32 [30000]  Farray1/array speedup:    0.655
+int16 [30000]  Farray1/array speedup:    0.651
+int8  [30000]  Farray1/array speedup:    0.693
+bool  [30000]  Farray1/array speedup:    0.654
 
-X     [100000]  Farray1/array speedup:    0.700
-Y     [100000]  Farray1/array speedup:    1.011
-Z     [100000]  Farray1/array speedup:    1.081
-ZZ    [100000]  Farray1/array speedup:    1.343
-int64 [100000]  Farray1/array speedup:    0.831
-int32 [100000]  Farray1/array speedup:    0.792
-int16 [100000]  Farray1/array speedup:    0.679
-int8  [100000]  Farray1/array speedup:    0.783
-bool  [100000]  Farray1/array speedup:    0.678
+X     [100000]  Farray1/array speedup:    0.727
+Y     [100000]  Farray1/array speedup:    0.947
+Z     [100000]  Farray1/array speedup:    1.057
+ZZ    [100000]  Farray1/array speedup:    1.317
+int64 [100000]  Farray1/array speedup:    0.779
+int32 [100000]  Farray1/array speedup:    0.713
+int16 [100000]  Farray1/array speedup:    0.693
+int8  [100000]  Farray1/array speedup:    0.665
+bool  [100000]  Farray1/array speedup:    0.669
 
-X     [300000]  Farray1/array speedup:    0.832
-Y     [300000]  Farray1/array speedup:    1.759
-Z     [300000]  Farray1/array speedup:    1.861
-ZZ    [300000]  Farray1/array speedup:    2.479
-int64 [300000]  Farray1/array speedup:    1.380
-int32 [300000]  Farray1/array speedup:    0.987
-int16 [300000]  Farray1/array speedup:    0.754
-int8  [300000]  Farray1/array speedup:    0.721
-bool  [300000]  Farray1/array speedup:    0.732
+X     [300000]  Farray1/array speedup:    0.799
+Y     [300000]  Farray1/array speedup:    1.697
+Z     [300000]  Farray1/array speedup:    1.651
+ZZ    [300000]  Farray1/array speedup:    2.517
+int64 [300000]  Farray1/array speedup:    1.291
+int32 [300000]  Farray1/array speedup:    0.867
+int16 [300000]  Farray1/array speedup:    0.717
+int8  [300000]  Farray1/array speedup:    0.738
+bool  [300000]  Farray1/array speedup:    0.698
 
-X     [1000000]  Farray1/array speedup:    1.421
-Y     [1000000]  Farray1/array speedup:    4.596
-Z     [1000000]  Farray1/array speedup:    4.795
-ZZ    [1000000]  Farray1/array speedup:    11.847
-int64 [1000000]  Farray1/array speedup:    3.171
-int32 [1000000]  Farray1/array speedup:    2.000
-int16 [1000000]  Farray1/array speedup:    1.202
-int8  [1000000]  Farray1/array speedup:    0.865
-bool  [1000000]  Farray1/array speedup:    0.834
+X     [1000000]  Farray1/array speedup:    1.453
+Y     [1000000]  Farray1/array speedup:    4.524
+Z     [1000000]  Farray1/array speedup:    4.492
+ZZ    [1000000]  Farray1/array speedup:    11.735
+int64 [1000000]  Farray1/array speedup:    3.067
+int32 [1000000]  Farray1/array speedup:    1.704
+int16 [1000000]  Farray1/array speedup:    1.225
+int8  [1000000]  Farray1/array speedup:    0.810
+bool  [1000000]  Farray1/array speedup:    0.926
 
 
 --------------------------------
 
 Scenario:  0.040% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.717
-Y     [10000]  Farray1/array speedup:    0.673
-Z     [10000]  Farray1/array speedup:    0.761
-ZZ    [10000]  Farray1/array speedup:    0.863
-int64 [10000]  Farray1/array speedup:    0.689
-int32 [10000]  Farray1/array speedup:    0.690
-int16 [10000]  Farray1/array speedup:    0.666
-int8  [10000]  Farray1/array speedup:    0.755
-bool  [10000]  Farray1/array speedup:    0.749
+X     [10000]  Farray1/array speedup:    0.701
+Y     [10000]  Farray1/array speedup:    0.667
+Z     [10000]  Farray1/array speedup:    0.737
+ZZ    [10000]  Farray1/array speedup:    0.851
+int64 [10000]  Farray1/array speedup:    0.642
+int32 [10000]  Farray1/array speedup:    0.664
+int16 [10000]  Farray1/array speedup:    0.724
+int8  [10000]  Farray1/array speedup:    0.753
+bool  [10000]  Farray1/array speedup:    0.750
 
-X     [30000]  Farray1/array speedup:    0.681
-Y     [30000]  Farray1/array speedup:    0.713
-Z     [30000]  Farray1/array speedup:    0.805
-ZZ    [30000]  Farray1/array speedup:    0.939
-int64 [30000]  Farray1/array speedup:    0.683
-int32 [30000]  Farray1/array speedup:    0.660
-int16 [30000]  Farray1/array speedup:    0.674
-int8  [30000]  Farray1/array speedup:    0.670
-bool  [30000]  Farray1/array speedup:    0.705
+X     [30000]  Farray1/array speedup:    0.800
+Y     [30000]  Farray1/array speedup:    0.663
+Z     [30000]  Farray1/array speedup:    0.887
+ZZ    [30000]  Farray1/array speedup:    0.910
+int64 [30000]  Farray1/array speedup:    0.593
+int32 [30000]  Farray1/array speedup:    0.634
+int16 [30000]  Farray1/array speedup:    0.618
+int8  [30000]  Farray1/array speedup:    0.668
+bool  [30000]  Farray1/array speedup:    0.683
 
-X     [100000]  Farray1/array speedup:    0.672
-Y     [100000]  Farray1/array speedup:    0.899
-Z     [100000]  Farray1/array speedup:    1.010
-ZZ    [100000]  Farray1/array speedup:    1.226
-int64 [100000]  Farray1/array speedup:    0.791
-int32 [100000]  Farray1/array speedup:    0.727
-int16 [100000]  Farray1/array speedup:    0.671
-int8  [100000]  Farray1/array speedup:    0.695
-bool  [100000]  Farray1/array speedup:    0.678
+X     [100000]  Farray1/array speedup:    0.713
+Y     [100000]  Farray1/array speedup:    0.902
+Z     [100000]  Farray1/array speedup:    0.986
+ZZ    [100000]  Farray1/array speedup:    1.215
+int64 [100000]  Farray1/array speedup:    0.860
+int32 [100000]  Farray1/array speedup:    0.785
+int16 [100000]  Farray1/array speedup:    0.668
+int8  [100000]  Farray1/array speedup:    0.686
+bool  [100000]  Farray1/array speedup:    0.676
 
-X     [300000]  Farray1/array speedup:    0.803
-Y     [300000]  Farray1/array speedup:    1.547
-Z     [300000]  Farray1/array speedup:    1.651
-ZZ    [300000]  Farray1/array speedup:    2.148
-int64 [300000]  Farray1/array speedup:    1.219
-int32 [300000]  Farray1/array speedup:    0.839
-int16 [300000]  Farray1/array speedup:    0.702
-int8  [300000]  Farray1/array speedup:    0.741
-bool  [300000]  Farray1/array speedup:    0.749
+X     [300000]  Farray1/array speedup:    0.797
+Y     [300000]  Farray1/array speedup:    1.477
+Z     [300000]  Farray1/array speedup:    1.556
+ZZ    [300000]  Farray1/array speedup:    2.003
+int64 [300000]  Farray1/array speedup:    1.209
+int32 [300000]  Farray1/array speedup:    0.808
+int16 [300000]  Farray1/array speedup:    0.631
+int8  [300000]  Farray1/array speedup:    0.688
+bool  [300000]  Farray1/array speedup:    0.709
 
-X     [1000000]  Farray1/array speedup:    1.256
-Y     [1000000]  Farray1/array speedup:    3.971
-Z     [1000000]  Farray1/array speedup:    4.765
-ZZ    [1000000]  Farray1/array speedup:    10.648
-int64 [1000000]  Farray1/array speedup:    2.697
-int32 [1000000]  Farray1/array speedup:    1.667
-int16 [1000000]  Farray1/array speedup:    0.789
-int8  [1000000]  Farray1/array speedup:    0.844
-bool  [1000000]  Farray1/array speedup:    0.862
+X     [1000000]  Farray1/array speedup:    1.276
+Y     [1000000]  Farray1/array speedup:    3.453
+Z     [1000000]  Farray1/array speedup:    3.386
+ZZ    [1000000]  Farray1/array speedup:    7.930
+int64 [1000000]  Farray1/array speedup:    2.583
+int32 [1000000]  Farray1/array speedup:    1.591
+int16 [1000000]  Farray1/array speedup:    1.114
+int8  [1000000]  Farray1/array speedup:    0.768
+bool  [1000000]  Farray1/array speedup:    0.793
 
 
 --------------------------------
 
 Scenario:  0.030% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.795
-Y     [10000]  Farray1/array speedup:    0.675
-Z     [10000]  Farray1/array speedup:    0.713
-ZZ    [10000]  Farray1/array speedup:    0.848
-int64 [10000]  Farray1/array speedup:    0.671
-int32 [10000]  Farray1/array speedup:    0.707
-int16 [10000]  Farray1/array speedup:    0.827
-int8  [10000]  Farray1/array speedup:    0.810
-bool  [10000]  Farray1/array speedup:    0.794
+X     [10000]  Farray1/array speedup:    0.764
+Y     [10000]  Farray1/array speedup:    0.662
+Z     [10000]  Farray1/array speedup:    0.732
+ZZ    [10000]  Farray1/array speedup:    0.864
+int64 [10000]  Farray1/array speedup:    0.652
+int32 [10000]  Farray1/array speedup:    0.682
+int16 [10000]  Farray1/array speedup:    0.729
+int8  [10000]  Farray1/array speedup:    0.821
+bool  [10000]  Farray1/array speedup:    0.786
 
-X     [30000]  Farray1/array speedup:    0.644
-Y     [30000]  Farray1/array speedup:    0.750
-Z     [30000]  Farray1/array speedup:    0.791
-ZZ    [30000]  Farray1/array speedup:    0.886
-int64 [30000]  Farray1/array speedup:    0.659
-int32 [30000]  Farray1/array speedup:    0.655
-int16 [30000]  Farray1/array speedup:    0.692
-int8  [30000]  Farray1/array speedup:    0.692
-bool  [30000]  Farray1/array speedup:    0.773
+X     [30000]  Farray1/array speedup:    0.727
+Y     [30000]  Farray1/array speedup:    0.666
+Z     [30000]  Farray1/array speedup:    0.773
+ZZ    [30000]  Farray1/array speedup:    0.894
+int64 [30000]  Farray1/array speedup:    0.652
+int32 [30000]  Farray1/array speedup:    0.643
+int16 [30000]  Farray1/array speedup:    0.659
+int8  [30000]  Farray1/array speedup:    0.690
+bool  [30000]  Farray1/array speedup:    0.666
 
-X     [100000]  Farray1/array speedup:    0.692
-Y     [100000]  Farray1/array speedup:    0.860
-Z     [100000]  Farray1/array speedup:    0.934
-ZZ    [100000]  Farray1/array speedup:    1.153
-int64 [100000]  Farray1/array speedup:    0.737
-int32 [100000]  Farray1/array speedup:    0.692
-int16 [100000]  Farray1/array speedup:    0.677
-int8  [100000]  Farray1/array speedup:    0.693
-bool  [100000]  Farray1/array speedup:    0.664
+X     [100000]  Farray1/array speedup:    0.712
+Y     [100000]  Farray1/array speedup:    0.819
+Z     [100000]  Farray1/array speedup:    0.867
+ZZ    [100000]  Farray1/array speedup:    1.172
+int64 [100000]  Farray1/array speedup:    0.723
+int32 [100000]  Farray1/array speedup:    0.720
+int16 [100000]  Farray1/array speedup:    0.667
+int8  [100000]  Farray1/array speedup:    0.662
+bool  [100000]  Farray1/array speedup:    0.668
 
-X     [300000]  Farray1/array speedup:    0.772
-Y     [300000]  Farray1/array speedup:    1.411
-Z     [300000]  Farray1/array speedup:    1.422
-ZZ    [300000]  Farray1/array speedup:    1.927
-int64 [300000]  Farray1/array speedup:    1.065
-int32 [300000]  Farray1/array speedup:    0.784
-int16 [300000]  Farray1/array speedup:    0.739
-int8  [300000]  Farray1/array speedup:    0.568
-bool  [300000]  Farray1/array speedup:    0.788
+X     [300000]  Farray1/array speedup:    0.712
+Y     [300000]  Farray1/array speedup:    1.253
+Z     [300000]  Farray1/array speedup:    1.382
+ZZ    [300000]  Farray1/array speedup:    1.663
+int64 [300000]  Farray1/array speedup:    1.016
+int32 [300000]  Farray1/array speedup:    0.773
+int16 [300000]  Farray1/array speedup:    0.720
+int8  [300000]  Farray1/array speedup:    0.713
+bool  [300000]  Farray1/array speedup:    0.723
 
-X     [1000000]  Farray1/array speedup:    1.134
-Y     [1000000]  Farray1/array speedup:    2.834
-Z     [1000000]  Farray1/array speedup:    2.961
-ZZ    [1000000]  Farray1/array speedup:    7.409
-int64 [1000000]  Farray1/array speedup:    2.199
-int32 [1000000]  Farray1/array speedup:    1.422
-int16 [1000000]  Farray1/array speedup:    0.982
-int8  [1000000]  Farray1/array speedup:    0.838
-bool  [1000000]  Farray1/array speedup:    0.835
+X     [1000000]  Farray1/array speedup:    1.249
+Y     [1000000]  Farray1/array speedup:    2.726
+Z     [1000000]  Farray1/array speedup:    2.909
+ZZ    [1000000]  Farray1/array speedup:    8.539
+int64 [1000000]  Farray1/array speedup:    2.161
+int32 [1000000]  Farray1/array speedup:    1.459
+int16 [1000000]  Farray1/array speedup:    1.003
+int8  [1000000]  Farray1/array speedup:    0.775
+bool  [1000000]  Farray1/array speedup:    0.814
 
 
 --------------------------------
 
 Scenario:  0.020% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.773
-Y     [10000]  Farray1/array speedup:    0.678
-Z     [10000]  Farray1/array speedup:    0.797
-ZZ    [10000]  Farray1/array speedup:    0.892
-int64 [10000]  Farray1/array speedup:    0.714
+X     [10000]  Farray1/array speedup:    0.791
+Y     [10000]  Farray1/array speedup:    0.685
+Z     [10000]  Farray1/array speedup:    0.743
+ZZ    [10000]  Farray1/array speedup:    0.865
+int64 [10000]  Farray1/array speedup:    0.682
 int32 [10000]  Farray1/array speedup:    0.704
-int16 [10000]  Farray1/array speedup:    0.807
+int16 [10000]  Farray1/array speedup:    0.771
 int8  [10000]  Farray1/array speedup:    0.840
-bool  [10000]  Farray1/array speedup:    0.831
+bool  [10000]  Farray1/array speedup:    0.797
 
-X     [30000]  Farray1/array speedup:    0.712
-Y     [30000]  Farray1/array speedup:    0.628
-Z     [30000]  Farray1/array speedup:    0.761
-ZZ    [30000]  Farray1/array speedup:    0.882
-int64 [30000]  Farray1/array speedup:    0.658
-int32 [30000]  Farray1/array speedup:    0.672
-int16 [30000]  Farray1/array speedup:    0.642
-int8  [30000]  Farray1/array speedup:    0.707
-bool  [30000]  Farray1/array speedup:    0.703
+X     [30000]  Farray1/array speedup:    0.750
+Y     [30000]  Farray1/array speedup:    0.654
+Z     [30000]  Farray1/array speedup:    0.708
+ZZ    [30000]  Farray1/array speedup:    0.880
+int64 [30000]  Farray1/array speedup:    0.649
+int32 [30000]  Farray1/array speedup:    0.653
+int16 [30000]  Farray1/array speedup:    0.671
+int8  [30000]  Farray1/array speedup:    0.737
+bool  [30000]  Farray1/array speedup:    0.707
 
 X     [100000]  Farray1/array speedup:    0.720
-Y     [100000]  Farray1/array speedup:    0.799
-Z     [100000]  Farray1/array speedup:    0.838
-ZZ    [100000]  Farray1/array speedup:    1.032
-int64 [100000]  Farray1/array speedup:    0.800
-int32 [100000]  Farray1/array speedup:    0.690
-int16 [100000]  Farray1/array speedup:    0.673
-int8  [100000]  Farray1/array speedup:    0.695
-bool  [100000]  Farray1/array speedup:    0.714
+Y     [100000]  Farray1/array speedup:    0.725
+Z     [100000]  Farray1/array speedup:    0.808
+ZZ    [100000]  Farray1/array speedup:    1.014
+int64 [100000]  Farray1/array speedup:    0.680
+int32 [100000]  Farray1/array speedup:    0.643
+int16 [100000]  Farray1/array speedup:    0.690
+int8  [100000]  Farray1/array speedup:    0.706
+bool  [100000]  Farray1/array speedup:    0.705
 
-X     [300000]  Farray1/array speedup:    0.802
-Y     [300000]  Farray1/array speedup:    1.162
-Z     [300000]  Farray1/array speedup:    1.122
-ZZ    [300000]  Farray1/array speedup:    1.586
+X     [300000]  Farray1/array speedup:    0.753
+Y     [300000]  Farray1/array speedup:    1.033
+Z     [300000]  Farray1/array speedup:    1.107
+ZZ    [300000]  Farray1/array speedup:    1.407
 int64 [300000]  Farray1/array speedup:    0.903
-int32 [300000]  Farray1/array speedup:    0.735
-int16 [300000]  Farray1/array speedup:    0.700
-int8  [300000]  Farray1/array speedup:    0.725
-bool  [300000]  Farray1/array speedup:    0.718
+int32 [300000]  Farray1/array speedup:    0.726
+int16 [300000]  Farray1/array speedup:    0.720
+int8  [300000]  Farray1/array speedup:    0.739
+bool  [300000]  Farray1/array speedup:    0.716
 
-X     [1000000]  Farray1/array speedup:    1.037
-Y     [1000000]  Farray1/array speedup:    2.207
-Z     [1000000]  Farray1/array speedup:    2.479
-ZZ    [1000000]  Farray1/array speedup:    5.771
-int64 [1000000]  Farray1/array speedup:    1.680
-int32 [1000000]  Farray1/array speedup:    1.250
-int16 [1000000]  Farray1/array speedup:    0.763
-int8  [1000000]  Farray1/array speedup:    0.793
-bool  [1000000]  Farray1/array speedup:    0.811
+X     [1000000]  Farray1/array speedup:    1.017
+Y     [1000000]  Farray1/array speedup:    1.941
+Z     [1000000]  Farray1/array speedup:    2.095
+ZZ    [1000000]  Farray1/array speedup:    4.394
+int64 [1000000]  Farray1/array speedup:    1.672
+int32 [1000000]  Farray1/array speedup:    1.100
+int16 [1000000]  Farray1/array speedup:    0.900
+int8  [1000000]  Farray1/array speedup:    0.768
+bool  [1000000]  Farray1/array speedup:    0.772
 
 
 --------------------------------
 
 Scenario:  0.010% of the operations are array-fills:
 
-X     [10000]  Farray1/array speedup:    0.807
-Y     [10000]  Farray1/array speedup:    0.673
-Z     [10000]  Farray1/array speedup:    0.780
-ZZ    [10000]  Farray1/array speedup:    0.920
-int64 [10000]  Farray1/array speedup:    0.729
-int32 [10000]  Farray1/array speedup:    0.743
-int16 [10000]  Farray1/array speedup:    0.839
-int8  [10000]  Farray1/array speedup:    0.881
-bool  [10000]  Farray1/array speedup:    0.867
+X     [10000]  Farray1/array speedup:    0.845
+Y     [10000]  Farray1/array speedup:    0.716
+Z     [10000]  Farray1/array speedup:    0.765
+ZZ    [10000]  Farray1/array speedup:    0.897
+int64 [10000]  Farray1/array speedup:    0.705
+int32 [10000]  Farray1/array speedup:    0.763
+int16 [10000]  Farray1/array speedup:    0.825
+int8  [10000]  Farray1/array speedup:    0.871
+bool  [10000]  Farray1/array speedup:    0.880
 
-X     [30000]  Farray1/array speedup:    0.783
-Y     [30000]  Farray1/array speedup:    0.665
-Z     [30000]  Farray1/array speedup:    0.780
-ZZ    [30000]  Farray1/array speedup:    0.833
-int64 [30000]  Farray1/array speedup:    0.649
-int32 [30000]  Farray1/array speedup:    0.694
-int16 [30000]  Farray1/array speedup:    0.776
-int8  [30000]  Farray1/array speedup:    0.754
-bool  [30000]  Farray1/array speedup:    0.773
+X     [30000]  Farray1/array speedup:    0.764
+Y     [30000]  Farray1/array speedup:    0.660
+Z     [30000]  Farray1/array speedup:    0.728
+ZZ    [30000]  Farray1/array speedup:    0.849
+int64 [30000]  Farray1/array speedup:    0.656
+int32 [30000]  Farray1/array speedup:    0.675
+int16 [30000]  Farray1/array speedup:    0.739
+int8  [30000]  Farray1/array speedup:    0.768
+bool  [30000]  Farray1/array speedup:    0.762
 
-X     [100000]  Farray1/array speedup:    0.746
-Y     [100000]  Farray1/array speedup:    0.734
-Z     [100000]  Farray1/array speedup:    0.791
-ZZ    [100000]  Farray1/array speedup:    0.902
-int64 [100000]  Farray1/array speedup:    0.688
-int32 [100000]  Farray1/array speedup:    0.721
-int16 [100000]  Farray1/array speedup:    0.723
-int8  [100000]  Farray1/array speedup:    0.755
-bool  [100000]  Farray1/array speedup:    0.787
+X     [100000]  Farray1/array speedup:    0.761
+Y     [100000]  Farray1/array speedup:    0.699
+Z     [100000]  Farray1/array speedup:    0.769
+ZZ    [100000]  Farray1/array speedup:    0.946
+int64 [100000]  Farray1/array speedup:    0.683
+int32 [100000]  Farray1/array speedup:    0.678
+int16 [100000]  Farray1/array speedup:    0.728
+int8  [100000]  Farray1/array speedup:    0.717
+bool  [100000]  Farray1/array speedup:    0.739
 
-X     [300000]  Farray1/array speedup:    0.804
-Y     [300000]  Farray1/array speedup:    0.891
-Z     [300000]  Farray1/array speedup:    0.971
-ZZ    [300000]  Farray1/array speedup:    0.772
-int64 [300000]  Farray1/array speedup:    0.714
-int32 [300000]  Farray1/array speedup:    0.819
-int16 [300000]  Farray1/array speedup:    0.757
-int8  [300000]  Farray1/array speedup:    0.722
-bool  [300000]  Farray1/array speedup:    0.727
+X     [300000]  Farray1/array speedup:    0.776
+Y     [300000]  Farray1/array speedup:    0.838
+Z     [300000]  Farray1/array speedup:    0.878
+ZZ    [300000]  Farray1/array speedup:    1.148
+int64 [300000]  Farray1/array speedup:    0.782
+int32 [300000]  Farray1/array speedup:    0.664
+int16 [300000]  Farray1/array speedup:    0.726
+int8  [300000]  Farray1/array speedup:    0.752
+bool  [300000]  Farray1/array speedup:    0.743
 
-X     [1000000]  Farray1/array speedup:    0.883
-Y     [1000000]  Farray1/array speedup:    2.774
-Z     [1000000]  Farray1/array speedup:    1.561
-ZZ    [1000000]  Farray1/array speedup:    2.959
-int64 [1000000]  Farray1/array speedup:    1.230
-int32 [1000000]  Farray1/array speedup:    0.963
-int16 [1000000]  Farray1/array speedup:    0.841
-int8  [1000000]  Farray1/array speedup:    0.806
-bool  [1000000]  Farray1/array speedup:    0.784
+X     [1000000]  Farray1/array speedup:    0.907
+Y     [1000000]  Farray1/array speedup:    1.335
+Z     [1000000]  Farray1/array speedup:    1.331
+ZZ    [1000000]  Farray1/array speedup:    2.841
+int64 [1000000]  Farray1/array speedup:    1.141
+int32 [1000000]  Farray1/array speedup:    0.934
+int16 [1000000]  Farray1/array speedup:    0.834
+int8  [1000000]  Farray1/array speedup:    0.800
+bool  [1000000]  Farray1/array speedup:    0.776
 
-Overall time: 303.954s.
+Overall time: 193.105s.
