@@ -307,7 +307,7 @@ class Farray1 {
     const bool malloced;
 public:
     const size_t n;
-    Farray1(T* A, size_t n, const T& def, bool flag = true) : A(A), n(n), flag(flag), malloced(false) { fill(def); }
+    Farray1(T* A, size_t n, const T& def) : A(A), n(n), flag(true), malloced(false) { fill(def); }
 
 #ifndef FARRAY1_NO_DYNAMIC_ALLOCATIONS
     Farray1(size_t n, const T& def) : A(new T[n]), n(n), flag(true), malloced(true) { fill(def); }
