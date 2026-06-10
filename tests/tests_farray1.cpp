@@ -9,6 +9,9 @@
 #include <iomanip>
 #include <iostream>
 #include <chrono>
+#include <memory>
+#include <type_traits>
+#include <utility>
 
 #include "../include/farray1.hpp"
 #include "test_classes.hpp"
@@ -24,7 +27,7 @@ using namespace std::chrono;
 template<typename T, typename ptr_size1, typename ptr_size2>
 bool verify_all_four_arrays_equal(T *regular_array, const Farray1<T, ptr_size1> &farray1_ptr_size1,
                                   const Farray1<T, ptr_size2> &farray2_ptr_size2, T *farray3_using_Farray1Direct,
-                                  int farray3_n, bool farray3_flag) {
+                                  size_t farray3_n, bool farray3_flag) {
     for (size_t i = 0; i < farray3_n; i++) {
         if (!(regular_array[i] == Farray1Direct::read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) &&
               regular_array[i] == farray1_ptr_size1[i] && regular_array[i] == farray2_ptr_size2[i] &&
@@ -79,19 +82,21 @@ bool stress_test(size_t array_size) {
     T def = rnd();
     auto farr1 = Farray1<T, ptr_size1>(array_size, def);
     auto farr2 = Farray1<T, ptr_size2>(array_size, def);
-    T *A = new T[array_size];
+    unique_ptr<T[]> A_owner(new T[array_size]);
+    T *A = A_owner.get();
     bool flag = Farray1Direct::fill(A, array_size, def);
 
     vector<char> actions;
     actions.reserve(read_operations + write_operations + init_operations);
-    for (int i = 0; i < read_operations; i++) actions.emplace_back('R');
-    for (int i = 0; i < write_operations; i++) actions.emplace_back('W');
-    for (int i = 0; i < init_operations; i++) actions.emplace_back('F');
+    for (size_t i = 0; i < read_operations; i++) actions.emplace_back('R');
+    for (size_t i = 0; i < write_operations; i++) actions.emplace_back('W');
+    for (size_t i = 0; i < init_operations; i++) actions.emplace_back('F');
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
 
-    auto arr = new T[array_size];
-    for (int u = 0; u < array_size; u++) arr[u] = def;
+    unique_ptr<T[]> arr_owner(new T[array_size]);
+    T *arr = arr_owner.get();
+    for (size_t u = 0; u < array_size; u++) arr[u] = def;
 
     if (!verify_all_four_arrays_equal<T>(arr, farr1, farr2, A, array_size, flag)) {
         cout << "Just initialized! def = " << def << "." << endl;
@@ -106,7 +111,7 @@ bool stress_test(size_t array_size) {
         if (op == 'F') {
             lastF = count;
             if (rand() & 1) def = v;
-            for (int u = 0; u < array_size; u++) arr[u] = def;
+            for (size_t u = 0; u < array_size; u++) arr[u] = def;
             flag = Farray1Direct::fill(A, array_size, def);
             farr1.fill(def);
             farr2 = def;
@@ -144,11 +149,11 @@ bool verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initializ
     vector<bool> reallyWritten(farray.n, false);
     int bsize = Farray1Direct::defines::blockSize<T, ptr_size>();
 
-    for (int j = Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n); j < farray.n; j++) {
+    for (size_t j = Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n); j < farray.n; j++) {
         isWritten[j] = true;
     }
     for (auto i: written_indices) {
-        if (i >= Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n)) {
+        if ((size_t)i >= Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n)) {
             continue;
         }
         for (int j = (i / bsize) * bsize; j < (i / bsize + 1) * bsize; j++) {
@@ -158,7 +163,7 @@ bool verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initializ
 
     for (size_t i: farray) reallyWritten[i] = true;
 
-    for (int i = 0; i < farray.n; i++) {
+    for (size_t i = 0; i < farray.n; i++) {
         if (isWritten[i] != reallyWritten[i]) {
             cout << "isWritten[" << i << "] = " << isWritten[i] << ", but reallyWritten[" << i << "] = "
                  << reallyWritten[i] << "." << endl;
@@ -193,9 +198,9 @@ bool iterator_indices_test(int array_size) {
 
     vector<char> actions;
     actions.reserve(read_operations + write_operations + init_operations);
-    for (int i = 0; i < read_operations; i++) actions.emplace_back('R');
-    for (int i = 0; i < write_operations; i++) actions.emplace_back('W');
-    for (int i = 0; i < init_operations; i++) actions.emplace_back('F');
+    for (size_t i = 0; i < read_operations; i++) actions.emplace_back('R');
+    for (size_t i = 0; i < write_operations; i++) actions.emplace_back('W');
+    for (size_t i = 0; i < init_operations; i++) actions.emplace_back('F');
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
 
@@ -220,6 +225,7 @@ bool iterator_indices_test(int array_size) {
             written_indices.push_back(i);
         } else {
             T temp = farr[i];
+            (void)temp;
         }
 
         if (!verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initialize<T, ptr_size>
@@ -231,6 +237,75 @@ bool iterator_indices_test(int array_size) {
     }
 
     return true;
+}
+
+
+TEST_CASE("Farray1 cannot be copied (copying would double-delete the buffer)", "[regression]") {
+    REQUIRE_FALSE(std::is_copy_constructible<Farray1<int>>::value);
+    REQUIRE_FALSE(std::is_copy_assignable<Farray1<int>>::value);
+    REQUIRE(std::is_move_constructible<Farray1<int>>::value);
+}
+
+
+TEST_CASE("moved-from Farray1 releases ownership (no double-free)", "[regression]") {
+    Farray1<int> a(50, 7);
+    a.write(3, 9);
+    Farray1<int> b(std::move(a));
+    REQUIRE(b.read(3) == 9);
+    REQUIRE(b.read(4) == 7);
+    REQUIRE(b.n == 50);
+    // 'a' is destroyed at scope exit; it must not delete the buffer 'b' now owns
+}
+
+
+TEST_CASE("size-0 Farray1 is safe to construct, access and iterate", "[regression]") {
+    Farray1<int> f(0, 5);
+    REQUIRE(f.read(0) == 0);
+    f.write(0, 7);              // no-op, must not crash
+    REQUIRE(f.writtenSize() == 0);
+    size_t iterated = 0;
+    for (size_t i : f) { (void)i; iterated++; }
+    REQUIRE(iterated == 0);
+}
+
+
+TEST_CASE("read/write on a size-0 array don't divide by zero", "[regression]") {
+    int dummy[1] = {42};
+    REQUIRE(Farray1Direct::read(dummy, 0, 0) == 0);
+    REQUIRE_FALSE(Farray1Direct::write(dummy, 0, 0, 7));
+    REQUIRE(dummy[0] == 42);
+}
+
+
+TEST_CASE("writtenSize handles flag=false with fewer elements than one block", "[regression]") {
+    // blockSize<uint64_t,size_t>() == 6 > 4, so there are no blocks at all
+    uint64_t small[4] = {1, 2, 3, 4};
+    REQUIRE(Farray1Direct::writtenSize(small, 4, false) == 4);
+}
+
+
+TEST_CASE("iterator maps tail indices to themselves (tail data is not a chain pointer)", "[regression]") {
+    // blockSize<uint64_t,size_t>() == 6; n=13 -> blocks {0,1}, tail {12}.
+    // Writing 2 at index 0 and 0 at index 12 used to make the iterator treat the
+    // tail value as a chain from block 2 to block 0, yielding index 0 instead of 12.
+    Farray1<uint64_t> f(13, 99);
+    f.write(0, 2);
+    f.write(12, 0);
+    vector<size_t> seen;
+    for (size_t i : f) seen.push_back(i);
+    REQUIRE(count(seen.begin(), seen.end(), (size_t)0) == 1);
+    REQUIRE(count(seen.begin(), seen.end(), (size_t)12) == 1);
+}
+
+
+TEST_CASE("explicit iteration with rvalue end() compiles and matches range-for", "[regression]") {
+    Farray1<int> f(100, 1);
+    f.write(5, 7);
+    size_t explicit_count = 0;
+    for (auto it = f.begin(); it != f.end(); ++it) explicit_count++;
+    size_t range_count = 0;
+    for (size_t i : f) { (void)i; range_count++; }
+    REQUIRE(explicit_count == range_count);
 }
 
 

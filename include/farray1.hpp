@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstddef>
+
 
 /*
 Implementation of "In-Place Initializable Arrays" paper - https://arxiv.org/abs/1709.08900
@@ -67,7 +69,7 @@ namespace Farray1Direct {
 
             ptrBdef<T,ptr_size>& lastP() { return A[numBlocks()-1].first.p; }
             const ptrBdef<T,ptr_size>& lastP() const { return A[numBlocks()-1].first.p; }
-            void expendB() { flag = ((++lastP().b) == numBlocks()); }  // r == 1, w == 1
+            void expendB() { flag = ((size_t)(++lastP().b) == numBlocks()); }  // r == 1, w == 1
             void fillBottom(const T& v) { auto& p = lastP(); p.b = 0; p.def = v; }   // w == 2
 
             ptr_size setIndices(size_t i, size_t& mod, bool& first) const {
@@ -83,7 +85,7 @@ namespace Farray1Direct {
             bool chainedTo(ptr_size i, ptr_size& k) const {
                 k = A[i].first.p.ptr;
                 const auto& b = lastP().b;
-                return (k != i) && (k < numBlocks()) && ((i<b) ^ (k<b))
+                return (k != i) && ((size_t)k < numBlocks()) && ((i<b) ^ (k<b))
                     && (A[k].first.p.ptr == i);
             }
             // w == 2
@@ -99,13 +101,13 @@ namespace Farray1Direct {
             }
             // r <= 2, w <= HB+1
             void firstHalfInitBlock(ptr_size i, const T& v) {
-                for (int t = 0; t < halfBlockSize<T,ptr_size>(); t++)
+                for (size_t t = 0; t < halfBlockSize<T,ptr_size>(); t++)
                     A[i].first.v[t] = v;
                 breakChain(i);
             }
             // w == HB
             void secondHalfInitBlock(ptr_size i, const T& v) {
-                for (int t = 0; t < halfBlockSize<T,ptr_size>(); t++)
+                for (size_t t = 0; t < halfBlockSize<T,ptr_size>(); t++)
                     A[i].second.v[t] = v;
             }
 
@@ -169,6 +171,7 @@ namespace Farray1Direct {
     // r <= 5
     template<typename T, typename ptr_size = size_t>
     T read(const T* A, size_t n, size_t index, bool flag = false) {
+        if (n == 0) return T();
         defines::ArrayHelper<T,ptr_size> h(A, n, flag);
         index %= n;
 
@@ -195,6 +198,7 @@ namespace Farray1Direct {
     //     first_write: r <= 13, w <= 5HB+7
     template<typename T, typename ptr_size = size_t>
     bool write(T* A, size_t n, size_t index, const T& v, bool flag = false) {
+        if (n == 0) return flag;
         defines::ArrayHelper<T,ptr_size> h(A, n, flag);
         index %= n;
 
@@ -249,6 +253,7 @@ namespace Farray1Direct {
     size_t writtenSize(T* A, size_t n, bool flag = false) {
         if (flag) return n;
         defines::ArrayHelper<T,ptr_size> h(A, n);
+        if (h.numBlocks() == 0) return n;   // no blocks - every cell is stored directly
         return h.lastP().b * defines::blockSize<T,ptr_size>() + (n - h.blocksEnd());
     }
 
@@ -267,8 +272,8 @@ namespace Farray1Direct {
             size_t belowB = writtenSize<T,ptr_size>(A, n, flag) - (n - afterLastBlock);
             if (i < n && i == belowB) i = afterLastBlock;
         }
-        bool operator==(class iterator& o) { return i == o.i; }
-        bool operator!=(class iterator& o) { return !(*this == o); }
+        bool operator==(const iterator& o) const { return i == o.i; }
+        bool operator!=(const iterator& o) const { return !(*this == o); }
         // r == 3
         size_t operator*() {
             defines::ArrayHelper<T,ptr_size> ah(A, n, flag);
@@ -277,7 +282,10 @@ namespace Farray1Direct {
             ptr_size bi = i/bs, k;
 
             size_t index = i;
-            if (!flag && ah.chainedTo(bi, k))
+            // tail cells (past the last full block) are stored directly and are
+            // never chained - calling chainedTo there would read the user's tail
+            // data as a chain pointer (and past the end of the array).
+            if (!flag && i < ah.blocksEnd() && ah.chainedTo(bi, k))
                 index = k  * bs + mod;
             return index;
         }
@@ -307,10 +315,15 @@ class Farray1 {
     const bool malloced;
 public:
     const size_t n;
-    Farray1(T* A, size_t n, const T& def) : A(A), n(n), flag(true), malloced(false) { fill(def); }
+    Farray1(T* A, size_t n, const T& def) : A(A), flag(true), malloced(false), n(n) { fill(def); }
+
+    // copying would alias the (possibly owned) buffer and double-delete it
+    Farray1(const Farray1&) = delete;
+    Farray1& operator=(const Farray1&) = delete;
+    Farray1(Farray1&& o) noexcept : A(o.A), flag(o.flag), malloced(o.malloced), n(o.n) { o.A = nullptr; }
 
 #ifndef FARRAY1_NO_DYNAMIC_ALLOCATIONS
-    Farray1(size_t n, const T& def) : A(new T[n]), n(n), flag(true), malloced(true) { fill(def); }
+    Farray1(size_t n, const T& def) : A(new T[n]), flag(true), malloced(true), n(n) { fill(def); }
     ~Farray1() { if (malloced) delete[] A; }
 #endif
 
