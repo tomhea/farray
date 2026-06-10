@@ -9,6 +9,8 @@
 #include <iomanip>
 #include <iostream>
 #include <chrono>
+#include <memory>
+#include <type_traits>
 
 #include "../include/farray1.hpp"
 #include "test_classes.hpp"
@@ -79,7 +81,8 @@ bool stress_test(size_t array_size) {
     T def = rnd();
     auto farr1 = Farray1<T, ptr_size1>(array_size, def);
     auto farr2 = Farray1<T, ptr_size2>(array_size, def);
-    T *A = new T[array_size];
+    unique_ptr<T[]> A_owner(new T[array_size]);
+    T *A = A_owner.get();
     bool flag = Farray1Direct::fill(A, array_size, def);
 
     vector<char> actions;
@@ -90,7 +93,8 @@ bool stress_test(size_t array_size) {
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
 
-    auto arr = new T[array_size];
+    unique_ptr<T[]> arr_owner(new T[array_size]);
+    T *arr = arr_owner.get();
     for (int u = 0; u < array_size; u++) arr[u] = def;
 
     if (!verify_all_four_arrays_equal<T>(arr, farr1, farr2, A, array_size, flag)) {
@@ -231,6 +235,53 @@ bool iterator_indices_test(int array_size) {
     }
 
     return true;
+}
+
+
+TEST_CASE("Farray1 cannot be copied (copying would double-delete the buffer)", "[regression]") {
+    REQUIRE_FALSE(std::is_copy_constructible<Farray1<int>>::value);
+    REQUIRE_FALSE(std::is_copy_assignable<Farray1<int>>::value);
+    REQUIRE(std::is_move_constructible<Farray1<int>>::value);
+}
+
+
+TEST_CASE("read/write on a size-0 array don't divide by zero", "[regression]") {
+    int dummy[1] = {42};
+    REQUIRE(Farray1Direct::read(dummy, 0, 0) == 0);
+    REQUIRE_FALSE(Farray1Direct::write(dummy, 0, 0, 7));
+    REQUIRE(dummy[0] == 42);
+}
+
+
+TEST_CASE("writtenSize handles flag=false with fewer elements than one block", "[regression]") {
+    // blockSize<uint64_t,size_t>() == 6 > 4, so there are no blocks at all
+    uint64_t small[4] = {1, 2, 3, 4};
+    REQUIRE(Farray1Direct::writtenSize(small, 4, false) == 4);
+}
+
+
+TEST_CASE("iterator maps tail indices to themselves (tail data is not a chain pointer)", "[regression]") {
+    // blockSize<uint64_t,size_t>() == 6; n=13 -> blocks {0,1}, tail {12}.
+    // Writing 2 at index 0 and 0 at index 12 used to make the iterator treat the
+    // tail value as a chain from block 2 to block 0, yielding index 0 instead of 12.
+    Farray1<uint64_t> f(13, 99);
+    f.write(0, 2);
+    f.write(12, 0);
+    vector<size_t> seen;
+    for (size_t i : f) seen.push_back(i);
+    REQUIRE(count(seen.begin(), seen.end(), (size_t)0) == 1);
+    REQUIRE(count(seen.begin(), seen.end(), (size_t)12) == 1);
+}
+
+
+TEST_CASE("explicit iteration with rvalue end() compiles and matches range-for", "[regression]") {
+    Farray1<int> f(100, 1);
+    f.write(5, 7);
+    size_t explicit_count = 0;
+    for (auto it = f.begin(); it != f.end(); ++it) explicit_count++;
+    size_t range_count = 0;
+    for (size_t i : f) { (void)i; range_count++; }
+    REQUIRE(explicit_count == range_count);
 }
 
 

@@ -34,3 +34,17 @@ jobs:
         name: Farray1 Tests
         path: build/tests_results/farray1.xml
         reporter: java-junit
+
+  sanitize:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    # alignment checking is disabled on purpose: the algorithm packs pointers
+    # into the array via #pragma pack(1), so unaligned loads are by design
+    - name: Build with ASan + UBSan
+      run: g++ -std=c++14 -O1 -g -fsanitize=address,undefined -fno-sanitize=alignment -fno-sanitize-recover=all tests/tests_farray1.cpp tests/test_header_first.cpp -o farray1_tests_san
+
+    - name: Run tests under sanitizers
+      run: ./farray1_tests_san
