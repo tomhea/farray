@@ -11,6 +11,7 @@
 #include <chrono>
 #include <memory>
 #include <type_traits>
+#include <utility>
 
 #include "../include/farray1.hpp"
 #include "test_classes.hpp"
@@ -242,6 +243,28 @@ TEST_CASE("Farray1 cannot be copied (copying would double-delete the buffer)", "
     REQUIRE_FALSE(std::is_copy_constructible<Farray1<int>>::value);
     REQUIRE_FALSE(std::is_copy_assignable<Farray1<int>>::value);
     REQUIRE(std::is_move_constructible<Farray1<int>>::value);
+}
+
+
+TEST_CASE("moved-from Farray1 releases ownership (no double-free)", "[regression]") {
+    Farray1<int> a(50, 7);
+    a.write(3, 9);
+    Farray1<int> b(std::move(a));
+    REQUIRE(b.read(3) == 9);
+    REQUIRE(b.read(4) == 7);
+    REQUIRE(b.n == 50);
+    // 'a' is destroyed at scope exit; it must not delete the buffer 'b' now owns
+}
+
+
+TEST_CASE("size-0 Farray1 is safe to construct, access and iterate", "[regression]") {
+    Farray1<int> f(0, 5);
+    REQUIRE(f.read(0) == 0);
+    f.write(0, 7);              // no-op, must not crash
+    REQUIRE(f.writtenSize() == 0);
+    size_t iterated = 0;
+    for (size_t i : f) { (void)i; iterated++; }
+    REQUIRE(iterated == 0);
 }
 
 
