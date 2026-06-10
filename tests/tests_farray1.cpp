@@ -27,7 +27,7 @@ using namespace std::chrono;
 template<typename T, typename ptr_size1, typename ptr_size2>
 bool verify_all_four_arrays_equal(T *regular_array, const Farray1<T, ptr_size1> &farray1_ptr_size1,
                                   const Farray1<T, ptr_size2> &farray2_ptr_size2, T *farray3_using_Farray1Direct,
-                                  int farray3_n, bool farray3_flag) {
+                                  size_t farray3_n, bool farray3_flag) {
     for (size_t i = 0; i < farray3_n; i++) {
         if (!(regular_array[i] == Farray1Direct::read(farray3_using_Farray1Direct, farray3_n, i, farray3_flag) &&
               regular_array[i] == farray1_ptr_size1[i] && regular_array[i] == farray2_ptr_size2[i] &&
@@ -88,15 +88,15 @@ bool stress_test(size_t array_size) {
 
     vector<char> actions;
     actions.reserve(read_operations + write_operations + init_operations);
-    for (int i = 0; i < read_operations; i++) actions.emplace_back('R');
-    for (int i = 0; i < write_operations; i++) actions.emplace_back('W');
-    for (int i = 0; i < init_operations; i++) actions.emplace_back('F');
+    for (size_t i = 0; i < read_operations; i++) actions.emplace_back('R');
+    for (size_t i = 0; i < write_operations; i++) actions.emplace_back('W');
+    for (size_t i = 0; i < init_operations; i++) actions.emplace_back('F');
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
 
     unique_ptr<T[]> arr_owner(new T[array_size]);
     T *arr = arr_owner.get();
-    for (int u = 0; u < array_size; u++) arr[u] = def;
+    for (size_t u = 0; u < array_size; u++) arr[u] = def;
 
     if (!verify_all_four_arrays_equal<T>(arr, farr1, farr2, A, array_size, flag)) {
         cout << "Just initialized! def = " << def << "." << endl;
@@ -111,7 +111,7 @@ bool stress_test(size_t array_size) {
         if (op == 'F') {
             lastF = count;
             if (rand() & 1) def = v;
-            for (int u = 0; u < array_size; u++) arr[u] = def;
+            for (size_t u = 0; u < array_size; u++) arr[u] = def;
             flag = Farray1Direct::fill(A, array_size, def);
             farr1.fill(def);
             farr2 = def;
@@ -149,11 +149,11 @@ bool verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initializ
     vector<bool> reallyWritten(farray.n, false);
     int bsize = Farray1Direct::defines::blockSize<T, ptr_size>();
 
-    for (int j = Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n); j < farray.n; j++) {
+    for (size_t j = Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n); j < farray.n; j++) {
         isWritten[j] = true;
     }
     for (auto i: written_indices) {
-        if (i >= Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n)) {
+        if ((size_t)i >= Farray1Direct::defines::ArrayHelper<T, ptr_size>::blocksEnd(farray.n)) {
             continue;
         }
         for (int j = (i / bsize) * bsize; j < (i / bsize + 1) * bsize; j++) {
@@ -163,7 +163,7 @@ bool verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initializ
 
     for (size_t i: farray) reallyWritten[i] = true;
 
-    for (int i = 0; i < farray.n; i++) {
+    for (size_t i = 0; i < farray.n; i++) {
         if (isWritten[i] != reallyWritten[i]) {
             cout << "isWritten[" << i << "] = " << isWritten[i] << ", but reallyWritten[" << i << "] = "
                  << reallyWritten[i] << "." << endl;
@@ -198,9 +198,9 @@ bool iterator_indices_test(int array_size) {
 
     vector<char> actions;
     actions.reserve(read_operations + write_operations + init_operations);
-    for (int i = 0; i < read_operations; i++) actions.emplace_back('R');
-    for (int i = 0; i < write_operations; i++) actions.emplace_back('W');
-    for (int i = 0; i < init_operations; i++) actions.emplace_back('F');
+    for (size_t i = 0; i < read_operations; i++) actions.emplace_back('R');
+    for (size_t i = 0; i < write_operations; i++) actions.emplace_back('W');
+    for (size_t i = 0; i < init_operations; i++) actions.emplace_back('F');
     auto rng = default_random_engine{};
     shuffle(begin(actions), end(actions), rng);
 
@@ -225,6 +225,7 @@ bool iterator_indices_test(int array_size) {
             written_indices.push_back(i);
         } else {
             T temp = farr[i];
+            (void)temp;
         }
 
         if (!verify_farray_iterator_goes_through_the_exact_cells_the_algorithm_initialize<T, ptr_size>

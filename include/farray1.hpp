@@ -69,7 +69,7 @@ namespace Farray1Direct {
 
             ptrBdef<T,ptr_size>& lastP() { return A[numBlocks()-1].first.p; }
             const ptrBdef<T,ptr_size>& lastP() const { return A[numBlocks()-1].first.p; }
-            void expendB() { flag = ((++lastP().b) == numBlocks()); }  // r == 1, w == 1
+            void expendB() { flag = ((size_t)(++lastP().b) == numBlocks()); }  // r == 1, w == 1
             void fillBottom(const T& v) { auto& p = lastP(); p.b = 0; p.def = v; }   // w == 2
 
             ptr_size setIndices(size_t i, size_t& mod, bool& first) const {
@@ -85,7 +85,7 @@ namespace Farray1Direct {
             bool chainedTo(ptr_size i, ptr_size& k) const {
                 k = A[i].first.p.ptr;
                 const auto& b = lastP().b;
-                return (k != i) && (k < numBlocks()) && ((i<b) ^ (k<b))
+                return (k != i) && ((size_t)k < numBlocks()) && ((i<b) ^ (k<b))
                     && (A[k].first.p.ptr == i);
             }
             // w == 2
@@ -101,13 +101,13 @@ namespace Farray1Direct {
             }
             // r <= 2, w <= HB+1
             void firstHalfInitBlock(ptr_size i, const T& v) {
-                for (int t = 0; t < halfBlockSize<T,ptr_size>(); t++)
+                for (size_t t = 0; t < halfBlockSize<T,ptr_size>(); t++)
                     A[i].first.v[t] = v;
                 breakChain(i);
             }
             // w == HB
             void secondHalfInitBlock(ptr_size i, const T& v) {
-                for (int t = 0; t < halfBlockSize<T,ptr_size>(); t++)
+                for (size_t t = 0; t < halfBlockSize<T,ptr_size>(); t++)
                     A[i].second.v[t] = v;
             }
 
@@ -315,7 +315,7 @@ class Farray1 {
     const bool malloced;
 public:
     const size_t n;
-    Farray1(T* A, size_t n, const T& def) : A(A), n(n), flag(true), malloced(false) { fill(def); }
+    Farray1(T* A, size_t n, const T& def) : A(A), flag(true), malloced(false), n(n) { fill(def); }
 
     // copying would alias the (possibly owned) buffer and double-delete it
     Farray1(const Farray1&) = delete;
@@ -323,7 +323,7 @@ public:
     Farray1(Farray1&& o) noexcept : A(o.A), flag(o.flag), malloced(o.malloced), n(o.n) { o.A = nullptr; }
 
 #ifndef FARRAY1_NO_DYNAMIC_ALLOCATIONS
-    Farray1(size_t n, const T& def) : A(new T[n]), n(n), flag(true), malloced(true) { fill(def); }
+    Farray1(size_t n, const T& def) : A(new T[n]), flag(true), malloced(true), n(n) { fill(def); }
     ~Farray1() { if (malloced) delete[] A; }
 #endif
 
